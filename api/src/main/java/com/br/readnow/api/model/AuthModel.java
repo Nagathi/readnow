@@ -1,7 +1,5 @@
 package com.br.readnow.api.model;
 
-import java.util.UUID;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -17,10 +15,11 @@ import lombok.Setter;
 public class AuthModel {
 
     @Id
-    private UUID uuid;
+    private String uuid;
+
+    private boolean expirado;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private UsuarioModel usuario;
-
 }
