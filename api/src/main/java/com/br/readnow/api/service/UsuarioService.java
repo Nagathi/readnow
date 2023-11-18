@@ -55,6 +55,7 @@ public class UsuarioService {
         } else if (usuarioRepository.existsByUsuario(usuario.getUsuario())) {
             return ResponseEntity.badRequest().body("Usuário já cadastrado");
         } else {
+            usuario.setTipo("cliente");
             UsuarioModel novoUsuario = usuarioRepository.save(usuario);
             return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
         }

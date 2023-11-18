@@ -45,6 +45,8 @@ public class LivroService {
             livro.setEditora(livroDTO.getEditora());
             livro.setIsbn(livroDTO.getIsbn());
             livro.setData_publi(livroDTO.getData_publi());
+            livro.setCategoria(livroDTO.getCategoria());
+            livro.setPreco(livroDTO.getPreco());
 
         }catch(IOException e){
             e.printStackTrace();
@@ -55,7 +57,6 @@ public class LivroService {
             livroRepository.save(livro);
             return ResponseEntity.status(HttpStatus.CREATED).body("Livro cadastrado!");
         } 
-
 
     }
 }

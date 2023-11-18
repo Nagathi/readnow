@@ -30,7 +30,9 @@ public class LivroController {
                                             @RequestParam(value = "autor") String autor,
                                             @RequestParam(value = "editora") String editora,
                                             @RequestParam(value = "isbn") String isbn,
-                                            @RequestParam(value = "data_publi") String data_publi){
+                                            @RequestParam(value = "data_publi") String data_publi,
+                                            @RequestParam(value = "categoria") String categoria,
+                                            @RequestParam(value = "preco") double preco){
         LivroDTO livro = new LivroDTO();
         livro.setImagem(imagem);
         livro.setTitulo(titulo);
@@ -38,6 +40,8 @@ public class LivroController {
         livro.setEditora(editora);
         livro.setIsbn(isbn);
         livro.setData_publi(data_publi);
+        livro.setCategoria(categoria);
+        livro.setPreco(preco);
         return livroService.cadastrarLivro(livro);
     }
 }

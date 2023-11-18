@@ -21,5 +21,5 @@ public class UsuarioModel {
     private String email;
     private String usuario;
     private String senha;
-    private String data_nasc;
+    private String tipo;
 }
