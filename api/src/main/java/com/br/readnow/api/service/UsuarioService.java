@@ -44,6 +44,7 @@ public class UsuarioService {
             UsuarioDTO usuarioDTO = new UsuarioDTO();
             usuarioDTO.setNome(usuarioOptional.get().getNome());
             usuarioDTO.setId(auth.getUuid());
+            usuarioDTO.setTipo(usuarioOptional.get().getTipo());
 
             return ResponseEntity.ok(usuarioDTO);
         }
@@ -56,8 +57,19 @@ public class UsuarioService {
             return ResponseEntity.badRequest().body("Usuário já cadastrado");
         } else {
             usuario.setTipo("cliente");
-            UsuarioModel novoUsuario = usuarioRepository.save(usuario);
-            return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
+            usuarioRepository.save(usuario);
+
+            AuthModel auth = new AuthModel();
+            auth.setUsuario(usuario);
+            auth.setExpirado(false);
+            auth.setUuid(UUID.randomUUID().toString());
+            authRepository.save(auth);
+
+            UsuarioDTO usuarioDTO = new UsuarioDTO();
+            usuarioDTO.setNome(usuario.getNome());
+            usuarioDTO.setId(auth.getUuid());
+            usuarioDTO.setTipo(usuario.getTipo());
+            return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDTO);
         }
     }
 }

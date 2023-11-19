@@ -33,6 +33,7 @@ public class AuthService {
                     UsuarioDTO usuarioDTO = new UsuarioDTO();
                     usuarioDTO.setNome(usuario.get().getNome());
                     usuarioDTO.setId(authModel.getUuid());
+                    usuarioDTO.setTipo(usuario.get().getTipo());
     
                     return ResponseEntity.ok(usuarioDTO);
                 } else {

@@ -33,7 +33,7 @@ public class LivroService {
         try{
             MultipartFile imagem = livroDTO.getImagem();
 
-            String uploadImagem = "C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/media/";
+            String uploadImagem = "/home/victoria/Documentos/UFPA/Optativas/DesenvolvimentoWeb/ReadNow/api/src/media/";
             String uniqueImageName = UUID.randomUUID().toString() + "_" + imagem.getOriginalFilename();
 
             Path destinoImagem = Path.of(uploadImagem + uniqueImageName);
