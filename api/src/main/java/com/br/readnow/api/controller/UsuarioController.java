@@ -18,9 +18,20 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping("/login")
+    public String logar() {
+        return "login";
+    }
+
+    @PostMapping("/login")
     public ResponseEntity<UsuarioDTO> efetuarLogin(@RequestBody LoginDTO login){
         return usuarioService.login(login);
     }
+
+    @GetMapping("/cadastro")
+    public String cadastrar() {
+        return "new_user";
+    }
+
     
     @PostMapping("/cadastro")
     public ResponseEntity<?> cadastrarUsuario(@RequestBody UsuarioModel usuario){
