@@ -17,22 +17,21 @@ import com.br.readnow.api.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
-
+    
     @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Autowired
     private AuthRepository authRepository;
 
-    public ResponseEntity<UsuarioDTO> login(LoginDTO login) {
-        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmailAndSenha(login.getEmail(),
-                login.getSenha());
+    public ResponseEntity<UsuarioDTO> login(LoginDTO login){
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmailAndSenha(login.getEmail(), login.getSenha());
 
-        if (usuarioOptional.isEmpty()) {
+        if(usuarioOptional.isEmpty()){
             return ResponseEntity.notFound().build();
-        } else {
+        }else{
 
-            if (authRepository.existsByUsuario(usuarioOptional.get())) {
+            if(authRepository.existsByUsuario(usuarioOptional.get())){
                 authRepository.expireSession(usuarioOptional.get());
             }
 
@@ -51,9 +50,11 @@ public class UsuarioService {
         }
     }
 
-    public ResponseEntity<?> cadastrarUsuario(UsuarioModel usuario) {
+    public ResponseEntity<?> cadastrarUsuario(UsuarioModel usuario){
         if (usuarioRepository.existsByEmail(usuario.getEmail())) {
             return ResponseEntity.badRequest().body("E-mail já cadastrado");
+        } else if (usuarioRepository.existsByUsuario(usuario.getUsuario())) {
+            return ResponseEntity.badRequest().body("Usuário já cadastrado");
         } else {
             usuario.setTipo("cliente");
             usuarioRepository.save(usuario);
