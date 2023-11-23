@@ -1,0 +1,49 @@
+/*Estilização especifica do footer*/
+.roda-pe {
+  background-color: var(--azul-fraco);
+  padding: 6.4rem 9.5rem;
+}
+
+.roda-pe ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  list-style: none;
+  height: 14.9rem;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 18.7rem;
+}
+
+.link-rodape {
+  text-decoration: none;
+  color: var(--preto);
+  font-family: var(--fonte-principal);
+  font-weight: 500;
+  font-size: 1.6rem;
+  margin-bottom: 2.4rem;
+}
+
+.link-rodape:hover {
+  transition: all .3s;
+  color: var(--azul);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.redes-sociais {
+  width: 13.40rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon-rede-social:hover {
+  transition: all .6s;
+  cursor: pointer;
+  transform: translateY(-.6rem);
+}

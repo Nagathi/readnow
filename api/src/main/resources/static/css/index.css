@@ -1,0 +1,56 @@
+/*Estilização do Banner de destaques*/
+.destaques {
+  height: 34.2rem;
+  background: linear-gradient(87deg, #8C441C 0%, #D68634 99.99%, #D7C871 100%);
+  position: relative;
+}
+
+.promocao, .imagem-destaque{
+  position: absolute;
+}
+
+.promocao {
+  left: 9.5rem;
+  top: 14.5rem;
+  font-family: var(--fonte-principal);
+  color: var(--branco-primario);
+  font-weight: 700;
+  height: 17rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.promocao h1 {
+  font-size: 5.2rem;
+}
+
+.promocao p {
+  font-size: 2.2rem;
+}
+
+.promocao a {
+  background-color: var(--azul);
+  color: var(--branco-primario);
+  border: .2rem solid var(--azul);
+  font-size: 1.6rem;
+  font-weight: 400;
+  text-decoration: none;
+  
+  height: 5rem;
+  width: 11.2rem;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.promocao a:hover {
+  color: var(--azul);
+  background-color: transparent;
+  transition: all .3s;
+}
+
+.imagem-destaque {
+  right: 9.5rem;
+}

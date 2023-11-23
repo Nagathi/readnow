@@ -1,0 +1,139 @@
+/*Estilização global do cabeçalho*/
+.cabecalho {
+  background-color: var(--branco-secundario);
+  padding: 2rem 9.5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cabecalho-simples {
+  background-color: var(--branco-primario);
+  justify-content: center;
+}
+
+/*Estilização especifica do cabeçalho*/
+.box-search {
+  background-color: var(--branco-primario);
+  border-radius: 1.25rem;
+  padding: 0.5rem 1rem;
+
+  display: flex;
+  align-items: center;
+
+  border: 2px solid none;
+}
+
+.box-input {
+  width: 20.625rem;
+  margin-right: .5rem;
+  border: none;
+  outline: 0;
+
+  font-family:var(--fonte-principal);
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--preto);
+}
+
+::-webkit-input-placeholder {
+  color: var(--cinza);
+  font-family: (--fonte-principal);
+  font-size: 1.4rem;
+}
+
+.button-search {
+  border: none;
+  background-color: none;
+}
+
+.button-search:hover {
+  transition: .3s all;
+  cursor: pointer;
+}
+
+.button-login {
+  background-color: transparent;
+  border: 2px solid var(--azul);
+  color: var(--azul);
+  font-family: var(--fonte-principal);
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 1rem 4.375rem;
+}
+
+.button-login:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover);
+}
+
+
+/*Estilização específica para o cabecalho do cliente*/
+.opcoes {
+  width: 20rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+#carrinho-compras {
+  position: relative;
+}
+
+.item {
+  border: none;
+  background-color: transparent;
+  padding: .6rem;
+  text-decoration: none;
+}
+
+.item:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul);
+}
+
+.item:hover > a > .produtos-carrinho > .quantidade,  .item:hover > a > .produtos-carrinho > .simbolo-mais {
+  transition: all .3s;
+  color: var(--branco-primario);
+}
+
+.item a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+  align-items: center;
+}
+
+.identificador {
+  color: var(--preto);;
+  font-size: 1.2rem;
+  font-family: var(--fonte-principal);
+  font-weight: 500;
+  margin-top: .4rem;
+}
+
+.produtos-carrinho {
+  display: none;
+  position: absolute;
+  top: .5rem;
+  left: 2.6rem;
+}
+
+.quantidade, .simbolo-mais {
+  color: var(--azul);
+  font-family: var(--fonte-principal);
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.simbolo-mais {
+  display: none;
+  position: absolute;
+  top: -.7rem;
+  right: -.7rem;
+  font-size: 2rem;
+}
