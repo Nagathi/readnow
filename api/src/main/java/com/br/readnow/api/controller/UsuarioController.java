@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.br.readnow.api.model.UsuarioModel;
 import com.br.readnow.api.service.UsuarioService;
+import com.br.readnow.api.dto.EmailDTO;
 import com.br.readnow.api.dto.LoginDTO;
 import com.br.readnow.api.dto.RequestNovaSenhaDTO;
 import com.br.readnow.api.dto.UsuarioDTO;
@@ -36,9 +36,9 @@ public class UsuarioController {
         return usuarioService. cadastrarUsuario(usuario);
     }
 
-    @GetMapping("/enviaEmail")
-    public ResponseEntity<?> enviarEmail(@RequestParam(value = "email") String email){
-        return usuarioService.enviarEmail(email);
+    @PostMapping("/enviaEmail")
+    public ResponseEntity<?> enviarEmail(@RequestBody EmailDTO email){
+        return usuarioService.enviarEmail(email.getEmail());
     }
 
     @GetMapping("/redefineSenha/{token}")
