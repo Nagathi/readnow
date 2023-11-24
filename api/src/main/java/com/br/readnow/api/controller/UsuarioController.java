@@ -51,10 +51,7 @@ public class UsuarioController {
         return usuarioService.redefinirSenha(request);
     }
 
-    @GetMapping("/login")
-    public String logar() {
-        return "login";
-    }
+
 
     @GetMapping("/cadastro")
     public String cadastrar() {
