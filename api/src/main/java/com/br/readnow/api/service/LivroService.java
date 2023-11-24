@@ -35,7 +35,7 @@ public class LivroService {
             if(!livroRepository.existsByIsbn(livroDTO.getIsbn())){
                 MultipartFile imagem = livroDTO.getImagem();
 
-                String uploadImagem = "C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/";
+                String uploadImagem = "/home/victoria/Documentos/UFPA/Optativas/DesenvolvimentoWeb/ReadNow/api/src/main/resources/static/images/";
                 String uniqueImageName = UUID.randomUUID().toString() + "_" + imagem.getOriginalFilename();
 
                 Path destinoImagem = Path.of(uploadImagem + uniqueImageName);

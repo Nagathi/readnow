@@ -25,7 +25,7 @@ public class UsuarioController {
         return "login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/logar")
     public ResponseEntity<UsuarioDTO> efetuarLogin(@RequestBody LoginDTO login){
         return usuarioService.login(login);
     }
@@ -35,7 +35,7 @@ public class UsuarioController {
         return "new_user";
     }
 
-    @PostMapping("/cadastro")
+    @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastrarUsuario(@RequestBody UsuarioModel usuario){
         return usuarioService. cadastrarUsuario(usuario);
     }

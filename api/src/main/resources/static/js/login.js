@@ -15,7 +15,7 @@ function efetuarLogin() {
     email: email,
     senha: senha,
   };
-  fetch("http://localhost:8080/login", {
+  fetch("http://localhost:8080/logar", {
     method: "POST",
     headers: {
       "Accept": "application/json",
