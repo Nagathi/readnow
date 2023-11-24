@@ -20,11 +20,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/login")
-    public String logar() {
-        return "login";
-    }
-
     @PostMapping("/logar")
     public ResponseEntity<UsuarioDTO> efetuarLogin(@RequestBody LoginDTO login){
         return usuarioService.login(login);
@@ -51,7 +46,10 @@ public class UsuarioController {
         return usuarioService.redefinirSenha(request);
     }
 
-
+    @GetMapping("/login")
+    public String logar() {
+        return "login";
+    }
 
     @GetMapping("/cadastro")
     public String cadastrar() {

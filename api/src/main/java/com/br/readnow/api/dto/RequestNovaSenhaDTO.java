@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RequestNovaSenhaDTO {
-    private String usuario;
+    private String email;
     private String senha;
 }

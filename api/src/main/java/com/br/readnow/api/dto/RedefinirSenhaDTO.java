@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class RedefinirSenhaDTO {
     
-    private String usuario;
+    private String email;
 
 }

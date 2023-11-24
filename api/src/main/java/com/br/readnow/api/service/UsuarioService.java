@@ -67,8 +67,6 @@ public class UsuarioService {
     public ResponseEntity<?> cadastrarUsuario(UsuarioModel usuario){
         if (usuarioRepository.existsByEmail(usuario.getEmail())) {
             return ResponseEntity.badRequest().body("E-mail já cadastrado");
-        } else if (usuarioRepository.existsByUsuario(usuario.getUsuario())) {
-            return ResponseEntity.badRequest().body("Usuário já cadastrado");
         } else {
             usuario.setTipo("cliente");
             usuarioRepository.save(usuario);
@@ -122,7 +120,7 @@ public class UsuarioService {
         if(linkOptional.isPresent()){
             if(!linkExpirado(linkOptional.get())){
                 RedefinirSenhaDTO usuario = new RedefinirSenhaDTO();
-                usuario.setUsuario(linkOptional.get().getUsuario().getUsuario());
+                usuario.setEmail(linkOptional.get().getUsuario().getEmail());
 
                 return ResponseEntity.ok(usuario);
             }else{
@@ -134,7 +132,7 @@ public class UsuarioService {
     }
 
     public ResponseEntity<?> redefinirSenha(RequestNovaSenhaDTO request){
-        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByUsuario(request.getUsuario());
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(request.getEmail());
 
         if(usuarioOptional.isPresent()){
             UsuarioModel usuario = usuarioOptional.get();
