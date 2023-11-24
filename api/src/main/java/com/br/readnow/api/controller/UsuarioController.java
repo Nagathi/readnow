@@ -30,10 +30,6 @@ public class UsuarioController {
         return usuarioService.login(login);
     }
 
-    @GetMapping("/cadastro")
-    public String cadastrar() {
-        return "new_user";
-    }
 
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastrarUsuario(@RequestBody UsuarioModel usuario){
@@ -53,5 +49,20 @@ public class UsuarioController {
     @GetMapping("/alteraSenha")
     public ResponseEntity<?> redefinirSenha(@RequestBody RequestNovaSenhaDTO request) {
         return usuarioService.redefinirSenha(request);
+    }
+
+    @GetMapping("/login")
+    public String logar() {
+        return "login";
+    }
+
+    @GetMapping("/cadastro")
+    public String cadastrar() {
+        return "new_user";
+    }
+
+    @GetMapping("/esqueci-minha-senha")
+    public String recuperarSenha() {
+        return "formularioEmail";
     }
 }
