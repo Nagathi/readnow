@@ -19,12 +19,12 @@ public class LivroController {
     @Autowired
     private LivroService livroService;
 
-    @GetMapping("livros")
+    @GetMapping("/livros")
     public Iterable<LivroModel> listarLivros(){
         return livroService.listarLivros();
     }
 
-    @PostMapping(value = "/cadastraLivro", consumes = "multipart/form-data")
+    @PostMapping(value = "/cadastra-livro", consumes = "multipart/form-data")
     public ResponseEntity<?> cadastrarLivro(@RequestPart(value = "imagem") MultipartFile imagem,
                                             @RequestParam(value = "titulo") String titulo,
                                             @RequestParam(value = "autor") String autor,
@@ -43,5 +43,10 @@ public class LivroController {
         livro.setCategoria(categoria);
         livro.setPreco(preco);
         return livroService.cadastrarLivro(livro);
+    }
+
+    @GetMapping("/busca-livro")
+    public ResponseEntity<?> buscarLivro(@RequestParam(value = "codigo") long codigo){
+        return livroService.buscarLivro(codigo);
     }
 }

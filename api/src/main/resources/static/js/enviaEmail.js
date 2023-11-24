@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (email.trim() !== '') {
         const data = { email };
   
-        fetch('/enviaEmail', {
+        fetch('/envia-email', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
