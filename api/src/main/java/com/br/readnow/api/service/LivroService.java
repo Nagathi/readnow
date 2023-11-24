@@ -30,8 +30,9 @@ public class LivroService {
 
         LivroModel livro = new LivroModel();
 
+
         try{
-            if(livroRepository.existsByIsbn(livro.getIsbn())){
+            if(!livroRepository.existsByIsbn(livroDTO.getIsbn())){
                 MultipartFile imagem = livroDTO.getImagem();
 
                 String uploadImagem = "C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/";
