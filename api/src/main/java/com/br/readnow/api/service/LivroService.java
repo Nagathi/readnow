@@ -31,32 +31,34 @@ public class LivroService {
         LivroModel livro = new LivroModel();
 
         try{
-            MultipartFile imagem = livroDTO.getImagem();
+            if(livroRepository.existsByIsbn(livro.getIsbn())){
+                MultipartFile imagem = livroDTO.getImagem();
 
-            String uploadImagem = "/home/victoria/Documentos/UFPA/Optativas/DesenvolvimentoWeb/ReadNow/api/src/media/";
-            String uniqueImageName = UUID.randomUUID().toString() + "_" + imagem.getOriginalFilename();
+                String uploadImagem = "C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/";
+                String uniqueImageName = UUID.randomUUID().toString() + "_" + imagem.getOriginalFilename();
 
-            Path destinoImagem = Path.of(uploadImagem + uniqueImageName);
-            Files.copy(imagem.getInputStream(), destinoImagem, StandardCopyOption.REPLACE_EXISTING);
+                Path destinoImagem = Path.of(uploadImagem + uniqueImageName);
+                Files.copy(imagem.getInputStream(), destinoImagem, StandardCopyOption.REPLACE_EXISTING);
 
-            livro.setImagem(uniqueImageName);
-            livro.setTitulo(livroDTO.getTitulo());
-            livro.setAutor(livroDTO.getAutor());
-            livro.setEditora(livroDTO.getEditora());
-            livro.setIsbn(livroDTO.getIsbn());
-            livro.setData_publi(livroDTO.getData_publi());
-            livro.setCategoria(livroDTO.getCategoria());
-            livro.setPreco(livroDTO.getPreco());
+                livro.setImagem(uniqueImageName);
+                livro.setTitulo(livroDTO.getTitulo());
+                livro.setAutor(livroDTO.getAutor());
+                livro.setEditora(livroDTO.getEditora());
+                livro.setIsbn(livroDTO.getIsbn());
+                livro.setData_publi(livroDTO.getData_publi());
+                livro.setCategoria(livroDTO.getCategoria());
+                livro.setPreco(livroDTO.getPreco());
+
+                livroRepository.save(livro);
+                return ResponseEntity.status(HttpStatus.CREATED).body("Livro cadastrado!");
+            }else{
+                return ResponseEntity.badRequest().body("Esse ISBN já existe em nosso banco de dados!");
+            }
 
         }catch(IOException e){
             e.printStackTrace();
         }
-        if (livroRepository.existsByIsbn(livro.getIsbn())) {
-            return ResponseEntity.badRequest().body("Esse ISBN já existe em nosso banco de dados!");
-        }else{
-            livroRepository.save(livro);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Livro cadastrado!");
-        } 
 
+        return ResponseEntity.badRequest().build();
     }
 }

@@ -1,18 +1,26 @@
 package com.br.readnow.api.service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.br.readnow.api.dto.LoginDTO;
+import com.br.readnow.api.dto.RedefinirSenhaDTO;
+import com.br.readnow.api.dto.RequestNovaSenhaDTO;
 import com.br.readnow.api.dto.UsuarioDTO;
 import com.br.readnow.api.model.AuthModel;
+import com.br.readnow.api.model.LinkModel;
 import com.br.readnow.api.model.UsuarioModel;
 import com.br.readnow.api.repository.AuthRepository;
+import com.br.readnow.api.repository.LinkRepository;
 import com.br.readnow.api.repository.UsuarioRepository;
 
 @Service
@@ -23,6 +31,12 @@ public class UsuarioService {
 
     @Autowired
     private AuthRepository authRepository;
+
+    @Autowired
+    private LinkRepository linkRepository;
+
+    @Autowired
+    private JavaMailSender emailSender;
 
     public ResponseEntity<UsuarioDTO> login(LoginDTO login){
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmailAndSenha(login.getEmail(), login.getSenha());
@@ -71,5 +85,74 @@ public class UsuarioService {
             usuarioDTO.setTipo(usuario.getTipo());
             return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDTO);
         }
+    }
+
+    public ResponseEntity<?> enviarEmail(String email){
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
+
+        if(usuarioOptional.isPresent()){
+            String link = UUID.randomUUID().toString();
+
+            LinkModel novoLink = new LinkModel();
+            
+            novoLink.setLink(link);
+            novoLink.setUsuario(usuarioOptional.get());
+
+            LocalDateTime expiracao = LocalDateTime.now().plus(15, ChronoUnit.MINUTES);
+            novoLink.setCriadoEm(expiracao);
+
+            linkRepository.save(novoLink);
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(email);
+            message.setSubject("Redefinição de Senha");
+            message.setText("Olá! Clique no link a seguir para redefinir sua senha: http://localhost:8080/redefineSenha/" + link);
+
+            emailSender.send(message);
+
+            return ResponseEntity.ok("E-mail de redefinição enviado com sucesso");
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public ResponseEntity<?> recuperarSenha(String token){
+        Optional<LinkModel> linkOptional = linkRepository.findById(token);
+
+        if(linkOptional.isPresent()){
+            if(!linkExpirado(linkOptional.get())){
+                RedefinirSenhaDTO usuario = new RedefinirSenhaDTO();
+                usuario.setUsuario(linkOptional.get().getUsuario().getUsuario());
+
+                return ResponseEntity.ok(usuario);
+            }else{
+                return ResponseEntity.badRequest().body("Esse link está expirado.");
+            }
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public ResponseEntity<?> redefinirSenha(RequestNovaSenhaDTO request){
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByUsuario(request.getUsuario());
+
+        if(usuarioOptional.isPresent()){
+            UsuarioModel usuario = usuarioOptional.get();
+
+            usuario.setSenha(request.getSenha());
+
+            usuarioRepository.save(usuario);
+
+            return ResponseEntity.ok("Senha redefinida com sucesso.");
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public boolean linkExpirado(LinkModel link) {
+        LocalDateTime criadoEm = link.getCriadoEm();
+        LocalDateTime agora = LocalDateTime.now();
+    
+        return agora.isAfter(criadoEm.plus(15, ChronoUnit.MINUTES));
     }
 }
