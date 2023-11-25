@@ -2,12 +2,15 @@
 
 :root {
   --azul-btn-hover: #D4E4FA;
+  --azul-btn-hover-1: #5595E9;
   --azul-fraco: #EAF2FD;
   --azul: #2A7AE4;
   --preto: #464646;
   --branco-secundario: #F5F5F5;
   --branco-primario: #FFFFFF;
   --cinza: #A2A2A2;
+  --verde: #007600;
+  --vermelho: #DD0000;
   --fonte-principal: 'Raleway', sans-serif;
 }
 
