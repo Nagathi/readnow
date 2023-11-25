@@ -12,18 +12,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "carrinho")
 @Getter
 @Setter
-public class UsuarioModel {
+public class CarrinhoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long codigo;
 
-    private String nome;
-    @OneToMany private List<EnderecoModel> enderecos;
-    private String celular;
-    private String email;
-    private String senha;
-    private String tipo;
+    private Long codigoCliente;
+    @OneToMany private List<LivroModel> livros;
+    private int quantidadeLivros;
+    private double valorTotal;
 }

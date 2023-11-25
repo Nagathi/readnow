@@ -12,7 +12,7 @@ function efetuarCadastro() {
       email: email,
       senha: senha,
     };
-    fetch("http://localhost:8080/cadastrar", {
+    fetch("http://localhost:8080/efetuaCadastro", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

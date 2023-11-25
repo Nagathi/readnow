@@ -2,18 +2,18 @@ package com.br.readnow.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.br.readnow.api.dto.LivroDTO;
 import com.br.readnow.api.model.LivroModel;
 import com.br.readnow.api.service.LivroService;
 
-@RestController
+@Controller
 public class LivroController {
     
     @Autowired
@@ -22,6 +22,11 @@ public class LivroController {
     @GetMapping("livros")
     public Iterable<LivroModel> listarLivros(){
         return livroService.listarLivros();
+    }
+
+    @GetMapping("/verLivro")
+    public String verLivro() {
+        return "livro";
     }
 
     @PostMapping(value = "/cadastraLivro", consumes = "multipart/form-data")

@@ -20,13 +20,13 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping("/logar")
+    @PostMapping("/efetuaLogin")
     public ResponseEntity<UsuarioDTO> efetuarLogin(@RequestBody LoginDTO login){
         return usuarioService.login(login);
     }
 
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/efetuaCadastro")
     public ResponseEntity<?> cadastrarUsuario(@RequestBody UsuarioModel usuario){
         return usuarioService. cadastrarUsuario(usuario);
     }
