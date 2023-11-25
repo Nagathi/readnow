@@ -12,15 +12,19 @@ function efetuarCadastro() {
       email: email,
       senha: senha,
     };
-    fetch("http://localhost:8080/efetuaCadastro", {
+    fetch("/efetua-cadastro", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    });
-    alert("Cadastro realizado");
-
+    }).then(response => {
+      if(response.ok){
+        alert("Cadastro realizado")
+      }else{
+        alert("Ocorreu um erro ao processar o cadastro")
+      }
+    })
   }
   else{
     alert("Senhas não conferem!");

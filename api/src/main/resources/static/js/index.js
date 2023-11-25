@@ -1,13 +1,20 @@
-fetch('/livros')
-  .then(response => response.json())
-  .then(data => {
-    const listaLivros = document.querySelector('.lista-livros');
+document.addEventListener('DOMContentLoaded', function() {
+  const listaLivros = document.querySelector('.lista-livros');
+  let inicioExibicao = 0;
+  const quantidadeExibicao = 5;
 
-    data.forEach(livro => {
+  function exibirLivros(data, inicio) {
+
+    listaLivros.innerHTML = '';
+
+    const finalExibicao = Math.min(inicio + quantidadeExibicao, data.length);
+
+    for (let i = inicio; i < finalExibicao; i++) {
+      const livro = data[i];
       const novoLivro = document.createElement('li');
       novoLivro.classList.add('card-livro');
 
-      const caminhoImagem = './images/' + livro.imagem;
+      const caminhoImagem = './images/livros/' + livro.imagem;
 
       novoLivro.innerHTML = `
         <div class="banner">
@@ -21,8 +28,30 @@ fetch('/livros')
       `;
 
       listaLivros.appendChild(novoLivro);
+    }
+
+    if (finalExibicao >= data.length) {
+      const btnVerMais = document.querySelector('.btn-ver-mais');
+      btnVerMais.disabled = true;
+    }
+  }
+
+  fetch('/livros')
+    .then(response => response.json())
+    .then(data => {
+      exibirLivros(data, inicioExibicao);
+
+      const btnVerMais = document.querySelector('.btn-ver-mais');
+      btnVerMais.addEventListener('click', function() {
+        inicioExibicao += quantidadeExibicao;
+        exibirLivros(data, inicioExibicao);
+      });
+
+      if (inicioExibicao >= data.length) {
+        btnVerMais.disabled = true;
+      }
+    })
+    .catch(error => {
+      console.error('Ocorreu um erro ao obter os livros:', error);
     });
-  })
-  .catch(error => {
-    console.error('Ocorreu um erro ao obter os livros:', error);
-  });
+});

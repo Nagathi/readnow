@@ -24,6 +24,4 @@ public class PedidoController {
     public ResponseEntity<?> cadastrarPedido(@RequestBody PedidoModel pedidoModel){
         return pedidoService.cadastrarPedido(pedidoModel);
     }
-
-
 }
