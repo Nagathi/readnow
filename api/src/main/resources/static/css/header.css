@@ -1,6 +1,6 @@
 /*Estilização global do cabeçalho*/
 .cabecalho {
-  background-color: var(--branco-secundario);
+  background-color: var(--branco-primario);
   padding: 2rem 9.5rem;
 
   display: flex;
@@ -22,7 +22,8 @@
   display: flex;
   align-items: center;
 
-  border: 2px solid none;
+  border: .05px solid;
+  border-color: var(--cinza);
 }
 
 .box-input {
