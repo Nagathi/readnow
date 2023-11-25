@@ -24,4 +24,9 @@ public class HtmlController {
     public String recuperarSenha() {
         return "formularioEmail";
     }
+
+    @GetMapping("/livro")
+    public String mostrarLivro() {
+        return "livro";
+    }
 }
