@@ -54,8 +54,8 @@ public class LivroController {
         return livroService.cadastrarLivro(livro);
     }
 
-    @GetMapping("/busca-livro")
-    public ResponseEntity<?> buscarLivro(@RequestParam(value = "codigo") long codigo){
+    @GetMapping("/busca-livro/{codigo}")
+    public ResponseEntity<?> buscarLivro(@PathVariable long codigo){
         return livroService.buscarLivro(codigo);
     }
 }

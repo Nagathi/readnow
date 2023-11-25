@@ -28,12 +28,20 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       `;
 
+      novoLivro.dataset.codigo = livro.codigo;
+      novoLivro.dataset.titulo = livro.titulo;
+      novoLivro.dataset.preco = livro.preco;
+
       listaLivros.appendChild(novoLivro);
     }
 
     if (finalExibicao >= data.length) {
       btnVerMais.disabled = true;
     }
+  }
+
+  function redirecionarParaLivro(codigo) {
+    window.location.href = `/livro?codigo=${codigo}`;
   }
 
   categorias.forEach(categoria => {
@@ -59,5 +67,15 @@ document.addEventListener('DOMContentLoaded', function() {
       .catch(error => {
         console.error(`Ocorreu um erro ao obter os livros de ${categoria}:`, error);
       });
+
+    listaLivros.addEventListener('click', function(event) {
+      const verProdutoLink = event.target.closest('.ver-produto');
+      if (verProdutoLink) {
+        const cardLivro = verProdutoLink.closest('.card-livro');
+        const codigoLivro = cardLivro.dataset.codigo;
+
+        redirecionarParaLivro(codigoLivro);
+      }
+    });
   });
 });

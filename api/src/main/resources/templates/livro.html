@@ -6,15 +6,16 @@
     <link rel="shortcut icon" href="images/book.svg" type="image/x-icon">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/produtos.css">
+    <link rel="stylesheet" href="css/livro.css">
     <link rel="stylesheet" href="css/footer.css">
-    <title>A Guerra dos Tronos : As Crônicas de Gelo e Fogo, volume 1</title>
+    <script src="js/livro.js" defer></script>
+    <title>ReadNow</title>
   </head>
 <body>
 
   <!--Cabeçalho-->
   <header class="cabecalho">
-    <img src="images/icons/logo.svg" alt="Logo" class="logo">
+    <a href="/"><img src="images/icons/logo.svg" alt="Logo" class="logo"></a>
     
     <div class="box-search">
       <input type="text" placeholder="O que deseja encontrar?" class="box-input">
@@ -55,28 +56,31 @@
   <!--Main-->
   <main>
 
+    <section class="livro">
+      <div class="livro-destaque">
+        <img src="" alt="Imagem do Produto" class="imagem-produto">
+      </div>
+    
+      <div class="detalhes-produto">
+        <h1 class="nome-livro"></h1>
+        <p class="preco"></p>
+        <p class="sinopse"></p>
+        <p class="disponibilidade">Em estoque</p>
+    
+        <div class="botoes">
+          <button class="comprar-agora">Compre agora</button>
+          <button class="adicionar-carrinho">Adicionar no carrinho</button>
+        </div>
+      </div>
+    </section>      
+
     <section class="categorias-livros">
 
       <div class="informacoes">
-
         <h2 class="titulo">Produtos similares</h2>
       </div>
 
       <ul class="lista-livros">
-
-        <li class="card-livro">
-
-          <div class="banner">
-            <img src="images/icons/produto_semelhante.jpg" alt="Produto" class="imagem">
-          </div>
-
-          <div class="detalhes-livro">
-            <p class="titulo-livro">Produto XYZ</p>
-            <h3 class="preco">R$ 60,00</h3>
-            <a href="#" class="ver-produto">Ver produto</a>
-          </div>
-
-        </li>
 
       </ul>
     </section>
