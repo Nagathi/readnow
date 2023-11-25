@@ -35,7 +35,9 @@ public class LivroService {
             if(!livroRepository.existsByIsbn(livroDTO.getIsbn())){
                 MultipartFile imagem = livroDTO.getImagem();
 
-                String uploadImagem = "/home/victoria/Documentos/UFPA/Optativas/DesenvolvimentoWeb/ReadNow/api/src/main/resources/static/images/";
+                //  C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/
+                //  /home/victoria/Documentos/UFPA/Optativas/DesenvolvimentoWeb/ReadNow/api/src/main/resources/static/images/
+                String uploadImagem = "C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/";
                 String uniqueImageName = UUID.randomUUID().toString() + "_" + imagem.getOriginalFilename();
 
                 Path destinoImagem = Path.of(uploadImagem + uniqueImageName);
@@ -61,5 +63,15 @@ public class LivroService {
         }
 
         return ResponseEntity.badRequest().build();
+    }
+
+    public ResponseEntity<?> buscarLivro(long codigo){
+         
+        if(livroRepository.findById(codigo).isPresent()){
+            LivroModel livro = livroRepository.findById(codigo).get();
+            return ResponseEntity.ok(livro);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 }

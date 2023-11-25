@@ -19,14 +19,9 @@ public class LivroController {
     @Autowired
     private LivroService livroService;
 
-    @GetMapping("livros")
+    @GetMapping("/livros")
     public Iterable<LivroModel> listarLivros(){
         return livroService.listarLivros();
-    }
-
-    @GetMapping("/verLivro")
-    public String verLivro() {
-        return "livro";
     }
 
     @PostMapping(value = "/cadastraLivro", consumes = "multipart/form-data")
@@ -48,5 +43,10 @@ public class LivroController {
         livro.setCategoria(categoria);
         livro.setPreco(preco);
         return livroService.cadastrarLivro(livro);
+    }
+
+    @GetMapping("/busca-livro")
+    public ResponseEntity<?> buscarLivro(@RequestParam(value = "codigo") long codigo){
+        return livroService.buscarLivro(codigo);
     }
 }

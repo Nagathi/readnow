@@ -20,7 +20,7 @@ public class PedidoController {
         return pedidoService.listarPedidos();
     }
 
-    @PostMapping("/cadastroPedido")
+    @PostMapping("/cadastro-pedido")
     public ResponseEntity<?> cadastrarPedido(@RequestBody PedidoModel pedidoModel){
         return pedidoService.cadastrarPedido(pedidoModel);
     }
