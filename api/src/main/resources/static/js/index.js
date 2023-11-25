@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-  let inicioExibicaoAcao = 0;
-  let inicioExibicaoFiccao = 0;
   const quantidadeExibicao = 5;
 
-  function exibirLivros(data, inicio, listaLivros) {
+  const categorias = ['acao', 'ficcao', 'cultura', 'aventura', 'literatura'];
+
+  const categoriasLivros = {};
+
+  function exibirLivros(data, inicio, listaLivros, btnVerMais) {
     listaLivros.innerHTML = '';
 
     const finalExibicao = Math.min(inicio + quantidadeExibicao, data.length);
@@ -30,48 +32,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (finalExibicao >= data.length) {
-      const btnVerMais = listaLivros.parentElement.querySelector('.btn-ver-mais');
       btnVerMais.disabled = true;
     }
   }
 
-  fetch('/livros/Ação')
-    .then(response => response.json())
-    .then(data => {
-      const listaLivrosAcao = document.querySelector('.lista-livros-acao');
-      exibirLivros(data, inicioExibicaoAcao, listaLivrosAcao);
+  categorias.forEach(categoria => {
+    const listaLivros = document.querySelector(`.lista-livros-${categoria}`);
+    const btnVerMais = document.querySelector(`#btn-ver-mais-${categoria}`);
+    categoriasLivros[categoria] = { listaLivros, btnVerMais, inicioExibicao: 0 };
 
-      const btnVerMaisAcao = document.querySelector('#btn-ver-mais-acao');
-      btnVerMaisAcao.addEventListener('click', function() {
-        inicioExibicaoAcao += quantidadeExibicao;
-        exibirLivros(data, inicioExibicaoAcao, listaLivrosAcao);
+    fetch(`/livros/${categoria}`)
+      .then(response => response.json())
+      .then(data => {
+        const { listaLivros, btnVerMais } = categoriasLivros[categoria];
+        exibirLivros(data, 0, listaLivros, btnVerMais);
+
+        btnVerMais.addEventListener('click', function() {
+          categoriasLivros[categoria].inicioExibicao += quantidadeExibicao;
+          exibirLivros(data, categoriasLivros[categoria].inicioExibicao, listaLivros, btnVerMais);
+
+          if (categoriasLivros[categoria].inicioExibicao >= data.length) {
+            btnVerMais.disabled = true;
+          }
+        });
+      })
+      .catch(error => {
+        console.error(`Ocorreu um erro ao obter os livros de ${categoria}:`, error);
       });
-
-      if (inicioExibicaoAcao >= data.length) {
-        btnVerMaisAcao.disabled = true;
-      }
-    })
-    .catch(error => {
-      console.error('Ocorreu um erro ao obter os livros de Ação:', error);
-    });
-
-  fetch('/livros/Ficção')
-    .then(response => response.json())
-    .then(data => {
-      const listaLivrosFiccao = document.querySelector('.lista-livros-ficcao');
-      exibirLivros(data, inicioExibicaoFiccao, listaLivrosFiccao);
-
-      const btnVerMaisFiccao = document.querySelector('#btn-ver-mais-ficcao');
-      btnVerMaisFiccao.addEventListener('click', function() {
-        inicioExibicaoFiccao += quantidadeExibicao;
-        exibirLivros(data, inicioExibicaoFiccao, listaLivrosFiccao);
-      });
-
-      if (inicioExibicaoFiccao >= data.length) {
-        btnVerMaisFiccao.disabled = true;
-      }
-    })
-    .catch(error => {
-      console.error('Ocorreu um erro ao obter os livros de Ficção:', error);
-    });
+  });
 });
