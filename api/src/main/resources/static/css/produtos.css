@@ -1,4 +1,4 @@
-.lista-livros {
+.lista-livros-acao, .lista-livros-ficcao {
   list-style: none;
   display: flex;
   align-items: center;
@@ -6,7 +6,7 @@
   margin-bottom: 6.4rem;
 }
 
-.lista-livros:last-child {
+.lista-livros-acao, .lista-livros-ficcao:last-child {
   margin-bottom: 0rem;
 }
 

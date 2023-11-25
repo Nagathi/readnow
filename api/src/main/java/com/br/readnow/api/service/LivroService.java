@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,10 @@ public class LivroService {
 
     public Iterable<LivroModel> listarLivros(){
         return livroRepository.findAll();
+    }
+
+    public List<LivroModel> listarLivrosPorCategoria(String categoria) {
+        return livroRepository.findByCategoria(categoria);
     }
 
     public ResponseEntity<?> cadastrarLivro(LivroDTO livroDTO){
