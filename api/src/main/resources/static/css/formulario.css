@@ -10,7 +10,8 @@ main {
 
 #formulario {
   background-color: var(--azul-fraco);
-  border-radius: 1.2rem;
+  border-radius: 2.2rem;
+  padding: 2.4rem;
 
   display: flex;
   flex-direction: column;
@@ -32,7 +33,6 @@ main {
 .campo {
   background-color: var(--branco-primario);
   margin-top: 2.5rem;
-  padding: 0 1.2rem;
 }
 
 .campo input {
@@ -43,7 +43,7 @@ main {
   font-size: 1.6rem;
   font-weight: 500;
   outline: 0;
-  padding: 1.6rem 1.2rem;
+  padding: 1.6rem;
   width: 39rem;
   border-bottom: .25rem solid var(--cinza);
 }
