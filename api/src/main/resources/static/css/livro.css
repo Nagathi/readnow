@@ -74,7 +74,12 @@
 
 /*Fim da estilização da section livro*/
 
-.lista-livros {
+.lista-livros-acao,
+.lista-livros-ficcao,
+.lista-livros-aventura,
+.lista-livros-cultura,
+.lista-livros-literatura
+{
   list-style: none;
   display: flex;
   align-items: center;
