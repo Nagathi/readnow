@@ -7,9 +7,9 @@
   <link rel="stylesheet" href="./css/global.css">
   <link rel="stylesheet" href="./css/header.css">
   <link rel="stylesheet" href="./css/main.css">
-  <link rel="stylesheet" href="./css/enderecos.css">
+  <link rel="stylesheet" href="./css/carteira.css">
   <link rel="stylesheet" href="./css/footer.css">
-  <title>Seus endereços</title>
+  <title>Sua carteira</title>
   </head>
 <body>
 
@@ -27,21 +27,21 @@
     <nav class="opcoes">
       <button class="item">
         <a href="#">
-          <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <img src="images/icons/img/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
           <span class="identificador">Sua conta</span>
         </a>
       </button>
 
       <button class="item">
         <a href="#">
-          <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <img src="images/icons/img/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
           <span class="identificador">Ouvidoria</span>
         </a>
       </button>
 
       <button class="item" id="carrinho-compras">
         <a href="#">
-          <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <img src="images/icons/img/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
           <span class="identificador">Carrinho</span>
 
           <div class="produtos-carrinho">
@@ -55,25 +55,22 @@
 
   <!--Main-->
   <main class="main">
-    <section class="container enderecos">
+    <section class="container cartoes">
 
       <div class="titulo">
-        <h1>Seus endereços</h1>
+        <h1>Sua carteira</h1>
       </div>
 
       <div class="linha"></div>
 
-      <ul class="lista-enderecos">
+      <ul class="lista-cartoes">
 
-        <li class="card-endereco">
+        <li class="card-cartao">
 
-          <div class="detalhes-enderecos">
-            <h2 class="nome-destinatario">Nome do destinatário</h2>
-            <p class="endereco">endereco</p>
-            <p class="numero-complemento">Número, complemento</p>
-            <p class="bairro">Bairro</p>
-            <p class="localidade">Cidade, Estado</p>
-            <p class="telefone">Telefone: XXXXXXXXXXX</p>
+          <div class="detalhes-cartao">
+            <h2 class="numero-cartao">Cartão termina em XXXX</h2>
+            <p class="nome-cartao">Jane Applessed</p>
+            <p class="data-expiracao">Expira em mm/aa</p>
           </div>
 
           <div class="botoes">
@@ -81,10 +78,25 @@
             <button class="btn-excluir">Excluir</button>
           </div>
         </li>
-          
+
+        <li class="card-cartao">
+
+          <div class="detalhes-cartao">
+            <h2 class="numero-cartao">Cartão termina em XXXX</h2>
+            <p class="nome-cartao">Jane Applessed</p>
+            <p class="data-expiracao">Expira em mm/aa</p>
+          </div>
+
+          <div class="botoes">
+            <button class="btn-editar">Editar</button>
+            <button class="btn-excluir">Excluir</button>
+          </div>
+        </li>
+
+
       </ul>
-      
-      <a href="#" class="btn-adicionar-endereco">Adicionar outro endereço</a>
+
+      <a href="#" class="btn-adicionar-cartao">Adicionar cartão</a>
     </section>
 
   </main>
@@ -93,7 +105,7 @@
   <footer class="roda-pe">
     <ul>
       <li>
-        <img src="../img/logo.svg" alt="Logo">
+        <img src="images/icons/logo.svg" alt="Logo">
       </li>
       <li class="links">
         <a href="#" class="link-rodape">Quem somos nós</a>
@@ -110,15 +122,15 @@
       <li>
         <div class="redes-sociais">
           <a href="#">
-            <img src="../img/facebook-icon.svg" alt="Logo Facebook" class="icon-rede-social">
+            <img src="images/icons/img/facebook-icon.svg" alt="Logo Facebook" class="icon-rede-social">
           </a>
 
           <a href="#">
-            <img src="../img/twitter-icon.svg" alt="Logo Twitter" class="icon-rede-social">
+            <img src="images/icons/img/twitter-icon.svg" alt="Logo Twitter" class="icon-rede-social">
           </a>
 
           <a href="#">
-            <img src="../img/instagram-icon.svg" alt="" class="icon-rede-social">
+            <img src="images/icons/img/instagram-icon.svg" alt="" class="icon-rede-social">
           </a>
         </div>
       </li>
