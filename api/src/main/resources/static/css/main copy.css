@@ -1,0 +1,19 @@
+.main {
+  padding: 6.4rem;
+  background-color: var(--branco-secundario);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  background-color: var(--branco-primario);
+  padding: 2.8rem;
+  border-radius: .8rem;
+}
+
+.linha {
+  background-color: var(--cinza);
+  height: .05rem;
+  width: 100%;
+}
