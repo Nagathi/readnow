@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/carrinho-compras.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <title>Sua conta</title>
+  </head>
+<body>
+
+  <!--Cabeçalho-->
+  <header class="cabecalho">
+    <img src="images/icons/logo.svg" alt="Logo" class="logo">
+    
+    <div class="box-search">
+      <input type="text" placeholder="O que deseja encontrar?" class="box-input">
+      <button class="button-search">
+        <img src="images/icons/lupa.png" alt="Lupa">
+      </button>
+    </div>
+
+    <nav class="opcoes">
+      <button class="item">
+        <a href="#">
+          <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Sua conta</span>
+        </a>
+      </button>
+
+      <button class="item">
+        <a href="#">
+          <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Ouvidoria</span>
+        </a>
+      </button>
+
+      <button class="item" id="carrinho-compras">
+        <a href="#">
+          <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Carrinho</span>
+
+          <div class="produtos-carrinho">
+            <span class="quantidade">9</span>
+            <span class="simbolo-mais">+</span>
+          </div>
+        </a>
+      </button>
+    </nav>
+  </header>
+
+  <!--Main-->
+  <main class="main">
+    <section class="container carrinho-compras">
+
+      <div class="titulo">
+        <h1>Carrinho de compras</h1>
+      </div>
+
+      <div class="linha"></div>
+
+      <div class="card-itens-carrinho">
+
+        <div class="item-carrinho">
+
+          <div class="container-imagem">
+            <img src="images/icons/imagem_produto.png" alt="Imagem Produto">
+          </div>
+
+          <div class="direita">
+            <div class="textos">
+              <a href="#">
+                <h1 class="nome-livro">Produto XYZ</h1>
+              </a>
+              <p class="preco">RS 60,00</p>
+            </div>
+
+            <div class="detalhes">
+              <ul class="classificacao">
+                <li>
+                  <img src="images/icons/star-with-fill.svg" alt="">
+                </li>
+
+                <li>
+                  <img src="images/icons/star-with-fill.svg" alt="">
+                </li>
+
+                <li>
+                  <img src="images/icons/star-with-fill.svg" alt="">
+                </li>
+
+                <li>
+                  <img src="images/icons/star-with-fill.svg" alt="">
+                </li>
+
+                <li>
+                  <img src="images/icons/star-with-fill.svg" alt="">
+                </li>
+              </ul>
+
+              <p class="disponibilidade disponivel">Em estoque</p>
+
+              <div class="botoes">
+                <select id="quantidade">
+                  <option selected disabled value="">Qtd</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <button class="btn-excluir">Excluir</button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    
+    </section>     
+  </main>
+
+  <!--Rodapé-->
+  <footer class="roda-pe">
+    <ul>
+      <li>
+        <img src="images/icons/logo.svg" alt="Logo">
+      </li>
+      <li class="links">
+        <a href="#" class="link-rodape">Quem somos nós</a>
+        <a href="#" class="link-rodape">Política de privacidade</a>
+      </li>
+      <li class="links">
+        <a href="#" class="link-rodape">Programa de fidelidade</a> 
+        <a href="#" class="link-rodape">Atendimento ao cliente</a>
+      </li>
+      <li class="links">
+        <a href="#" class="link-rodape">Quero ser franqueado</a> 
+        <a href="#" class="link-rodape">Anuncie aqui</a>
+      </li>
+      <li>
+        <div class="redes-sociais">
+          <a href="#">
+            <img src="images/icons/facebook-icon.svg" alt="Logo Facebook" class="icon-rede-social">
+          </a>
+
+          <a href="#">
+            <img src="images/icons/twitter-icon.svg" alt="Logo Twitter" class="icon-rede-social">
+          </a>
+
+          <a href="#">
+            <img src="images/icons/instagram-icon.svg" alt="" class="icon-rede-social">
+          </a>
+        </div>
+      </li>
+    </ul>
+  </footer>
+</body>
+</html>
