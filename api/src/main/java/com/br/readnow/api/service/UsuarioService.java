@@ -17,9 +17,11 @@ import com.br.readnow.api.dto.RedefinirSenhaDTO;
 import com.br.readnow.api.dto.RequestNovaSenhaDTO;
 import com.br.readnow.api.dto.UsuarioDTO;
 import com.br.readnow.api.model.AuthModel;
+import com.br.readnow.api.model.CarrinhoModel;
 import com.br.readnow.api.model.LinkModel;
 import com.br.readnow.api.model.UsuarioModel;
 import com.br.readnow.api.repository.AuthRepository;
+import com.br.readnow.api.repository.CarrinhoRepository;
 import com.br.readnow.api.repository.LinkRepository;
 import com.br.readnow.api.repository.UsuarioRepository;
 
@@ -37,6 +39,9 @@ public class UsuarioService {
 
     @Autowired
     private JavaMailSender emailSender;
+
+    @Autowired
+    private CarrinhoRepository carrinhoRepository;
 
     public ResponseEntity<UsuarioDTO> login(LoginDTO login){
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmailAndSenha(login.getEmail(), login.getSenha());
@@ -59,8 +64,9 @@ public class UsuarioService {
             usuarioDTO.setNome(usuarioOptional.get().getNome());
             usuarioDTO.setId(auth.getUuid());
             usuarioDTO.setTipo(usuarioOptional.get().getTipo());
-
+            
             return ResponseEntity.ok(usuarioDTO);
+
         }
     }
 
@@ -81,6 +87,11 @@ public class UsuarioService {
             usuarioDTO.setNome(usuario.getNome());
             usuarioDTO.setId(auth.getUuid());
             usuarioDTO.setTipo(usuario.getTipo());
+
+            CarrinhoModel carrinhoModel = new CarrinhoModel();
+            carrinhoModel.criarCarrinho(usuario);
+            carrinhoRepository.save(carrinhoModel);
+
             return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDTO);
         }
     }

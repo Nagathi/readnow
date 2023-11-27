@@ -10,7 +10,7 @@ function obterParametrosURL() {
 
   return params;
 }
-
+const botaoAdicionarCarrinho = document.getElementsByClassName("adicionar-carrinho");
 document.addEventListener('DOMContentLoaded', function() {
   const parametrosURL = obterParametrosURL();
   const codigoLivro = parametrosURL.codigo;
@@ -81,4 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => {
       console.error('Ocorreu um erro ao carregar os detalhes do livro:', error);
     });
+});
+botaoAdicionarCarrinho[0].addEventListener('click', function(){
+  console.log(botaoAdicionarCarrinho);
+  alert('Botão clicado!');
+
 });
