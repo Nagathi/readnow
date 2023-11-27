@@ -22,11 +22,16 @@ public class HtmlController {
 
     @GetMapping("/esqueci-minha-senha")
     public String recuperarSenha() {
-        return "formulario_email";
+        return "formulario-email";
     }
 
     @GetMapping("/livro")
     public String mostrarLivro() {
         return "livro";
+    }
+
+    @GetMapping("/alterar-senha")
+    public String alterarSenha() {
+        return "formulario-senha";
     }
 }

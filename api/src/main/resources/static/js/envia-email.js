@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
           if (response.ok) {
-            showModal("Email enviado com sucesso!");
+            alert("E-mail enviado com sucesso")
           } else if (response.status === 404) {
-            showModal("E-mail não encontrado!");
+            alert("E-mail não encontrado!");
           } else {
             throw new Error('Falha ao enviar o email');
           }

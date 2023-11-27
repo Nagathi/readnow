@@ -1,0 +1,106 @@
+:root {
+    --branco-primario: #FFFFFF;
+    --branco-secundario: #F2F2F2;
+    --azul: #3498db;
+    --azul-fraco: #85C1E9;
+    --preto: #000000;
+    --cinza: #BDC3C7;
+    --fonte-principal: 'Arial', sans-serif;
+}
+
+.main {
+    background-color: var(--branco-secundario);
+    padding: 4.2rem 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#formulario {
+    background-color: aliceblue;
+    border-radius: 2.2rem;
+    padding: 1.4rem;
+    margin: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#campos-login {
+    border: none;
+}
+
+.titulo-formulario {
+    color: var(--preto);
+    font-family: var(--fonte-principal);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.campo {
+    background-color: var(--branco-primario);
+    margin-top: 2.5rem;
+}
+
+.campo input {
+    color: var(--preto);
+    border: none;
+    border-radius: .8rem .8rem 0 0;
+    font-family: var(--fonte-principal);
+    font-size: 1.6rem;
+    font-weight: 500;
+    outline: 0;
+    padding: 1.6rem;
+    width: 25rem;
+    border-bottom: .25rem solid var(--cinza);
+}
+
+.campo input:focus {
+    border-bottom: .25rem solid var(--azul);
+    transition: all .3s;
+}
+
+.btn-submit {
+    color: var(--branco-primario);
+    background-color: var(--azul);
+    border: none;
+    font-family: var(--fonte-principal);
+    font-size: 1.6rem;
+    font-weight: 500;
+    height: 5.8rem;
+    margin-top: 2.5rem;
+    width: 100%; 
+}
+
+.btn-submit:hover {
+    transform: all .3s;
+    border: .3rem solid var(--azul);
+    background-color: transparent;
+    color: var(--azul);
+    cursor: pointer;
+}
+
+.links-formulario {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5rem;
+}
+
+.links-formulario a {
+    color: var(--azul);
+    font-family: var(--fonte-principal);
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.links-formulario a:first-child {
+    padding-bottom: 1.2rem;
+}
+
+.links-formulario a:hover {
+    text-decoration: underline;
+    transition: all .3s;
+}

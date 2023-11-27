@@ -104,7 +104,7 @@ public class UsuarioService {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(email);
             message.setSubject("Redefinição de Senha");
-            message.setText("Olá! Clique no link a seguir para redefinir sua senha: http://localhost:8080/redefineSenha/" + link);
+            message.setText("Olá! Clique no link a seguir para redefinir sua senha: http://localhost:8080/alterar-senha?link=" + link + "&email=" + email);
 
             emailSender.send(message);
 
