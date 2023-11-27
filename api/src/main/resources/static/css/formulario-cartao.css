@@ -1,0 +1,91 @@
+.fomulario-adicionando-cartao {
+  color: var(--preto);
+  font-family: var(--fonte-principal);
+  width: 113.6rem;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.fomulario-adicionando-cartao form {
+  align-self: center;
+  height: 37rem;
+}
+
+.linha {
+  margin: 2.2rem 0;
+}
+
+.campo {
+  margin-top: 0;
+  width: 100%;
+}
+
+.campo label {
+  font-size: 1.6rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.campo input {
+  border: .05rem solid var(--cinza);
+  border-radius: .6rem;
+  width: 100%;
+}
+
+.campo input:focus {
+  transition: all .3s;
+  border: 0.05rem solid var(--azul);
+}
+
+.dados-cartao {
+  align-self: flex-start;
+  width: 43rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#mes-expiracao {
+  margin-right: 2.4rem;
+}
+
+#mes-expiracao, #ano-expiracao, #cvc {
+  width: 8.2rem;
+}
+
+.botoes {
+  align-self: flex-start;
+}
+
+.botoes a, .botoes button{
+  border-radius: 2.4rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding: .6rem 1rem;
+}
+
+.btn-cancelar {
+  background-color: var(--azul);
+  color: var(--branco-primario);
+  margin-right: 2rem;
+}
+
+.btn-cancelar:hover {
+  transition: all .3s;
+  background-color: var(--azul-btn-hover-1);
+}
+
+.btn-adicionar-cartao {
+  background-color: transparent;
+  color: var(--azul);
+  border: .1rem solid var(--azul);
+}
+
+.btn-adicionar-cartao:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover);
+}
