@@ -2,8 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnEnviarEmail = document.querySelector('.btn-submit');
   
     btnEnviarEmail.addEventListener('click', function() {
-      const email = document.querySelector('input[type="text"]').value;
-  
+      const email = document.querySelector('input[type="email"]').value;
       if (email.trim() !== '') {
         const data = { email };
   
