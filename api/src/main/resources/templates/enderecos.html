@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="images/book.svg" type="image/x-icon">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/livro.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <script src="js/livro.js" defer></script>
-    <title>ReadNow</title>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/header.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/enderecos.css">
+  <link rel="stylesheet" href="./css/footer.css">
+  <title>Seus endereços</title>
   </head>
 <body>
 
   <!--Cabeçalho-->
   <header class="cabecalho">
-    <a href="/"><img src="images/icons/logo.svg" alt="Logo" class="logo"></a>
+    <img src="images/icons/logo.svg" alt="Logo" class="logo">
     
     <div class="box-search">
       <input type="text" placeholder="O que deseja encontrar?" class="box-input">
@@ -54,35 +54,37 @@
   </header>
 
   <!--Main-->
-  <main>
+  <main class="main">
+    <section class="container enderecos">
 
-    <section class="livro">
-      <div class="livro-destaque">
-        <img src="" alt="Imagem do Produto" class="imagem-produto">
-      </div>
-    
-      <div class="detalhes-produto">
-        <h1 class="nome-livro"></h1>
-        <p class="preco"></p>
-        <p class="sinopse"></p>
-        <p class="disponibilidade">Em estoque</p>
-    
-        <div class="botoes">
-          <button class="comprar-agora">Compre agora</button>
-          <button class="adicionar-carrinho">Adicionar no carrinho</button>
-        </div>
-      </div>
-    </section>      
-
-    <section class="categorias-livros">
-
-      <div class="informacoes">
-        <h2 class="titulo">Produtos similares</h2>
+      <div class="titulo">
+        <h1>Seus endereços</h1>
       </div>
 
-      <ul class="lista-livros-acao">
+      <div class="linha"></div>
 
+      <ul class="lista-enderecos">
+
+        <li class="card-endereco">
+
+          <div class="detalhes-enderecos">
+            <h2 class="nome-destinatario">Nome do destinatário</h2>
+            <p class="endereco">endereco</p>
+            <p class="numero-complemento">Número, complemento</p>
+            <p class="bairro">Bairro</p>
+            <p class="localidade">Cidade, Estado</p>
+            <p class="telefone">Telefone: XXXXXXXXXXX</p>
+          </div>
+
+          <div class="botoes">
+            <button class="btn-editar">Editar</button>
+            <button class="btn-excluir">Excluir</button>
+          </div>
+        </li>
+          
       </ul>
+      
+      <a href="#" class="btn-adicionar-endereco">Adicionar outro endereço</a>
     </section>
 
   </main>
@@ -91,7 +93,7 @@
   <footer class="roda-pe">
     <ul>
       <li>
-        <img src="images/icons/logo.svg" alt="Logo">
+        <img src="../img/logo.svg" alt="Logo">
       </li>
       <li class="links">
         <a href="#" class="link-rodape">Quem somos nós</a>
@@ -108,20 +110,19 @@
       <li>
         <div class="redes-sociais">
           <a href="#">
-            <img src="images/icons/facebook-icon.svg" alt="Logo Facebook" class="icon-rede-social">
+            <img src="../img/facebook-icon.svg" alt="Logo Facebook" class="icon-rede-social">
           </a>
 
           <a href="#">
-            <img src="images/icons/twitter-icon.svg" alt="Logo Twitter" class="icon-rede-social">
+            <img src="../img/twitter-icon.svg" alt="Logo Twitter" class="icon-rede-social">
           </a>
 
           <a href="#">
-            <img src="images/icons/instagram-icon.svg" alt="" class="icon-rede-social">
+            <img src="../img/instagram-icon.svg" alt="" class="icon-rede-social">
           </a>
         </div>
       </li>
     </ul>
   </footer>
-  
 </body>
 </html>

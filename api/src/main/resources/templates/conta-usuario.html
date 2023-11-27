@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="images/book.svg" type="image/x-icon">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/livro.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <script src="js/livro.js" defer></script>
-    <title>ReadNow</title>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/conta-usuario.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <title>Sua conta</title>
   </head>
 <body>
 
   <!--Cabeçalho-->
   <header class="cabecalho">
-    <a href="/"><img src="images/icons/logo.svg" alt="Logo" class="logo"></a>
+    <img src="../img/logo.svg" alt="Logo" class="logo">
     
     <div class="box-search">
       <input type="text" placeholder="O que deseja encontrar?" class="box-input">
@@ -54,44 +54,77 @@
   </header>
 
   <!--Main-->
-  <main>
+  <main class="main">
+    <section class="container menu-usuario">
 
-    <section class="livro">
-      <div class="livro-destaque">
-        <img src="" alt="Imagem do Produto" class="imagem-produto">
-      </div>
-    
-      <div class="detalhes-produto">
-        <h1 class="nome-livro"></h1>
-        <p class="preco"></p>
-        <p class="sinopse"></p>
-        <p class="disponibilidade">Em estoque</p>
-    
-        <div class="botoes">
-          <button class="comprar-agora">Compre agora</button>
-          <button class="adicionar-carrinho">Adicionar no carrinho</button>
+      <h1 class="titulo-principal">Sua conta</h1>
+
+      <div class="opcoes">
+
+        <div class="card-opcao">
+
+          <div class="container-imagem">
+            <img src="images/icons/icone-seus-pedidos.svg" alt="Ícone da opção">
+          </div>
+
+          <p>Pedidos</p>
         </div>
+
+        <div class="card-opcao">
+
+          <div class="container-imagem">
+            <img src="images/icons/ouvidoria.svg" alt="Ícone da fale com a gente">
+          </div>
+
+          <p>Atendimento</p>
+        </div>
+
+        <div class="card-opcao">
+
+          <div class="container-imagem">
+            <img src="images/icons/endereços.svg" alt="Ícone da opção">
+          </div>
+
+          <p>Endereços</p>
+        </div>
+
+        <div class="card-opcao">
+
+          <div class="container-imagem">
+            <img src="images/icons/pagamentos.svg" alt="Ícone de pagamentos">
+          </div>
+
+          <p>Pagamentos</p>
+        </div>
+
+        <div class="card-opcao">
+
+          <div class="container-imagem">
+            <img src="images/icons/profile.svg" alt="Ícone de perfil do usuário">
+          </div>
+
+          <p>Perfil</p>
+        </div>
+
+        <div class="card-opcao">
+
+          <div class="container-imagem">
+            <img src="images/icons/sair.svg" alt="Ícone de sair">
+          </div>
+
+          <p>Sair</p>
+        </div>
+
       </div>
-    </section>      
 
-    <section class="categorias-livros">
-
-      <div class="informacoes">
-        <h2 class="titulo">Produtos similares</h2>
-      </div>
-
-      <ul class="lista-livros-acao">
-
-      </ul>
     </section>
-
   </main>
 
   <!--Rodapé-->
   <footer class="roda-pe">
     <ul>
       <li>
-        <img src="images/icons/logo.svg" alt="Logo">
+        <img src="../img/logo.svg" alt="Logo">
       </li>
       <li class="links">
         <a href="#" class="link-rodape">Quem somos nós</a>
@@ -122,6 +155,5 @@
       </li>
     </ul>
   </footer>
-  
 </body>
 </html>

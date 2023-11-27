@@ -1,0 +1,132 @@
+.carrinho-compras {
+  width: 113.6rem;
+}
+
+.titulo h1 {
+  padding-bottom: 2rem;
+}
+
+.card-itens-carrinho {
+  margin-top: 2.2rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 2.2rem;
+}
+
+.item-carrinho {
+  border: .05rem solid var(--cinza);
+  border-radius: .8rem;
+  width: 76.8rem;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+}
+
+.container-imagem {
+  width: 17.6rem;
+  margin-right: 3.2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.container-imagem img {
+  width: 12.2rem;
+}
+
+.direita {
+  width: 54.1rem;
+}
+
+.textos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.textos a:hover > h1.nome-livro {
+  transition: all .3s;
+  font-weight: 700;
+}
+
+.nome-livro, .preco {
+  color: var(--preto);
+  font-family: var(--fonte-principal);
+  font-size: 1.6rem;
+}
+
+.nome-livro {
+  font-weight: 500;
+}
+
+.preco {
+  font-weight: 700;
+}
+
+.classificacao {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: .8rem 0;
+}
+
+.disponibilidade {
+  font-family: var(--fonte-principal);
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.disponivel {
+  color: var(--verde);
+}
+
+.indisponivel {
+  color: var(--vermelho);
+}
+
+.botoes {
+  margin-top: 3.2rem;
+  width: 17.4rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#quantidade {
+  background-color: var(--azul);
+  border: none;
+  border-radius: 2.4rem;
+  color: var(--branco-primario);
+  font-family: var(--fonte-principal);
+  font-size: 1.2rem;
+  font-weight: 600;
+  outline: 0;
+  padding: .9rem 2rem;
+}
+
+#quantidade:hover {
+  cursor: pointer;
+}
+
+#quantidade option {
+  font-size: 1.8rem;
+}
+
+.btn-excluir {
+  background-color: transparent;
+  border: .2rem solid var(--azul);
+  border-radius: 2.4rem;
+  color: var(--azul);
+  font-family: var(--fonte-principal);
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: .9rem 2rem;
+}
+
+.btn-excluir:hover {
+  background-color: var(--azul-btn-hover);
+  cursor: pointer;
+  transition: all .3s;
+}

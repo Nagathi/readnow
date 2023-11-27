@@ -1,0 +1,103 @@
+.cartoes {
+  display: flex;
+  flex-direction: column;
+  width: 113.6rem;
+}
+
+.linha {
+  margin: 2.2rem 0;
+}
+
+.lista-cartoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 2.2rem;
+}
+
+.card-cartao {
+  border-radius: .8rem;
+  border: .05rem solid var(--cinza);
+  padding: 2rem 2.4rem;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.detalhes-cartao {
+  width: 21rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: .3rem;
+}
+
+.detalhes-cartao h2, .detalhes-cartao p {
+  color: var(--preto);
+  font-family: var(--fonte-principal);
+}
+
+.detalhes-cartao h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.detalhes-cartao p {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.botoes {
+  align-self: flex-end;
+  width: 11.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.botoes button {
+  font-family: var(--fonte-principal);
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 2.4rem;
+  padding: .5rem 1rem;
+}
+
+.btn-editar {
+  background-color: var(--azul);
+  color: var(--branco-primario);
+  border: none;
+}
+
+.btn-editar:hover {
+  background-color: var(--azul-btn-hover-1);
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.btn-excluir {
+  color: var(--azul);
+  border: .1rem solid var(--azul);
+}
+
+.btn-excluir:hover {
+  background-color: var(--azul-btn-hover);
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.btn-adicionar-cartao {
+  font-family: var(--fonte-principal);
+  font-size: 1.2rem;
+  color: var(--branco-primario);
+  font-weight: 500;
+  padding: .8rem 3rem;
+  background-color: var(--azul);
+  border-radius: 2.4rem;
+  align-self: center;
+  margin-top: 3.6rem;
+}
+
+.btn-adicionar-cartao:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover-1);
+}

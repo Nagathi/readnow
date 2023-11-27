@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="images/book.svg" type="image/x-icon">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/livro.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <script src="js/livro.js" defer></script>
-    <title>ReadNow</title>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/central-ajuda.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <title>Sua conta</title>
   </head>
 <body>
 
   <!--Cabeçalho-->
   <header class="cabecalho">
-    <a href="/"><img src="images/icons/logo.svg" alt="Logo" class="logo"></a>
+    <img src="images/icons//logo.svg" alt="Logo" class="logo">
     
     <div class="box-search">
       <input type="text" placeholder="O que deseja encontrar?" class="box-input">
       <button class="button-search">
-        <img src="images/icons/lupa.png" alt="Lupa">
+        <img src="images/icons//lupa.png" alt="Lupa">
       </button>
     </div>
 
@@ -54,37 +54,78 @@
   </header>
 
   <!--Main-->
-  <main>
+  <main class="main">
+    <section class="container central-ajuda">
 
-    <section class="livro">
-      <div class="livro-destaque">
-        <img src="" alt="Imagem do Produto" class="imagem-produto">
+      <div class="titulo">
+        <h1>Você precisa de ajuda com qual pedido?</h1>
+        <p>Escolha um pedido ou obtenha ajuda com outra coisa</p>
       </div>
-    
-      <div class="detalhes-produto">
-        <h1 class="nome-livro"></h1>
-        <p class="preco"></p>
-        <p class="sinopse"></p>
-        <p class="disponibilidade">Em estoque</p>
-    
-        <div class="botoes">
-          <button class="comprar-agora">Compre agora</button>
-          <button class="adicionar-carrinho">Adicionar no carrinho</button>
+
+      <div class="linha"></div>
+
+      <div class="container-pedidos">
+
+        <div class="card-pedido-feito">
+
+          <div class="container-imagem">
+            <img src="images/icons/imagem_produto.png" alt="Imagem do livro">
+          </div>
+
+          <div class="textos">
+            <h2>Produto XYZ</h2>
+            <p>Pedido em "dia" "mês" de "ano"</p>
+          </div>
+
         </div>
+
+        <div class="card-pedido-feito">
+
+          <div class="container-imagem">
+            <img src="images/icons/imagem_produto.png" alt="Imagem do livro">
+          </div>
+
+          <div class="textos">
+            <h2>Produto XYZ</h2>
+            <p>Pedido em "dia" "mês" de "ano"</p>
+          </div>
+
+        </div>
+
+        <div class="card-pedido-feito">
+
+          <div class="container-imagem">
+            <img src="images/icons/img/imagem_produto.png" alt="Imagem do livro">
+          </div>
+
+          <div class="textos">
+            <h2>Produto XYZ</h2>
+            <p>Pedido em "dia" "mês" de "ano"</p>
+          </div>
+
+        </div>
+
+        <div class="card-pedido-feito">
+
+          <div class="container-imagem">
+            <img src="images/icons/imagem_produto.png" alt="Imagem do livro">
+          </div>
+
+          <div class="textos">
+            <h2>Produto XYZ</h2>
+            <p>Pedido em "dia" "mês" de "ano"</p>
+          </div>
+
+        </div>
+
       </div>
-    </section>      
 
-    <section class="categorias-livros">
-
-      <div class="informacoes">
-        <h2 class="titulo">Produtos similares</h2>
+      <div class="botoes">
+        <button class="btn-mostrar-mais">Mostrar mais pedidos</button>
+        <button class="btn-ajuda-outra-coisa">Ajuda com outra coisa</button>
       </div>
 
-      <ul class="lista-livros-acao">
-
-      </ul>
     </section>
-
   </main>
 
   <!--Rodapé-->
@@ -122,6 +163,5 @@
       </li>
     </ul>
   </footer>
-  
 </body>
 </html>

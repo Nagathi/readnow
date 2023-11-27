@@ -1,0 +1,104 @@
+.central-ajuda {
+  min-width: 113.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titulo {
+  align-self: flex-start;
+}
+
+.titulo h1, .titulo p, .textos h2, .textos p {
+  font-family: var(--fonte-principal);
+  color: var(--preto);
+}
+
+.titulo h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.titulo p {
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding-bottom: 2rem;
+  padding-top: 1.2rem;
+}
+
+.container-pedidos {
+  margin: 2.8rem 0;
+  width: 86.8rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 2.5rem;
+}
+
+.card-pedido-feito {
+  align-items: center;
+  border: .05rem solid var(--cinza);
+  display: flex;
+  width: 42rem;
+  border-radius: .8rem;
+}
+
+.card-pedido-feito:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover);
+}
+
+.container-imagem {
+  height: 12rem;
+  margin-right: 2rem;
+}
+
+.container-imagem img {
+  height: 100%;
+}
+
+.textos h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.textos p {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.btn-mostrar-mais, .btn-ajuda-outra-coisa {
+  border: none;
+  border-radius: 2.4rem;
+  font-family: var(--fonte-principal);
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 1rem;
+}
+
+.btn-mostrar-mais {
+  background-color: var(--azul);
+  border: .2rem solid transparent;
+  color: var(--branco-primario);
+  margin-right: 1.2rem;
+}
+
+.btn-ajuda-outra-coisa {
+  color: var(--azul);
+  background-color: transparent;
+  border: .2rem solid var(--azul);
+}
+
+.btn-mostrar-mais:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover-1);
+}
+
+.btn-ajuda-outra-coisa:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover);
+}

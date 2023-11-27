@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fetch(`/livros/${categoria}`)
         .then(response => response.json())
         .then(produtosSimilares => {
-          const listaLivros = document.querySelector('.lista-livros');
+          const listaLivros = document.querySelector('.lista-livros-acao');
 
           const produtosExibidos = produtosSimilares
             .filter(produto => produto.codigo !== Number(codigoLivro))
