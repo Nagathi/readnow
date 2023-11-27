@@ -34,4 +34,9 @@ public class HtmlController {
     public String alterarSenha() {
         return "formulario-senha";
     }
+
+    @GetMapping("/cadastrado")
+    public String usuarioCadastrado() {
+        return "agradecimento-cadastro";
+    }
 }
