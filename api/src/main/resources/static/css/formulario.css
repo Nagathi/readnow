@@ -99,3 +99,13 @@ main {
   text-decoration: underline;
   transition: all .3s;
 }
+.titulo-agradecimento{
+  color: #2A7AE4;
+  font-family: var(--fonte-principal);
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+.img-agradecimento{
+  height: 16.9rem;
+}
