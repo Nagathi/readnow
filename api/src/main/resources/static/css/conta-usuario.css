@@ -1,15 +1,4 @@
-.main {
-  padding: 6.4rem;
-  background-color: var(--branco-secundario);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .menu-usuario {
-  background-color: var(--branco-primario);
-  padding: 2.8rem;
-  border-radius: .8rem;
   max-width: 43.5rem;
 }
 

@@ -5,25 +5,9 @@
   align-items: center;
 }
 
-.titulo {
-  align-self: flex-start;
-}
-
-.titulo h1, .titulo p, .textos h2, .textos p {
+.textos h2, .textos p {
   font-family: var(--fonte-principal);
   color: var(--preto);
-}
-
-.titulo h1 {
-  font-size: 2.4rem;
-  font-weight: 700;
-}
-
-.titulo p {
-  font-size: 1.6rem;
-  font-weight: 600;
-  padding-bottom: 2rem;
-  padding-top: 1.2rem;
 }
 
 .container-pedidos {
