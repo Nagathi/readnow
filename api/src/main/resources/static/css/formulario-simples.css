@@ -1,0 +1,39 @@
+.formulario-simples {
+  color: var(--preto);
+  font-family: var(--fonte-principal);
+  width: 113.6rem;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+.linha {
+  margin: 2.2rem 0;
+}
+
+.campo {
+  margin-top: 0;
+  width: 100%;
+}
+
+.campo label {
+  font-size: 1.6rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.campo input {
+  border: .05rem solid var(--cinza);
+  border-radius: .6rem;
+  width: 100%;
+}
+
+.campo input:focus {
+  transition: all .3s;
+  border: 0.05rem solid var(--azul);
+}
+
+.botoes {
+  align-self: flex-start;
+}

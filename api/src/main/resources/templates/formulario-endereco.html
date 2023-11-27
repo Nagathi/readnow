@@ -8,16 +8,16 @@
   <link rel="stylesheet" href="./css/header.css">
   <link rel="stylesheet" href="./css/main.css">
   <link rel="stylesheet" href="./css/formulario.css">
-  <link rel="stylesheet" href="../css/formulario-simples.css">
-  <link rel="stylesheet" href="./css/formulario-cartao.css">
+  <link rel="stylesheet" href="./css/formulario-simples.css">
+  <link rel="stylesheet" href="./css/formulario-endereco.css">
   <link rel="stylesheet" href="./css/footer.css">
-  <title>Sua carteira</title>
+  <title>Seus endereços</title>
   </head>
 <body>
 
   <!--Cabeçalho-->
   <header class="cabecalho">
-    <img src="images/icons/logo.svg" alt="Logo" class="logo">
+    <img src="images/icons/img/logo.svg" alt="Logo" class="logo">
     
     <div class="box-search">
       <input type="text" placeholder="O que deseja encontrar?" class="box-input">
@@ -57,10 +57,10 @@
 
   <!--Main-->
   <main class="main">
-    <section class="container fomulario-adicionando-cartao">
+    <section class="container formulario-simples fomulario-adicionando-endereco">
 
       <div class="titulo">
-        <h1>Adicione um novo cartão de crédito</h1>
+        <h1>Adicionar novo endereço</h1>
       </div>
 
       <div class="linha"></div>
@@ -68,41 +68,51 @@
       <form action="" id="formulario-1">
 
         <div class="campo">
-          <label for="nome">Nome do cartão</label>
+          <label for="nome">Nome completo (nome sobrenome)</label>
           <input type="text" name="nome" id="nome" placeholder="Ex: Jane Appleseed" required>
         </div>
 
         <div class="campo">
-          <label for="numero-cartao">Número do cartão</label>
-          <input type="text" name="numero-cartao" id="numero-cartao" placeholder="Ex: 0000 0000 0000 0000" maxlength="16" required>
+          <label for="numero-telefone">Número do cartão</label>
+          <input type="text" name="numero-telefone" id="numero-cartao" placeholder="(XX) XXXXX-XXXX" maxlength="16" required>
         </div>
 
-        <div class="dados-cartao">
-
-          <div class="validade-cartao">
-
-            <div class="campo">
-              <label for="data-expiracao">Data de expiração (MM/AA)</label>
-              <input type="text" name="mes-expiracao" id="mes-expiracao" placeholder="MM" maxlength="2" required>
-
-              <input type="text" name="ano-expiracao" id="ano-expiracao" placeholder="AA" maxlength="2" required>
-            </div>
-
-          </div>
-
-          <div class="codigo-cvc">
-            <div class="campo">
-              <label for="cvc">CVC</label>
-              <input type="text" name="cvc" id="cvc" placeholder="CVC" maxlength="3" required>
-            </div>
-          </div>
-
+        <div class="campo">
+          <label for="cep">CEP (somente números)</label>
+          <input type="text" name="cep" id="cep" placeholder="XXXXX-XXXX" maxlength="8" required>
         </div>
 
-        <div class="botoes">
-          <a href="#" class="btn-cancelar">Cancelar</a>
-          <button type="submit" class="btn-adicionar-cartao">Adicionar cartão</button>
+        <div class="campo">
+          <label for="endereco">Endereço</label>
+          <input type="text" name="endereco" id="endereco" required>
         </div>
+
+        <div class="campo">
+          <label for="numero-residencia">Número da residência</label>
+          <input type="text" name="numero-residencia" id="numero-residencia" required>
+        </div>
+
+        <div class="campo">
+          <label for="complemento">Complemento (Opcional)</label>
+          <input type="text" name="complemento" id="complemento">
+        </div>
+
+        <div class="campo">
+          <label for="bairro">Bairro</label>
+          <input type="text" name="bairro" id="bairro">
+        </div>
+
+        <div class="campo">
+          <label for="cidade">Cidade</label>
+          <input type="text" name="cidade" id="cidade" required>
+        </div>
+
+        <div class="campo">
+          <label for="estado">Estado</label>
+          <input type="text" name="estado" id="estado" required>
+        </div>
+
+        <button type="submit" class="btn-adicionar-endereco">Adicionar cartão</button>
 
       </form>
 
