@@ -4,10 +4,11 @@ const linkParam = urlParams.get('link');
 const emailParam = urlParams.get('email');
 
 if (linkParam && emailParam) {
-    fetch(`alterarq-senha/${linkParam}`)
+    fetch(`redefine-senha/${linkParam}`)
         .then(response => {
             if (response.ok) {
             } else {
+                console.log(response)
                 console.error('Link inválido. Redirecionando para outra página.');
                 window.location.href = '/';
             }

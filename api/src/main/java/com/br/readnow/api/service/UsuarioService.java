@@ -57,34 +57,35 @@ public class UsuarioService {
 
 
     public ResponseEntity<?> login(LoginDTO login) {
-        // Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmailAndSenha(login.email(),
-        //         login.senha());
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmailAndSenha(login.email(),
+                login.senha());
 
-        // if (usuarioOptional.isEmpty()) {
-        //     return ResponseEntity.notFound().build();
-        // } else {
+        if (usuarioOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
             var usernamePassword = new UsernamePasswordAuthenticationToken(login.email(), login.senha());
             var authentication = this.authenticationManager.authenticate(usernamePassword);
 
             var token = tokenService.gerarToken((UsuarioModel)authentication.getPrincipal());
-            // if (authRepository.existsByUsuario(usuarioOptional.get())) {
-            //     authRepository.expireSession(usuarioOptional.get());
-            // }
+            if (authRepository.existsByUsuario(usuarioOptional.get())) {
+                authRepository.expireSession(usuarioOptional.get());
+            }
 
-            // AuthModel auth = new AuthModel();
-            // auth.setUsuario(usuarioOptional.get());
-            // auth.setExpirado(false);
-            // auth.setUuid(UUID.randomUUID().toString());
-            // authRepository.save(auth);
+            AuthModel auth = new AuthModel();
+            auth.setUsuario(usuarioOptional.get());
+            auth.setExpirado(false);
+            auth.setUuid(UUID.randomUUID().toString());
+            authRepository.save(auth);
 
-            // UsuarioDTO usuarioDTO = new UsuarioDTO();
-            // usuarioDTO.setNome(usuarioOptional.get().getNome());
-            // usuarioDTO.setId(auth.getUuid());
-            // usuarioDTO.setTipo(usuarioOptional.get().getRole());
+            UsuarioDTO usuarioDTO = new UsuarioDTO();
+            usuarioDTO.setNome(usuarioOptional.get().getNome());
+            usuarioDTO.setId(auth.getUuid());
+            usuarioDTO.setTipo(usuarioOptional.get().getRole());
 
             return ResponseEntity.ok(new LoginResponseDTO(token));
+        }
 
-        // }
+        
     }
 
     public ResponseEntity<?> cadastrarUsuario(UsuarioModel usuario) {
@@ -125,6 +126,7 @@ public class UsuarioService {
             LinkModel novoLink = new LinkModel();
 
             novoLink.setLink(link);
+            novoLink.setUsuario(usuarioOptional.get());
 
             LocalDateTime expiracao = LocalDateTime.now().plus(15, ChronoUnit.MINUTES);
             novoLink.setCriadoEm(expiracao);
