@@ -20,7 +20,7 @@ function efetuarCadastro() {
       body: JSON.stringify(data),
     }).then(response => {
       if(response.ok){
-        alert("Cadastro realizado")
+        window.location.href = '/cadastrado';
       }else{
         alert("Ocorreu um erro ao processar o cadastro")
       }

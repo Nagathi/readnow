@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/header.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/formulario.css">
+  <link rel="stylesheet" href="../css/formulario-simples.css">
+  <link rel="stylesheet" href="./css/formulario-cartao.css">
+  <link rel="stylesheet" href="./css/footer.css">
+  <title>Sua carteira</title>
+  </head>
+<body>
+
+  <!--Cabeçalho-->
+  <header class="cabecalho">
+    <img src="images/icons/logo.svg" alt="Logo" class="logo">
+    
+    <div class="box-search">
+      <input type="text" placeholder="O que deseja encontrar?" class="box-input">
+      <button class="button-search">
+        <img src="images/icons/lupa.png" alt="Lupa">
+      </button>
+    </div>
+
+    <nav class="opcoes">
+      <button class="item">
+        <a href="#">
+          <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Sua conta</span>
+        </a>
+      </button>
+
+      <button class="item">
+        <a href="#">
+          <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Ouvidoria</span>
+        </a>
+      </button>
+
+      <button class="item" id="carrinho-compras">
+        <a href="#">
+          <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Carrinho</span>
+
+          <div class="produtos-carrinho">
+            <span class="quantidade">9</span>
+            <span class="simbolo-mais">+</span>
+          </div>
+        </a>
+      </button>
+    </nav>
+  </header>
+
+  <!--Main-->
+  <main class="main">
+    <section class="container fomulario-adicionando-cartao">
+
+      <div class="titulo">
+        <h1>Adicione um novo cartão de crédito</h1>
+      </div>
+
+      <div class="linha"></div>
+
+      <form action="" id="formulario-1">
+
+        <div class="campo">
+          <label for="nome">Nome do cartão</label>
+          <input type="text" name="nome" id="nome" placeholder="Ex: Jane Appleseed" required>
+        </div>
+
+        <div class="campo">
+          <label for="numero-cartao">Número do cartão</label>
+          <input type="text" name="numero-cartao" id="numero-cartao" placeholder="Ex: 0000 0000 0000 0000" maxlength="16" required>
+        </div>
+
+        <div class="dados-cartao">
+
+          <div class="validade-cartao">
+
+            <div class="campo">
+              <label for="data-expiracao">Data de expiração (MM/AA)</label>
+              <input type="text" name="mes-expiracao" id="mes-expiracao" placeholder="MM" maxlength="2" required>
+
+              <input type="text" name="ano-expiracao" id="ano-expiracao" placeholder="AA" maxlength="2" required>
+            </div>
+
+          </div>
+
+          <div class="codigo-cvc">
+            <div class="campo">
+              <label for="cvc">CVC</label>
+              <input type="text" name="cvc" id="cvc" placeholder="CVC" maxlength="3" required>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="botoes">
+          <a href="#" class="btn-cancelar">Cancelar</a>
+          <button type="submit" class="btn-adicionar-cartao">Adicionar cartão</button>
+        </div>
+
+      </form>
+
+      
+    </section>
+
+  </main>
+
+  <!--Rodapé-->
+  <footer class="roda-pe">
+    <ul>
+      <li>
+        <img src="../img/logo.svg" alt="Logo">
+      </li>
+      <li class="links">
+        <a href="#" class="link-rodape">Quem somos nós</a>
+        <a href="#" class="link-rodape">Política de privacidade</a>
+      </li>
+      <li class="links">
+        <a href="#" class="link-rodape">Programa de fidelidade</a> 
+        <a href="#" class="link-rodape">Atendimento ao cliente</a>
+      </li>
+      <li class="links">
+        <a href="#" class="link-rodape">Quero ser franqueado</a> 
+        <a href="#" class="link-rodape">Anuncie aqui</a>
+      </li>
+      <li>
+        <div class="redes-sociais">
+          <a href="#">
+            <img src="images/icons/facebook-icon.svg" alt="Logo Facebook" class="icon-rede-social">
+          </a>
+
+          <a href="#">
+            <img src="images/icons/twitter-icon.svg" alt="Logo Twitter" class="icon-rede-social">
+          </a>
+
+          <a href="#">
+            <img src="images/icons/instagram-icon.svg" alt="" class="icon-rede-social">
+          </a>
+        </div>
+      </li>
+    </ul>
+  </footer>
+</body>
+</html>

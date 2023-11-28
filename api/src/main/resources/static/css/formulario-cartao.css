@@ -1,0 +1,51 @@
+.fomulario-adicionando-cartao form {
+  align-self: center;
+  height: 37rem;
+}
+
+.dados-cartao {
+  align-self: flex-start;
+  width: 43rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#mes-expiracao {
+  margin-right: 2.4rem;
+}
+
+#mes-expiracao, #ano-expiracao, #cvc {
+  width: 8.2rem;
+}
+
+.botoes a, .botoes button{
+  border-radius: 2.4rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding: .6rem 1rem;
+}
+
+.btn-cancelar {
+  background-color: var(--azul);
+  color: var(--branco-primario);
+  margin-right: 2rem;
+}
+
+.btn-cancelar:hover {
+  transition: all .3s;
+  background-color: var(--azul-btn-hover-1);
+}
+
+.btn-adicionar-cartao {
+  background-color: transparent;
+  color: var(--azul);
+  border: .1rem solid var(--azul);
+}
+
+.btn-adicionar-cartao:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover);
+}
