@@ -23,13 +23,13 @@
   margin-bottom: 1rem;
 }
 
-.campo input {
+.campo input, .campo textarea {
   border: .05rem solid var(--cinza);
   border-radius: .6rem;
   width: 100%;
 }
 
-.campo input:focus {
+.campo input:focus, .campo textarea {
   transition: all .3s;
   border: 0.05rem solid var(--azul);
 }

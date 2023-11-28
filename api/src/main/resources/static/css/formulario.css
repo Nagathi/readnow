@@ -39,7 +39,7 @@ main {
   margin-top: 2.5rem;
 }
 
-.campo input {
+.campo input, .campo textarea {
   color: var(--preto);
   border: none;
   border-radius: .8rem .8rem 0 0;
@@ -52,7 +52,7 @@ main {
   border-bottom: .25rem solid var(--cinza);
 }
 
-.campo input:focus {
+.campo input:focus, campo textarea {
   border-bottom: .25rem solid var(--azul);
   transition: all .3s;
 }
@@ -98,14 +98,4 @@ main {
 .links-fomulario a:hover {
   text-decoration: underline;
   transition: all .3s;
-}
-.titulo-agradecimento{
-  color: #2A7AE4;
-  font-family: var(--fonte-principal);
-  font-size: 1.8rem;
-  font-weight: 700;
-  text-align: center;
-}
-.img-agradecimento{
-  height: 16.9rem;
 }

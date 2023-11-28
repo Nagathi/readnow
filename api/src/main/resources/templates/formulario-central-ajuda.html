@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/icons/book.svgbook.svg" type="image/x-icon">
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/header.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/formulario.css">
+  <link rel="stylesheet" href="./css/formulario-simples.css">
+  <link rel="stylesheet" href="./css/formulario-central-ajuda.css">
+  <link rel="stylesheet" href="../css/footer.css">
+  <script defer src="./js/formulario-central-ajuda.js"></script>
+  <title>Ajuda ReadNow</title>
+  </head>
+<body>
+
+  <!--Cabeçalho-->
+  <header class="cabecalho">
+    <img src="images/icons/book.svglogo.svg" alt="Logo" class="logo">
+    
+    <div class="box-search">
+      <input type="text" placeholder="O que deseja encontrar?" class="box-input">
+      <button class="button-search">
+        <img src="images/icons/book.svglupa.png" alt="Lupa">
+      </button>
+    </div>
+
+    <nav class="opcoes">
+      <button class="item">
+        <a href="#">
+          <img src="images/icons/book.svguser.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Sua conta</span>
+        </a>
+      </button>
+
+      <button class="item">
+        <a href="#">
+          <img src="images/icons/book.svgouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Ouvidoria</span>
+        </a>
+      </button>
+
+      <button class="item" id="carrinho-compras">
+        <a href="#">
+          <img src="images/icons/book.svgiconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Carrinho</span>
+
+          <div class="produtos-carrinho">
+            <span class="quantidade">9</span>
+            <span class="simbolo-mais">+</span>
+          </div>
+        </a>
+      </button>
+    </nav>
+  </header>
+
+  <!--Main-->
+  <main class="main">
+    <section class="container formulario-simples fomulario-adicionando-endereco">
+
+      <div class="titulo">
+        <h1>Qual é o seu problema?</h1>
+      </div>
+
+      <div class="linha"></div>
+
+      <div class="card-livro">
+        <div class="container-imagem">
+          <img src="images/icons/book.svgimagem_produto.png" alt="Produto com problema">
+        </div>
+
+        <div class="descricao-produto">
+          <h2>Produto</h2>
+          <p>Pedido em dia mês de ano</p>
+        </div>
+      </div>
+
+      <form action="" id="formulario-1">
+
+        <div class="campo">
+          <label for="titulo-historia">Título da história</label>
+          <input type="text" name="titulo-historia" id="titulo-historia" placeholder="Resuma em poucas palavras seu problema" required>
+        </div>
+
+        <div class="campo">
+          <label for="descricao-problema">Conte a sua história</label>
+          <textarea name="descricao-problema" id="descricao-problema" cols="20" rows="8" placeholder="Descreva o seu problema..." required></textarea>
+        </div>
+
+        
+
+        <div class="campo">
+          <p class="label-tipo-problema">Selecione uma das opções</p>
+
+          <nav class="lista-problemas">
+            <div id="selecionado" class="problema">Atraso na Entrega</div>
+            <div class="problema">Encomenda não recebida</div>
+            <div class="problema">Status de entrega não atualizado</div>
+            <div class="problema">Recebi um item errado</div>
+            <div class="problema">Entrega no endereço errado</div>
+            <div class="problema">Estorno do valor pago</div>
+            <div class="problema">Produto danificado ou com defeito</div>
+            <div class="problema">Inicializar uma devolução</div>
+            <div class="problema">Cancelar pedido</div>
+            <div class="problema">Alterar endereço de entrega</div>
+            <div class="problema">Outro</div>
+          </nav>
+
+        </div>
+
+        <button type="submit" class="btn-submit">Enviar</button>
+
+      </form>
+
+    </section>
+
+  </main>
+
+  <!--Rodapé-->
+  <footer class="roda-pe">
+    <ul>
+      <li>
+        <img src="../img/logo.svg" alt="Logo">
+      </li>
+      <li class="links">
+        <a href="#" class="link-rodape">Quem somos nós</a>
+        <a href="#" class="link-rodape">Política de privacidade</a>
+      </li>
+      <li class="links">
+        <a href="#" class="link-rodape">Programa de fidelidade</a> 
+        <a href="#" class="link-rodape">Atendimento ao cliente</a>
+      </li>
+      <li class="links">
+        <a href="#" class="link-rodape">Quero ser franqueado</a> 
+        <a href="#" class="link-rodape">Anuncie aqui</a>
+      </li>
+      <li>
+        <div class="redes-sociais">
+          <a href="#">
+            <img src="images/icons/book.svgfacebook-icon.svg" alt="Logo Facebook" class="icon-rede-social">
+          </a>
+
+          <a href="#">
+            <img src="images/icons/book.svgtwitter-icon.svg" alt="Logo Twitter" class="icon-rede-social">
+          </a>
+
+          <a href="#">
+            <img src="images/icons/book.svginstagram-icon.svg" alt="" class="icon-rede-social">
+          </a>
+        </div>
+      </li>
+    </ul>
+  </footer>
+</body>
+</html>

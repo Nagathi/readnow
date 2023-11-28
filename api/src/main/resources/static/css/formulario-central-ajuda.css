@@ -1,0 +1,88 @@
+.card-livro {
+  align-self: center;
+  align-items: center;
+  border: .05rem solid var(--cinza);
+  border-radius: .8rem;
+  display: flex;
+  height: 10rem;
+  margin-bottom: 4rem;
+  width: 42rem; 
+}
+
+.container-imagem {
+  height: 100%;
+  width: 10.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2.2rem;
+}
+
+.container-imagem img {
+  height: 100%;
+}
+
+.descricao-produto h2, .descricao-produto p {
+  font-family: var(--fonte-principal);
+  color: var(--preto);
+}
+
+.descricao-produto h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.descricao-produto p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.fomulario-adicionando-endereco form {
+  align-self: center;
+  height: 66.4rem;
+} 
+
+.tipo-problema {
+  align-self: flex-start;
+}
+
+.label-tipo-problema {
+  color: var(--preto);
+  font-family: var(--fonte-principal);
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-bottom: 1rem
+}
+
+.lista-problemas {
+  border: .05rem solid var(--cinza);
+  border-radius: .8rem;
+  column-gap: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2.2rem;
+  row-gap: 1.2rem;
+}
+
+.problema {
+  font-family: var(--fonte-principal);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--azul);
+  padding: .8rem 1.2rem;
+  border: .1rem solid var(--azul);  
+  border-radius: 2.4rem;
+}
+
+.problema:hover {
+  cursor: pointer;
+  background-color: var(--azul-btn-hover);
+  transition: all .3s;
+}
+
+#selecionado {
+  color: var(--branco-primario);
+  background-color: var(--azul);
+  transition: all .3s;
+}
