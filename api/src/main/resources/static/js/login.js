@@ -26,10 +26,13 @@ function efetuarLogin() {
     if (response.ok) {
       modalMessage.textContent = "Login efetuado com sucesso!";
       modal.style.display = "block";
+      // window.location.href = "/";
+
     } else {
       modalMessage.textContent = "Erro ao efetuar login. Email ou senha incorretos.";
       modal.style.display = "block";
     }
+   
   })
   .catch(error => {
     modalMessage.textContent = "Ocorreu um erro ao processar a solicitação.";

@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.br.readnow.api.model.UsuarioModel;
 import com.br.readnow.api.service.UsuarioService;
+
+import jakarta.validation.Valid;
+
 import com.br.readnow.api.dto.EmailDTO;
 import com.br.readnow.api.dto.LoginDTO;
 import com.br.readnow.api.dto.RequestNovaSenhaDTO;
-import com.br.readnow.api.dto.UsuarioDTO;
 
 @RestController
 public class UsuarioController {
@@ -22,14 +24,14 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping("/efetua-login")
-    public ResponseEntity<UsuarioDTO> efetuarLogin(@RequestBody LoginDTO login){
+    public ResponseEntity<?> efetuarLogin(@RequestBody @Valid LoginDTO login){
         return usuarioService.login(login);
     }
 
 
     @PostMapping("/efetua-cadastro")
-    public ResponseEntity<?> cadastrarUsuario(@RequestBody UsuarioModel usuario){
-        return usuarioService. cadastrarUsuario(usuario);
+    public ResponseEntity<?> cadastrarUsuario(@RequestBody @Valid UsuarioModel usuarioModel){
+        return usuarioService. cadastrarUsuario(usuarioModel);
     }
 
     @PostMapping("/envia-email")

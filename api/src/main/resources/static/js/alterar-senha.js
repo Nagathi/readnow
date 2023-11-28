@@ -4,7 +4,7 @@ const linkParam = urlParams.get('link');
 const emailParam = urlParams.get('email');
 
 if (linkParam && emailParam) {
-    fetch(`redefine-senha/${linkParam}`)
+    fetch(`alterarq-senha/${linkParam}`)
         .then(response => {
             if (response.ok) {
             } else {

@@ -11,13 +11,13 @@ import com.br.readnow.api.service.AuthService;
 
 @RestController
 public class AuthController {
-
     @Autowired
     private AuthService authService;
-
+  
     @GetMapping("/autenticacao")
     public ResponseEntity<UsuarioDTO> autenticarPorUUID(@RequestParam(value = "id") String id){
         return authService.verificarUUID(id);
     }
+
 
 }
