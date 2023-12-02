@@ -16,7 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.br.readnow.api.dto.LoginDTO;
-import com.br.readnow.api.dto.LoginResponseDTO;
 import com.br.readnow.api.dto.RedefinirSenhaDTO;
 import com.br.readnow.api.dto.RequestNovaSenhaDTO;
 import com.br.readnow.api.dto.UsuarioDTO;
@@ -54,38 +53,27 @@ public class UsuarioService {
     @Autowired
     private TokenService tokenService;
 
-
-
     public ResponseEntity<?> login(LoginDTO login) {
-        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmailAndSenha(login.email(),
-                login.senha());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(login.email(), login.senha());
+        var authentication = this.authenticationManager.authenticate(usernamePassword);
 
-        if (usuarioOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            var usernamePassword = new UsernamePasswordAuthenticationToken(login.email(), login.senha());
-            var authentication = this.authenticationManager.authenticate(usernamePassword);
+        var token = tokenService.gerarToken((UsuarioModel) authentication.getPrincipal());
 
-            var token = tokenService.gerarToken((UsuarioModel)authentication.getPrincipal());
-            if (authRepository.existsByUsuario(usuarioOptional.get())) {
-                authRepository.expireSession(usuarioOptional.get());
-            }
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(login.email());
 
-            AuthModel auth = new AuthModel();
-            auth.setUsuario(usuarioOptional.get());
-            auth.setExpirado(false);
-            auth.setUuid(UUID.randomUUID().toString());
-            authRepository.save(auth);
+        AuthModel auth = new AuthModel();
+        auth.setUsuario(usuarioOptional.get());
+        auth.setExpirado(false);
+        auth.setUuid(token);
+        authRepository.save(auth);
 
-            UsuarioDTO usuarioDTO = new UsuarioDTO();
-            usuarioDTO.setNome(usuarioOptional.get().getNome());
-            usuarioDTO.setId(auth.getUuid());
-            usuarioDTO.setTipo(usuarioOptional.get().getRole());
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setNome(usuarioOptional.get().getNome());
+        usuarioDTO.setTipo(usuarioOptional.get().getRole());
+        usuarioDTO.setToken(auth.getUuid());
 
-            return ResponseEntity.ok(new LoginResponseDTO(token));
-        }
+        return ResponseEntity.ok(usuarioDTO);
 
-        
     }
 
     public ResponseEntity<?> cadastrarUsuario(UsuarioModel usuario) {
@@ -106,7 +94,7 @@ public class UsuarioService {
 
             UsuarioDTO usuarioDTO = new UsuarioDTO();
             usuarioDTO.setNome(usuario.getNome());
-            usuarioDTO.setId(auth.getUuid());
+            usuarioDTO.setToken(auth.getUuid());
             usuarioDTO.setTipo(usuario.getRole());
 
             CarrinhoModel carrinhoModel = new CarrinhoModel();

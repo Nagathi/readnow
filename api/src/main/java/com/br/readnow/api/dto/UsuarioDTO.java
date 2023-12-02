@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class UsuarioDTO {
     private String nome;
-    private String id;
+    private String token;
     private UserRoleModel tipo;
 }

@@ -24,9 +24,9 @@ function efetuarLogin() {
     body: JSON.stringify(data),
   }).then(response => {
     if (response.ok) {
-      modalMessage.textContent = "Login efetuado com sucesso!";
-      modal.style.display = "block";
-      // window.location.href = "/";
+      // modalMessage.textContent = "Login efetuado com sucesso!";
+      // modal.style.display = "block";
+      window.location.href = "/";
 
     } else {
       modalMessage.textContent = "Erro ao efetuar login. Email ou senha incorretos.";
