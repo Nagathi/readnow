@@ -7,9 +7,11 @@
 
     connectedCallback() {
       this.innerHTML = `
-      
+
         <header class="cabecalho">
-          <img src="images/icons/logo.svg" alt="Logo" class="logo">
+          <a href="/">
+            <img src="images/icons/logo.svg" alt="Logo" class="logo">
+          </a>
           
           <div class="box-search">
             <input type="text" placeholder="O que deseja encontrar?" class="box-input">
