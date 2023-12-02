@@ -159,7 +159,9 @@ public class UsuarioService {
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
 
-            usuario.setSenha(request.getSenha());
+            String encryptedPassword = new BCryptPasswordEncoder().encode(request.getSenha());
+
+            usuario.setSenha(encryptedPassword);
 
             usuarioRepository.save(usuario);
 

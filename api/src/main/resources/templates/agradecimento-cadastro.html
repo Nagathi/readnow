@@ -8,13 +8,14 @@
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/formulario.css">
   <link rel="stylesheet" href="../css/footer.css">
+  <script src="js/cadastro.js" defer></script>
   <title>Cadastro concluído</title>
 </head>
 <body>
 
   <!--Cabeçalho-->
   <header class="cabecalho cabecalho-simples">
-    <img src="images/icons/logo.svg" alt="Logo" class="logo">
+    <a href="/"><img src="images/icons/logo.svg" alt="Logo" class="logo"></a>
   </header>
 
   <!--Main-->
@@ -23,7 +24,7 @@
     <h1 class="titulo-personalizado titulo-personalizado-agradecimento">
         Obrigado por se juntar a nós! <br>
         Seu cadastro foi concluído com sucesso.</h1>
-      <button type="submit" class="btn-submit">Página Inicial</button>
+      <button onclick="goToHome()" type="submit" class="btn-submit" >Página Inicial</button>
   </main>
 
   <!--Rodapé-->

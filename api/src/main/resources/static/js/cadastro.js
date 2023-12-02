@@ -31,6 +31,10 @@ function efetuarCadastro() {
   }
 }
 
+function goToHome(){
+  window.location.href = '/';
+}
+
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
