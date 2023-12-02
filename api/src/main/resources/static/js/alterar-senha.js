@@ -1,9 +1,8 @@
 const urlParams = new URLSearchParams(window.location.search);
 
 const linkParam = urlParams.get('link');
-const emailParam = urlParams.get('email');
 
-if (linkParam && emailParam) {
+if (linkParam) {
     fetch(`redefine-senha/${linkParam}`)
         .then(response => {
             if (response.ok) {
@@ -35,7 +34,7 @@ btnSubmit.addEventListener('click', () => {
     }
 
     const dados = {
-        email: emailParam,
+        token: linkParam,
         senha: novaSenha
     };
 

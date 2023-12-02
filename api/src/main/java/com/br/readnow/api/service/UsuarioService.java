@@ -125,8 +125,7 @@ public class UsuarioService {
             message.setTo(email);
             message.setSubject("Redefinição de Senha");
             message.setText(
-                    "Olá! Clique no link a seguir para redefinir sua senha: http://localhost:8080/alterar-senha?link="
-                            + link + "&email=" + email);
+                    "Olá! Clique no link a seguir para redefinir sua senha: http://localhost:8080/alterar-senha?link=" + link);
 
             emailSender.send(message);
 
@@ -154,20 +153,34 @@ public class UsuarioService {
     }
 
     public ResponseEntity<?> redefinirSenha(RequestNovaSenhaDTO request) {
-        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(request.getEmail());
+        
+        Optional<LinkModel> linkOptional = linkRepository.findById(request.getToken());
 
-        if (usuarioOptional.isPresent()) {
-            UsuarioModel usuario = usuarioOptional.get();
 
-            String encryptedPassword = new BCryptPasswordEncoder().encode(request.getSenha());
+        if (linkOptional.isPresent() && !linkOptional.get().isExpirado()) {
 
-            usuario.setSenha(encryptedPassword);
+            Optional<UsuarioModel> usuarioOptional = usuarioRepository.findById(linkOptional.get().getUsuario().getCodigo());
 
-            usuarioRepository.save(usuario);
+            if(usuarioOptional.isPresent()){
 
-            return ResponseEntity.ok("Senha redefinida com sucesso.");
+                UsuarioModel usuario = usuarioOptional.get();
+                String encryptedPassword = new BCryptPasswordEncoder().encode(request.getSenha());
+
+                usuario.setSenha(encryptedPassword);
+
+                LinkModel link = linkOptional.get();
+                link.setExpirado(true);
+
+                usuarioRepository.save(usuario);
+                linkRepository.save(link);
+
+                return ResponseEntity.ok("Senha alterada com sucesso!");
+            }else{
+                return ResponseEntity.notFound().build();
+            }
+            
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().body("Esse link está expirado ou é inválido.");
         }
     }
 
