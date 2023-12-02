@@ -39,4 +39,9 @@ public class HtmlController {
     public String usuarioCadastrado() {
         return "agradecimento-cadastro";
     }
+
+    @GetMapping("/404")
+    public String erro404() {
+        return "404";
+    }
 }
