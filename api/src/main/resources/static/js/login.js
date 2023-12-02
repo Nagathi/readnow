@@ -24,19 +24,18 @@ function efetuarLogin() {
     body: JSON.stringify(data),
   })
     .then((response) => {
-      if (response.ok) {
-      } else {
-        modalMessage.textContent =
-          "Erro ao efetuar login. Email ou senha incorretos.";
+      if (!response.ok) {
         modal.style.display = "block";
+        return modalMessage.textContent =
+          "Erro ao efetuar login. Email ou senha incorretos.";
       }
-      return response.json();
+      else{
+        return response.json();
+      }
     })
     .then((data) => {
       const token = data.token;
-      // localStorage.setItem("token", token);
       autenticar(token);
-
     })
     .catch((error) => {
       modalMessage.textContent = "Ocorreu um erro ao processar a solicitação.";
@@ -46,8 +45,7 @@ function efetuarLogin() {
 }
 
 function autenticar(uuid) {
-
-  fetch(`/autenticacao?uuid=${uuid}` ,{
+  fetch(`/autenticacao?uuid=${uuid}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -55,13 +53,6 @@ function autenticar(uuid) {
     },
   })
     .then((response) => {
-      // if (response.ok) {
-      //   window.location.href = "/";
-      // } else {
-      //   modalMessage.textContent =
-      //     "Erro ao efetuar login. Email ou senha incorretos.";
-      //   modal.style.display = "block";
-      // }
       return response.json();
     })
     .then((data) => {
@@ -69,13 +60,12 @@ function autenticar(uuid) {
       const nome = data.nome;
       const email = data.email;
 
-      localStorage.setItem("token", token);
-      localStorage.setItem("nome", nome);
-      localStorage.setItem("email", email);
-      window.location.href = "/";
-
-     
-
+      if (token != null && nome != "undefined" && email != "undefined") {
+        localStorage.setItem("token", token);
+        localStorage.setItem("nome", nome);
+        localStorage.setItem("email", email);
+        window.location.href = "/";
+      }
     })
     .catch((error) => {
       modalMessage.textContent = "Ocorreu um erro ao processar a solicitação.";
