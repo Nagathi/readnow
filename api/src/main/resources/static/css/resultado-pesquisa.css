@@ -1,0 +1,7 @@
+.resultado-pesquisa ul {
+  max-width: 113.6rem;
+  flex-wrap: wrap;
+  column-gap: 1.6rem;
+  row-gap: 3.6rem;
+  justify-content: flex-start;
+}
