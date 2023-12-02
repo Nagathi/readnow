@@ -15,5 +15,6 @@ public class LivroDTO {
     private String isbn;
     private String data_publi;
     private String categoria;
+    private String descricao;
     private double preco;
 }
