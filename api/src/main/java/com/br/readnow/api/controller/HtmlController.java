@@ -39,4 +39,44 @@ public class HtmlController {
     public String usuarioCadastrado() {
         return "agradecimento-cadastro";
     }
+
+    @GetMapping("/carrinho")
+    public String mostrarCarrinho() {
+        return "carrinho-compras";
+    }
+
+    @GetMapping("/carteira")
+    public String mostrarCarteira() {
+        return "carteira";
+    }
+
+    @GetMapping("/central-ajuda")
+    public String mostrarCentralAjuda() {
+        return "central-ajuda";
+    }
+
+    @GetMapping("/conta-usuario")
+    public String mostrarContaUsuario() {
+        return "conta-usuario";
+    }
+
+    @GetMapping("/enderecos")
+    public String mostrarEnderecos() {
+        return "enderecos";
+    }
+
+    @GetMapping("/formulario-cartao")
+    public String mostrarFormCartao() {
+        return "formulario-cartao";
+    }
+
+    @GetMapping("/formulario-ajuda")
+    public String mostrarFormCentralAjuda() {
+        return "formulario-central-ajuda";
+    }
+
+    @GetMapping("/404")
+    public String erro404() {
+        return "404";
+    }
 }

@@ -1,9 +1,8 @@
 const urlParams = new URLSearchParams(window.location.search);
 
 const linkParam = urlParams.get('link');
-const emailParam = urlParams.get('email');
 
-if (linkParam && emailParam) {
+if (linkParam) {
     fetch(`redefine-senha/${linkParam}`)
         .then(response => {
             if (response.ok) {
@@ -27,7 +26,7 @@ const btnSubmit = document.querySelector('.btn-submit');
 
 btnSubmit.addEventListener('click', () => {
     const novaSenha = document.querySelector('input[placeholder="Nova Senha"]').value;
-    const confirmacaoSenha = document.querySelector('input[placeholder="Confirmar Nova Senha"]').value;
+    const confirmacaoSenha = document.querySelector('input[placeholder="Confirmar nova senha"]').value;
 
     if (novaSenha !== confirmacaoSenha) {
         alert('As senhas não coincidem.');
@@ -35,7 +34,7 @@ btnSubmit.addEventListener('click', () => {
     }
 
     const dados = {
-        email: emailParam,
+        token: linkParam,
         senha: novaSenha
     };
 
