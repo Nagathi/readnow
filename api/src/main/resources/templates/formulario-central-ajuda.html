@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./css/formulario-simples.css">
   <link rel="stylesheet" href="./css/formulario-central-ajuda.css">
   <link rel="stylesheet" href="../css/footer.css">
+  <script src="components/header-principal.js" defer></script>
   <script src="components/footer-personalizado.js" defer></script>
   <script src="./js/formulario-central-ajuda.js" defer></script>
   <title>Ajuda ReadNow</title>
@@ -18,44 +19,7 @@
 <body>
 
   <!--Cabeçalho-->
-  <header class="cabecalho">
-    <img src="images/icons/book.svglogo.svg" alt="Logo" class="logo">
-    
-    <div class="box-search">
-      <input type="text" placeholder="O que deseja encontrar?" class="box-input">
-      <button class="button-search">
-        <img src="images/icons/book.svglupa.png" alt="Lupa">
-      </button>
-    </div>
-
-    <nav class="opcoes">
-      <button class="item">
-        <a href="#">
-          <img src="images/icons/book.svguser.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
-          <span class="identificador">Sua conta</span>
-        </a>
-      </button>
-
-      <button class="item">
-        <a href="#">
-          <img src="images/icons/book.svgouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
-          <span class="identificador">Ouvidoria</span>
-        </a>
-      </button>
-
-      <button class="item" id="carrinho-compras">
-        <a href="#">
-          <img src="images/icons/book.svgiconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
-          <span class="identificador">Carrinho</span>
-
-          <div class="produtos-carrinho">
-            <span class="quantidade">9</span>
-            <span class="simbolo-mais">+</span>
-          </div>
-        </a>
-      </button>
-    </nav>
-  </header>
+  <header-principal></header-principal>
 
   <!--Main-->
   <main class="main">
@@ -69,7 +33,7 @@
 
       <div class="card-livro">
         <div class="container-imagem">
-          <img src="images/icons/book.svgimagem_produto.png" alt="Produto com problema">
+          <img src="images/icons/imagem_produto.png" alt="Produto com problema">
         </div>
 
         <div class="descricao-produto">

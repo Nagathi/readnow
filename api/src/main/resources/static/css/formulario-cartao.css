@@ -1,6 +1,8 @@
 .fomulario-adicionando-cartao form {
   align-self: center;
   height: 37rem;
+  font-family: var(--fonte-principal);
+  color: var(--preto);
 }
 
 .dados-cartao {
