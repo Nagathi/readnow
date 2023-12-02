@@ -36,4 +36,3 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("E-mail não encontrado no localStorage");
     }
   });
-  

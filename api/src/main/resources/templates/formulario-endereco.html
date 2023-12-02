@@ -4,21 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
-  <link rel="stylesheet" href="./css/global.css">
-  <link rel="stylesheet" href="./css/header.css">
-  <link rel="stylesheet" href="./css/main.css">
-  <link rel="stylesheet" href="./css/formulario.css">
-  <link rel="stylesheet" href="./css/formulario-simples.css">
-  <link rel="stylesheet" href="./css/formulario-endereco.css">
-  <link rel="stylesheet" href="./css/footer.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/formulario.css">
+  <link rel="stylesheet" href="../css/formulario-simples.css">
+  <link rel="stylesheet" href="../css/formulario-endereco.css">
+  <link rel="stylesheet" href="../css/footer.css">
   <script src="components/footer-personalizado.js" defer></script>
+  <script src="js/form-endereco.js" defer></script>
   <title>Seus endereços</title>
   </head>
 <body>
 
   <!--Cabeçalho-->
   <header class="cabecalho">
-    <img src="images/icons/img/logo.svg" alt="Logo" class="logo">
+    <a href="/"><img src="images/icons/logo.svg" alt="Logo" class="logo"></a>
     
     <div class="box-search">
       <input type="text" placeholder="O que deseja encontrar?" class="box-input">
@@ -113,7 +114,12 @@
           <input type="text" name="estado" id="estado" required>
         </div>
 
-        <button type="submit" class="btn-adicionar-endereco">Adicionar cartão</button>
+        <div class="campo">
+          <label for="pais">País</label>
+          <input type="text" name="pais" id="pais" required>
+        </div>
+
+        <button type="submit" class="btn-adicionar-endereco">Adicionar Endereço</button>
 
       </form>
 
