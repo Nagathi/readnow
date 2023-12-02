@@ -11,14 +11,52 @@
   <link rel="stylesheet" href="./css/formulario-simples.css">
   <link rel="stylesheet" href="./css/formulario-endereco.css">
   <link rel="stylesheet" href="./css/footer.css">
-  <script src="components/header-principal.js" defer></script>
   <script src="components/footer-personalizado.js" defer></script>
+  <script src="js/form-endereco.js" defer></script>
   <title>Seus endereços</title>
   </head>
 <body>
 
   <!--Cabeçalho-->
-  <header-principal></header-principal>
+  <header class="cabecalho">
+    <img src="images/icons/img/logo.svg" alt="Logo" class="logo">
+    
+    <div class="box-search">
+      <input type="text" placeholder="O que deseja encontrar?" class="box-input">
+      <button class="button-search">
+        <img src="images/icons/lupa.png" alt="Lupa">
+      </button>
+    </div>
+
+    <nav class="opcoes">
+      <button class="item">
+        <a href="#">
+          <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Sua conta</span>
+        </a>
+      </button>
+
+      <button class="item">
+        <a href="#">
+          <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Ouvidoria</span>
+        </a>
+      </button>
+
+      <button class="item" id="carrinho-compras">
+        <a href="#">
+          <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+          <span class="identificador">Carrinho</span>
+
+          <div class="produtos-carrinho">
+            <span class="quantidade">9</span>
+            <span class="simbolo-mais">+</span>
+          </div>
+        </a>
+      </button>
+    </nav>
+  </header>
+
   <!--Main-->
   <main class="main">
     <section class="container formulario-simples fomulario-adicionando-endereco">
@@ -76,7 +114,12 @@
           <input type="text" name="estado" id="estado" required>
         </div>
 
-        <button type="submit" class="btn-adicionar-endereco">Adicionar cartão</button>
+        <div class="campo">
+          <label for="pais">País</label>
+          <input type="text" name="pais" id="pais" required>
+        </div>
+
+        <button type="submit" class="btn-adicionar-endereco">Adicionar Endereço</button>
 
       </form>
 

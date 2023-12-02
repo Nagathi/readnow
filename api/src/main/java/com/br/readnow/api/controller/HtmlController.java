@@ -75,8 +75,9 @@ public class HtmlController {
         return "formulario-central-ajuda";
     }
 
-    @GetMapping("/404")
-    public String erro404() {
-        return "404";
+    @GetMapping("/formulario-endereco")
+    public String mostrarFormEndereco() {
+        return "formulario-endereco";
     }
+
 }
