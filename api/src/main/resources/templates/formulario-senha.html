@@ -1,57 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/formulario-cabecalho-email.css">
-    <link rel="stylesheet" href="./css/formulario-rodape-email.css">
-    <link rel="stylesheet" href="./css/formulario-login-email.css">
+    <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/formulario.css">
+    <link rel="stylesheet" href="./css/footer.css">
     <script src="js/alterar-senha.js" defer></script>
     <title>ReadNow</title>
     </style>
 </head>
 <body>
-    <header>
-       <div class="logo-cabecalho">
-        <a href="/"><img src="images/icons/logo.svg" alt="Logo" class="logo"></a>
-       </div>
-       
+
+    <header class="cabecalho cabecalho-simples">
+        <a href="/"></a><img src="images/icons/logo.svg" alt="Logo" class="logo"></a>
     </header>
 
-
-
-    <div class="main">
-        <div id="formulario">
-            <h2 class="titulo-fomulario">Alterar Senha</h2>
-    
-            <div class="campo" id="campos-login">
-                <input type="text" placeholder="Nova Senha">
-                <br>
-                <input type="text" placeholder="Confirmar Nova Senha">
+    <!--Main-->
+    <main>
+        <form action="" id="formulario">
+          <h1 class="titulo-fomulario">Alterar Senha</h1>
+  
+          <fieldset id="campos-login">
+            <div class="campo">
+              <input type="text" name="nova-senha" id="nova-senha" placeholder="Nova Senha" required>
             </div>
+  
+            <div class="campo">
+              <input type="text" name="confirmar-nova-senha" id="confirmar-nova-senha" placeholder="Confirmar nova senha" required>
+            </div>
+          </fieldset>
+  
+          <button type="submit" class="btn-submit">Entrar</button>
+        </form>
+    </main>
     
-            <button class="btn-submit" type="button">Confirmar</button>
-        </div>
+    <!--Rodapé-->
+    <footer class="roda-pe">
+        <ul>
+        <li>
+            <img src="../img/logo.svg" alt="Logo">
+        </li>
+        <li class="links">
+            <a href="#" class="link-rodape">Quem somos nós</a>
+            <a href="#" class="link-rodape">Política de privacidade</a>
+        </li>
+        <li class="links">
+            <a href="#" class="link-rodape">Programa de fidelidade</a> 
+            <a href="#" class="link-rodape">Atendimento ao cliente</a>
+        </li>
+        <li class="links">
+            <a href="#" class="link-rodape">Quero ser franqueado</a> 
+            <a href="#" class="link-rodape">Anuncie aqui</a>
+        </li>
+        <li>
+            <div class="redes-sociais">
+            <a href="#">
+                <img src="images/icons/facebook-icon.svg" alt="Logo Facebook" class="icon-rede-social">
+            </a>
 
+            <a href="#">
+                <img src="images/icons/twitter-icon.svg" alt="Logo Twitter" class="icon-rede-social">
+            </a>
 
-
-<footer> 
-   <div class="links">
-    <a href="colocar o link" class="link-rodape">Quem somos nós</a>
-    <a href="colocar o link" class="link-rodape">Programa de fidelidade</a>
-    <a href="colocar o link" class="link-rodape">Quero ser franqueado</a>
-   </div>
-
-   <div class="logo-roda-pe">
-        <img src="images/icons/logo.svg" alt="Logo da Empresa">
-   </div>
-
-   <div class="redes-sociais">
-        <a href="https://tinyurl.com/mrufmdks" target="_blank" class="icon-rede-social"><img src="images/icons/facebook-icon.svg" alt=""></a>
-        <a href="https://tinyurl.com/8ezvjx5c" target="_blank" class="icon-rede-social"><img src="images/icons/twitter-icon.svg" alt=""></a>
-        <a href="https://tinyurl.com/yreeunfk" target="_blank" class="icon-rede-social"><img src="images/icons/instagram-icon.svg" alt=""></a>
-</div>
-   
-</footer>
+            <a href="#">
+                <img src="images/icons/instagram-icon.svg" alt="" class="icon-rede-social">
+            </a>
+            </div>
+        </li>
+        </ul>
+    </footer>
 </body>
 </html>

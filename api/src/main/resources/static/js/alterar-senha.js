@@ -26,7 +26,7 @@ const btnSubmit = document.querySelector('.btn-submit');
 
 btnSubmit.addEventListener('click', () => {
     const novaSenha = document.querySelector('input[placeholder="Nova Senha"]').value;
-    const confirmacaoSenha = document.querySelector('input[placeholder="Confirmar Nova Senha"]').value;
+    const confirmacaoSenha = document.querySelector('input[placeholder="Confirmar nova senha"]').value;
 
     if (novaSenha !== confirmacaoSenha) {
         alert('As senhas não coincidem.');
