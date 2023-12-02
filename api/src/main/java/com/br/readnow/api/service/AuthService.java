@@ -1,6 +1,5 @@
 package com.br.readnow.api.service;
 
-import java.util.Collections;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,7 @@ public class AuthService {
         if (usuario.isPresent()) {
             UsuarioDTO usuarioDTO = new UsuarioDTO();
             usuarioDTO.setNome(usuario.get().getNome());
+            usuarioDTO.setEmail(usuario.get().getEmail());
             usuarioDTO.setToken(authModels.get().getUuid());
             usuarioDTO.setTipo(usuario.get().getRole());
 

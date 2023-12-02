@@ -67,9 +67,11 @@ function autenticar(uuid) {
     .then((data) => {
       const token = data.token;
       const nome = data.nome;
-      console.log(nome);
+      const email = data.email;
+
       localStorage.setItem("token", token);
       localStorage.setItem("nome", nome);
+      localStorage.setItem("email", email);
       window.location.href = "/";
 
      
