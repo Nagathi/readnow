@@ -1,21 +1,92 @@
-document.addEventListener('DOMContentLoaded', function() {
+function autenticacao() {
+  const usuarioAutenticado = localStorage.getItem("token");
+  const nomeUsuario = localStorage.getItem("nome");
+  const loginButton = document.querySelector(".button-login");
+  const cadastroButton = document.querySelector(`a[href="${'cadastro'}"]`);
+
+  if (usuarioAutenticado != null) {
+    loginButton.style.display = 'none';
+    cadastroButton.style.display = 'none';
+    const navIcons = document.createElement("nav");
+    navIcons.classList.add("card-icons");
+    const header = document.querySelector(".cabecalho");
+
+    navIcons.innerHTML = `
+
+    <button class="item" id="conta">
+      <a href="#">
+        <img src="images/icons/user.svg" alt="Sua conta" style="width: 3.6rem ;">
+        <span class="identificador"> Olá, ${nomeUsuario} <br>Sua conta</span>
+      </a>
+    </button>
+
+    <div class="menu-list" id="userMenu">
+      <ul>
+        <li><a href="#">Seus pedidos</a></li>
+        <li id="sair"><a href="/">Sair da conta</a></li>
+      </ul>
+    </div>
+
+    <button class="item">
+      <a href="#">
+        <img src="images/icons/ouvidoria.svg" alt="Ouvidoria" style="width: 3.6rem ;">
+        <span class="identificador">Ouvidoria</span>
+      </a>
+    </button>
+
+    <button class="item" id="carrinho-compras">
+      <a href="#">
+        <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+        <span class="identificador">Carrinho</span>
+
+        <div class="produtos-carrinho">
+          <span class="quantidade">9</span>
+          <span class="simbolo-mais">+</span>
+        </div>
+      </a>
+    </button>
+  `;
+    header.appendChild(navIcons);
+    document.getElementById('conta').addEventListener('click', function() {
+      const userMenu = document.getElementById('userMenu');
+      userMenu.style.display = (userMenu.style.display === 'block') ? 'none' : 'block';
+    });
+    document.getElementById('sair').addEventListener('click', function() {
+      localStorage.removeItem("token")
+
+      const cardIcons = document.querySelector(".card-icons");
+
+      cardIcons.style.display = 'none';
+      loginButton.style.display = 'block';
+      cadastroButton.style.display = 'block';     
+    });
+  }
+  else{
+    loginButton.style.display = 'block';
+      cadastroButton.style.display = 'block';     
+  }
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  autenticacao();
   const quantidadeExibicao = 5;
 
-  const categorias = ['acao', 'ficcao', 'cultura', 'aventura', 'literatura'];
+  const categorias = ["acao", "ficcao", "cultura", "aventura", "literatura"];
 
   const categoriasLivros = {};
 
   function exibirLivros(data, inicio, listaLivros, btnVerMais) {
-    listaLivros.innerHTML = '';
+    listaLivros.innerHTML = "";
 
     const finalExibicao = Math.min(inicio + quantidadeExibicao, data.length);
 
     for (let i = inicio; i < finalExibicao; i++) {
       const livro = data[i];
-      const novoLivro = document.createElement('li');
-      novoLivro.classList.add('card-livro');
+      const novoLivro = document.createElement("li");
+      novoLivro.classList.add("card-livro");
 
-      const caminhoImagem = './images/livros/' + livro.imagem;
+      const caminhoImagem = "./images/livros/" + livro.imagem;
 
       novoLivro.innerHTML = `
         <div class="banner">
@@ -44,38 +115,53 @@ document.addEventListener('DOMContentLoaded', function() {
     window.location.href = `/livro?codigo=${codigo}`;
   }
 
-  categorias.forEach(categoria => {
+  categorias.forEach((categoria) => {
     const listaLivros = document.querySelector(`.lista-livros-${categoria}`);
     const btnVerMais = document.querySelector(`#btn-ver-mais-${categoria}`);
-    categoriasLivros[categoria] = { listaLivros, btnVerMais, inicioExibicao: 0 };
+    categoriasLivros[categoria] = {
+      listaLivros,
+      btnVerMais,
+      inicioExibicao: 0,
+    };
 
     fetch(`/livros/${categoria}`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         const { listaLivros, btnVerMais } = categoriasLivros[categoria];
         exibirLivros(data, 0, listaLivros, btnVerMais);
 
-        btnVerMais.addEventListener('click', function() {
+        btnVerMais.addEventListener("click", function () {
           categoriasLivros[categoria].inicioExibicao += quantidadeExibicao;
-          exibirLivros(data, categoriasLivros[categoria].inicioExibicao, listaLivros, btnVerMais);
+          exibirLivros(
+            data,
+            categoriasLivros[categoria].inicioExibicao,
+            listaLivros,
+            btnVerMais
+          );
 
           if (categoriasLivros[categoria].inicioExibicao >= data.length) {
             btnVerMais.disabled = true;
           }
         });
       })
-      .catch(error => {
-        console.error(`Ocorreu um erro ao obter os livros de ${categoria}:`, error);
+      .catch((error) => {
+        console.error(
+          `Ocorreu um erro ao obter os livros de ${categoria}:`,
+          error
+        );
       });
 
-    listaLivros.addEventListener('click', function(event) {
-      const verProdutoLink = event.target.closest('.ver-produto');
+    listaLivros.addEventListener("click", function (event) {
+      const verProdutoLink = event.target.closest(".ver-produto");
       if (verProdutoLink) {
-        const cardLivro = verProdutoLink.closest('.card-livro');
+        const cardLivro = verProdutoLink.closest(".card-livro");
         const codigoLivro = cardLivro.dataset.codigo;
 
         redirecionarParaLivro(codigoLivro);
       }
     });
   });
+
 });
+
+

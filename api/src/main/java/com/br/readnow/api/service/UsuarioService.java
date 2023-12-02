@@ -61,6 +61,10 @@ public class UsuarioService {
 
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(login.email());
 
+        if (authRepository.existsByUsuario(usuarioOptional.get())) {
+            authRepository.expireSession(usuarioOptional.get());
+        }
+        
         AuthModel auth = new AuthModel();
         auth.setUsuario(usuarioOptional.get());
         auth.setExpirado(false);

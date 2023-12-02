@@ -18,27 +18,68 @@ function efetuarLogin() {
   fetch("/efetua-login", {
     method: "POST",
     headers: {
-      "Accept": "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  }).then(response => {
-    if (response.ok) {
-      // modalMessage.textContent = "Login efetuado com sucesso!";
-      // modal.style.display = "block";
+  })
+    .then((response) => {
+      if (response.ok) {
+      } else {
+        modalMessage.textContent =
+          "Erro ao efetuar login. Email ou senha incorretos.";
+        modal.style.display = "block";
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const token = data.token;
+      // localStorage.setItem("token", token);
+      autenticar(token);
+
+    })
+    .catch((error) => {
+      modalMessage.textContent = "Ocorreu um erro ao processar a solicitação.";
+      modal.style.display = "block";
+      console.error("Erro:", error);
+    });
+}
+
+function autenticar(uuid) {
+
+  fetch(`/autenticacao?uuid=${uuid}` ,{
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      // if (response.ok) {
+      //   window.location.href = "/";
+      // } else {
+      //   modalMessage.textContent =
+      //     "Erro ao efetuar login. Email ou senha incorretos.";
+      //   modal.style.display = "block";
+      // }
+      return response.json();
+    })
+    .then((data) => {
+      const token = data.token;
+      const nome = data.nome;
+      console.log(nome);
+      localStorage.setItem("token", token);
+      localStorage.setItem("nome", nome);
       window.location.href = "/";
 
-    } else {
-      modalMessage.textContent = "Erro ao efetuar login. Email ou senha incorretos.";
+     
+
+    })
+    .catch((error) => {
+      modalMessage.textContent = "Ocorreu um erro ao processar a solicitação.";
       modal.style.display = "block";
-    }
-   
-  })
-  .catch(error => {
-    modalMessage.textContent = "Ocorreu um erro ao processar a solicitação.";
-    modal.style.display = "block";
-    console.error('Erro:', error);
-  });
+      console.error("Erro:", error);
+    });
 }
 
 form.addEventListener("submit", function (event) {
@@ -47,7 +88,7 @@ form.addEventListener("submit", function (event) {
 });
 
 closeButton.addEventListener("click", closeModal);
-window.addEventListener("click", function(event) {
+window.addEventListener("click", function (event) {
   if (event.target === modal) {
     closeModal();
   }

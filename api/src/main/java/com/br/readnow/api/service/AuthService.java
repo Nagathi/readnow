@@ -15,34 +15,27 @@ import com.br.readnow.api.repository.UsuarioRepository;
 
 @Service
 public class AuthService {
-    
+
     @Autowired
     private AuthRepository authRepository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public ResponseEntity<UsuarioDTO> verificarUUID(String id) {
-        Iterable<AuthModel> authModels = authRepository.findAllById(Collections.singletonList(id));
-    
-        for (AuthModel authModel : authModels) {
-            if (!authModel.isExpirado()) {
-                Optional<UsuarioModel> usuario = usuarioRepository.findById(authModel.getUsuario().getCodigo());
-    
-                if (usuario.isPresent()) {
-                    UsuarioDTO usuarioDTO = new UsuarioDTO();
-                    usuarioDTO.setNome(usuario.get().getNome());
-                    usuarioDTO.setToken(authModel.getUuid());
-                    usuarioDTO.setTipo(usuario.get().getRole());
-    
-                    return ResponseEntity.ok(usuarioDTO);
-                } else {
-                    return ResponseEntity.notFound().build();
-                }
-            }
+    public ResponseEntity<?> verificarUUID(String uuid) {        
+        Optional<AuthModel> authModels = authRepository.findByUuid(uuid);
+        Optional<UsuarioModel> usuario = usuarioRepository.findByCodigo(authModels.get().getUsuario().getCodigo());
+
+        if (usuario.isPresent()) {
+            UsuarioDTO usuarioDTO = new UsuarioDTO();
+            usuarioDTO.setNome(usuario.get().getNome());
+            usuarioDTO.setToken(authModels.get().getUuid());
+            usuarioDTO.setTipo(usuario.get().getRole());
+
+            return ResponseEntity.ok(usuarioDTO);
+        } else {
+            return ResponseEntity.notFound().build();
         }
-    
-        return ResponseEntity.notFound().build();
     }
 
 }

@@ -37,6 +37,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/esqueci-minha-senha").permitAll()
                         .requestMatchers(HttpMethod.GET, "/cadastrado").permitAll()
                         .requestMatchers(HttpMethod.GET, "/cadastro").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/autenticacao").permitAll()
+
                         .requestMatchers("/**").permitAll()
                         .requestMatchers("/alterar-senha/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()

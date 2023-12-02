@@ -1,154 +1,165 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
-  <link rel="stylesheet" href="./css/global.css">
-  <link rel="stylesheet" href="./css/header.css">
-  <link rel="stylesheet" href="./css/index.css">
-  <link rel="stylesheet" href="./css/livro.css">
-  <link rel="stylesheet" href="./css/footer.css">
-  <script src="js/index.js" defer></script>
-  <title>ReadNow</title>
-</head>
-<body>
-  
-  <header class="cabecalho">
-    <a href="/"><img src="/images/icons/logo.svg" alt="Logo" class="logo"></a>
-    
-    <div class="box-search">
-      <input type="text" placeholder="O que deseja encontrar?" class="box-input">
-      <button class="button-search">
-        <img src="images/icons/lupa.png" alt="Lupa">
-      </button>
-    </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="images/icons/book.svg"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/livro.css" />
+    <link rel="stylesheet" href="./css/footer.css" />
+    <link rel="stylesheet" href="./css/menu.css" />
 
-    <a href="login" class="button-login">Login</a>
-    <a href="cadastro" class="button-login">Cadastro</a>
-  </header>
+    <script src="js/index.js" defer></script>
 
-  <!--Main-->
-  <main>
+    <title>ReadNow</title>
+  </head>
+  <body>
+    <header class="cabecalho">
+      <a href="/"
+        ><img src="/images/icons/logo.svg" alt="Logo" class="logo"
+      /></a>
 
-    <!--Banner principal-->
-    <section class="destaques">
-
-      <div class="promocao">
-        <h1>Dezembro Promocional</h1>
-        <p>Produtos selecionados com 33% de desconto</p>
-        <a href="#">Saiba Mais</a>
-      </div>
-
-      <img src="images/icons/imagem_destaque.png" alt="Imagem destaque" class="imagem-destaque">
-
-    </section>
-    
-    <section class="categorias-livros">
-
-      <div class="informacoes">
-
-        <h2 class="titulo">Ação</h2>
-
-        <button id="btn-ver-mais-acao" class="btn-ver-mais">
-          <p>Ver mais</p>
-          <img src="images/icons/seta.svg" alt="Seta">
+      <div class="box-search">
+        <input
+          type="text"
+          placeholder="O que deseja encontrar?"
+          class="box-input"
+        />
+        <button class="button-search">
+          <img src="images/icons/lupa.png" alt="Lupa" />
         </button>
-
       </div>
+      <a href="login" class="button-login">Login</a>
+      <a href="cadastro" class="button-login">Cadastro</a>
+    </header>
 
-      <ul class="lista-livros-acao"></ul>
-
-      <div class="informacoes">
-
-        <h2 class="titulo">Ficção</h2>
-
-        <button id="btn-ver-mais-ficcao" class="btn-ver-mais">
-          <p>Ver mais</p>
-          <img src="images/icons/seta.svg" alt="Seta">
-        </button>
-
-      </div>
-
-      <ul class="lista-livros-ficcao"></ul>
-
-      <div class="informacoes">
-
-        <h2 class="titulo">Cultura</h2>
-
-        <button id="btn-ver-mais-cultura" class="btn-ver-mais">
-          <p>Ver mais</p>
-          <img src="images/icons/seta.svg" alt="Seta">
-        </button>
-
-      </div>
-
-      <ul class="lista-livros-cultura"></ul>
-
-      <div class="informacoes">
-
-        <h2 class="titulo">Aventura</h2>
-
-        <button id="btn-ver-mais-aventura" class="btn-ver-mais">
-          <p>Ver mais</p>
-          <img src="images/icons/seta.svg" alt="Seta">
-        </button>
-
-      </div>
-
-      <ul class="lista-livros-aventura"></ul>
-
-      <div class="informacoes">
-
-        <h2 class="titulo">Literatura</h2>
-
-        <button id="btn-ver-mais-literatura" class="btn-ver-mais">
-          <p>Ver mais</p>
-          <img src="images/icons/seta.svg" alt="Seta">
-        </button>
-
-      </div>
-
-      <ul class="lista-livros-literatura"></ul>
-
-    </section>
-  </main>
-
-  <!--Rodapé-->
-  <footer class="roda-pe">
-    <ul>
-      <li>
-        <img src="images/icons/logo.svg" alt="Logo">
-      </li>
-      <li class="links">
-        <a href="#" class="link-rodape">Quem somos nós</a>
-        <a href="#" class="link-rodape">Política de privacidade</a>
-      </li>
-      <li class="links">
-        <a href="#" class="link-rodape">Programa de fidelidade</a> 
-        <a href="#" class="link-rodape">Atendimento ao cliente</a>
-      </li>
-      <li class="links">
-        <a href="#" class="link-rodape">Quero ser franqueado</a> 
-        <a href="#" class="link-rodape">Anuncie aqui</a>
-      </li>
-      <li>
-        <div class="redes-sociais">
-          <a href="#">
-            <img src="images/icons/facebook-icon.svg" alt="Logo Facebook" class="icon-rede-social">
-          </a>
-
-          <a href="#">
-            <img src="images/icons/twitter-icon.svg" alt="Logo Twitter" class="icon-rede-social">
-          </a>
-
-          <a href="#">
-            <img src="images/icons/instagram-icon.svg" alt="" class="icon-rede-social">
-          </a>
+    <!--Main-->
+    <main>
+      <!--Banner principal-->
+      <section class="destaques">
+        <div class="promocao">
+          <h1>Dezembro Promocional</h1>
+          <p>Produtos selecionados com 33% de desconto</p>
+          <a href="#">Saiba Mais</a>
         </div>
-      </li>
-    </ul>
-  </footer>
 
-</body>
+        <img
+          src="images/icons/imagem_destaque.png"
+          alt="Imagem destaque"
+          class="imagem-destaque"
+        />
+      </section>
+
+      <section class="categorias-livros">
+        <div class="informacoes">
+          <h2 class="titulo">Ação</h2>
+
+          <button id="btn-ver-mais-acao" class="btn-ver-mais">
+            <p>Ver mais</p>
+            <img src="images/icons/seta.svg" alt="Seta" />
+          </button>
+        </div>
+
+        <ul class="lista-livros-acao"></ul>
+
+        <div class="informacoes">
+          <h2 class="titulo">Ficção</h2>
+
+          <button id="btn-ver-mais-ficcao" class="btn-ver-mais">
+            <p>Ver mais</p>
+            <img src="images/icons/seta.svg" alt="Seta" />
+          </button>
+        </div>
+
+        <ul class="lista-livros-ficcao"></ul>
+
+        <div class="informacoes">
+          <h2 class="titulo">Cultura</h2>
+
+          <button id="btn-ver-mais-cultura" class="btn-ver-mais">
+            <p>Ver mais</p>
+            <img src="images/icons/seta.svg" alt="Seta" />
+          </button>
+        </div>
+
+        <ul class="lista-livros-cultura"></ul>
+
+        <div class="informacoes">
+          <h2 class="titulo">Aventura</h2>
+
+          <button id="btn-ver-mais-aventura" class="btn-ver-mais">
+            <p>Ver mais</p>
+            <img src="images/icons/seta.svg" alt="Seta" />
+          </button>
+        </div>
+
+        <ul class="lista-livros-aventura"></ul>
+
+        <div class="informacoes">
+          <h2 class="titulo">Literatura</h2>
+
+          <button id="btn-ver-mais-literatura" class="btn-ver-mais">
+            <p>Ver mais</p>
+            <img src="images/icons/seta.svg" alt="Seta" />
+          </button>
+        </div>
+
+        <ul class="lista-livros-literatura"></ul>
+      </section>
+    </main>
+
+    <!--Rodapé-->
+    <footer class="roda-pe">
+      <ul>
+        <li>
+          <img src="images/icons/logo.svg" alt="Logo" />
+        </li>
+        <li class="links">
+          <a href="#" class="link-rodape">Quem somos nós</a>
+          <a href="#" class="link-rodape">Política de privacidade</a>
+        </li>
+        <li class="links">
+          <a href="#" class="link-rodape">Programa de fidelidade</a>
+          <a href="#" class="link-rodape">Atendimento ao cliente</a>
+        </li>
+        <li class="links">
+          <a href="#" class="link-rodape">Quero ser franqueado</a>
+          <a href="#" class="link-rodape">Anuncie aqui</a>
+        </li>
+        <li>
+          <div class="redes-sociais">
+            <a href="#">
+              <img
+                src="images/icons/facebook-icon.svg"
+                alt="Logo Facebook"
+                class="icon-rede-social"
+              />
+            </a>
+
+            <a href="#">
+              <img
+                src="images/icons/twitter-icon.svg"
+                alt="Logo Twitter"
+                class="icon-rede-social"
+              />
+            </a>
+
+            <a href="#">
+              <img
+                src="images/icons/instagram-icon.svg"
+                alt=""
+                class="icon-rede-social"
+              />
+            </a>
+          </div>
+        </li>
+      </ul>
+    </footer>
+  </body>
 </html>

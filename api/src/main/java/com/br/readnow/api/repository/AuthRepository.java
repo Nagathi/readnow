@@ -15,7 +15,8 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface AuthRepository extends CrudRepository <AuthModel, String>{
     boolean existsByUsuario(UsuarioModel usuario);
-    Optional<AuthModel> findByUsuario(UsuarioModel usuario);
+    Optional<AuthModel> findByUuid(String usuario);
+
 
     @Transactional
     @Modifying
