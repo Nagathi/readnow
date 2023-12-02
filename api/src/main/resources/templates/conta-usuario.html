@@ -4,18 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
-  <link rel="stylesheet" href="../css/global.css">
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/conta-usuario.css">
-  <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/header.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/conta-usuario.css">
+  <link rel="stylesheet" href="./css/footer.css">
+  <script src="components/footer-personalizado.js" defer></script>
   <title>Sua conta</title>
   </head>
 <body>
 
   <!--Cabeçalho-->
   <header class="cabecalho">
-    <img src="../img/logo.svg" alt="Logo" class="logo">
+    <img src="images/icons/logo.svg" alt="Logo" class="logo">
     
     <div class="box-search">
       <input type="text" placeholder="O que deseja encontrar?" class="box-input">
@@ -82,7 +83,7 @@
         <div class="card-opcao">
 
           <div class="container-imagem">
-            <img src="images/icons/endereços.svg" alt="Ícone da opção">
+            <img src="images/icons/enderecos.svg" alt="Ícone da opção">
           </div>
 
           <p>Endereços</p>
@@ -100,7 +101,7 @@
         <div class="card-opcao">
 
           <div class="container-imagem">
-            <img src="images/icons/profile.svg" alt="Ícone de perfil do usuário">
+            <img src="images/icons/img/profile.svg" alt="Ícone de perfil do usuário">
           </div>
 
           <p>Perfil</p>
@@ -109,7 +110,7 @@
         <div class="card-opcao">
 
           <div class="container-imagem">
-            <img src="images/icons/sair.svg" alt="Ícone de sair">
+            <img src="images/icons/img/sair.svg" alt="Ícone de sair">
           </div>
 
           <p>Sair</p>
@@ -121,39 +122,6 @@
   </main>
 
   <!--Rodapé-->
-  <footer class="roda-pe">
-    <ul>
-      <li>
-        <img src="../img/logo.svg" alt="Logo">
-      </li>
-      <li class="links">
-        <a href="#" class="link-rodape">Quem somos nós</a>
-        <a href="#" class="link-rodape">Política de privacidade</a>
-      </li>
-      <li class="links">
-        <a href="#" class="link-rodape">Programa de fidelidade</a> 
-        <a href="#" class="link-rodape">Atendimento ao cliente</a>
-      </li>
-      <li class="links">
-        <a href="#" class="link-rodape">Quero ser franqueado</a> 
-        <a href="#" class="link-rodape">Anuncie aqui</a>
-      </li>
-      <li>
-        <div class="redes-sociais">
-          <a href="#">
-            <img src="images/icons/facebook-icon.svg" alt="Logo Facebook" class="icon-rede-social">
-          </a>
-
-          <a href="#">
-            <img src="images/icons/twitter-icon.svg" alt="Logo Twitter" class="icon-rede-social">
-          </a>
-
-          <a href="#">
-            <img src="images/icons/instagram-icon.svg" alt="" class="icon-rede-social">
-          </a>
-        </div>
-      </li>
-    </ul>
-  </footer>
+  <footer-personalizado></footer-personalizado>
 </body>
 </html>
