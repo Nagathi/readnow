@@ -32,7 +32,7 @@ public class AuthService {
                 if (usuario.isPresent()) {
                     UsuarioDTO usuarioDTO = new UsuarioDTO();
                     usuarioDTO.setNome(usuario.get().getNome());
-                    usuarioDTO.setId(authModel.getUuid());
+                    usuarioDTO.setToken(authModel.getUuid());
                     usuarioDTO.setTipo(usuario.get().getRole());
     
                     return ResponseEntity.ok(usuarioDTO);
