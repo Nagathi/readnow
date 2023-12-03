@@ -1,3 +1,13 @@
+const usuarioAutenticado = localStorage.getItem("token");
+const nomeUsuario = localStorage.getItem("nome");
+const modal = document.getElementById("modal");
+const modalMessage = document.getElementById("modal-message");
+const closeButton = document.querySelector(".close");
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
 function obterParametrosURL() {
   const search = window.location.search.substring(1);
   const partes = search.split("&");
@@ -10,9 +20,84 @@ function obterParametrosURL() {
 
   return params;
 }
+function autenticacao() {
+  const loginButton = document.querySelector(`a[href="${'login'}"]`);
+  const cadastroButton = document.querySelector(`a[href="${'cadastro'}"]`);
+
+  if (usuarioAutenticado != null && nomeUsuario != null) {
+    loginButton.style.display = 'none';
+    cadastroButton.style.display = 'none';
+    const navIcons = document.createElement("nav");
+    navIcons.classList.add("card-icons");
+    const header = document.querySelector(".cabecalho");
+
+    navIcons.innerHTML = `
+       <div class="opcoes">
+            <button id= "sua-conta" class="item">
+            <a href="#">
+                <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                <span class="identificador"> Olá, ${nomeUsuario} <br> Sua conta</span>
+            </a>
+            </button>
+  
+            <button class="item">
+            <a href="#">
+                <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                <span class="identificador">Ouvidoria</span>
+            </a>
+            </button>
+  
+            <button class="item" id="carrinho-compras">
+            <a href="carrinho">
+                <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                <span class="identificador">Carrinho</span>
+    
+                <div class="produtos-carrinho">
+                <span class="quantidade">9</span>
+                <span class="simbolo-mais">+</span>
+                </div>
+            </a>
+            </button>
+      </div>
+
+    <div class="menu-list" id="userMenu">
+      <ul>
+        <li><a href="#">Seus pedidos</a></li>
+        <li><a href="#">Seus endereços</a></li>
+        <li><a href="#">Configurações</a></li>
+        <li id="sair"><a href="/">Sair da conta</a></li>
+      </ul>
+    </div>
+  `;
+    header.appendChild(navIcons);
+
+    document.getElementById('sua-conta').addEventListener('click', function () {
+      const userMenu = document.getElementById('userMenu');
+      userMenu.style.display = (userMenu.style.display === 'block') ? 'none' : 'block';
+    });
+    document.getElementById('sair').addEventListener('click', function () {
+      localStorage.removeItem("token")
+      localStorage.removeItem("nome")
+      localStorage.removeItem("email")
+
+      const cardIcons = document.querySelector(".card-icons");
+
+      cardIcons.style.display = 'none';
+      loginButton.style.display = 'block';
+      cadastroButton.style.display = 'block';
+    });
+  }
+  else {
+    loginButton.style.display = 'block';
+    cadastroButton.style.display = 'block';
+  }
+}
+
 const parametrosURL = obterParametrosURL();
 const codigoLivro = parametrosURL.codigo;
 document.addEventListener("DOMContentLoaded", function () {
+  autenticacao();
+
   fetch(`/busca-livro/${codigoLivro}`)
     .then((response) => response.json())
     .then((data) => {
@@ -56,9 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
               <div class="detalhes-livro">
                 <p class="titulo-livro">${produto.titulo}</p>
                 <h3 class="preco">R$${produto.preco.toFixed(2)}</h3>
-                <a href="/livro?codigo=${
-                  produto.codigo
-                }" class="ver-produto">Ver produto</a>
+                <a href="/livro?codigo=${produto.codigo
+              }" class="ver-produto">Ver produto</a>
               </div>
             `;
 
@@ -85,8 +169,36 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Ocorreu um erro ao carregar os detalhes do livro:", error);
     });
 });
-const botaoAdicionarCarrinho = document.getElementsByClassName("adicionar-carrinho");
-botaoAdicionarCarrinho[0].addEventListener("click", function () {
-  fetch(`/adiciona-carrinho/${codigoLivro}`)
-  
+
+function adicionarItemCarrinho() {
+  fetch(`/adiciona-livro?codigo=${codigoLivro}&quantidade=1`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${usuarioAutenticado}`,
+    },
+  }).then((response) => {
+    if (response.ok) {
+      modalMessage.textContent = "Livro adicionado ao carrinho!";
+      modal.style.display = "block";
+
+    } else {
+      alert("Ocorreu um erro ao processar o cadastro");
+    }
+  });
+
+
+}
+const botaoAdicionarCarrinho = document.querySelector(".adicionar-carrinho");
+botaoAdicionarCarrinho.addEventListener("click", function () {
+  if (usuarioAutenticado != null && nomeUsuario != null) {
+    adicionarItemCarrinho();
+  }
+});
+closeButton.addEventListener("click", closeModal);
+window.addEventListener("click", function(event) {
+  if (event.target === modal) {
+    closeModal();
+  }
 });

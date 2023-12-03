@@ -8,9 +8,14 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/livro.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/modal.css">
+
     <script src="components/header-principal.js" defer></script>
     <script src="components/footer-personalizado.js" defer></script>
+    
     <script src="js/livro.js" defer></script>
+
     <title>ReadNow</title>
   </head>
 <body>
@@ -19,7 +24,6 @@
   <header-principal></header-principal>
   <!--Main-->
   <main>
-
     <section class="livro">
       <div class="livro-destaque">
         <img src="" alt="Imagem do Produto" class="imagem-produto">
@@ -36,7 +40,14 @@
           <button class="adicionar-carrinho">Adicionar no carrinho</button>
         </div>
       </div>
-    </section>      
+    </section>   
+    
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="modal-message"></p>
+      </div>
+    </div>
 
     <section class="categorias-livros">
 

@@ -12,8 +12,8 @@ function autenticacao() {
     const header = document.querySelector(".cabecalho");
 
     navIcons.innerHTML = `
-    <nav class="opcoes">
-            <button class="item">
+    <div class="opcoes">
+            <button id= "sua-conta" class="item">
             <a href="#">
                 <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
                 <span class="identificador"> Olá, ${nomeUsuario} <br> Sua conta</span>
@@ -38,17 +38,19 @@ function autenticacao() {
                 </div>
             </a>
             </button>
-      </nav>
+      </div>
 
     <div class="menu-list" id="userMenu">
       <ul>
         <li><a href="#">Seus pedidos</a></li>
+        <li><a href="#">Seus endereços</a></li>
+        <li><a href="#">Configurações</a></li>
         <li id="sair"><a href="/">Sair da conta</a></li>
       </ul>
     </div>
   `;
     header.appendChild(navIcons);
-    document.getElementById('conta').addEventListener('click', function() {
+    document.getElementById('sua-conta').addEventListener('click', function() {
       const userMenu = document.getElementById('userMenu');
       userMenu.style.display = (userMenu.style.display === 'block') ? 'none' : 'block';
     });

@@ -1,14 +1,14 @@
 .menu-list {
-    display: none; /* Inicialmente oculta */
+    display: none; 
     position: absolute;
-    background-color: #fff; /* Cor de fundo do menu */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+    background-color: #fff; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     list-style-type: none;
     padding: 10px;
-    width: 90px; /* Ajuste a largura conforme necessário */
-    max-height: 300px; /* Ajuste a altura máxima conforme necessário */
+    width: 90px; 
+    max-height: 300px; 
     margin: 0;
-    z-index: 1; /* Garante que o menu apareça acima de outros elementos */
+    z-index: 1; 
   }
   
   .menu-list li {

@@ -2,13 +2,15 @@ package com.br.readnow.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.readnow.api.service.CarrinhoService;
 
-import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 public class CarrinhoController {
@@ -17,9 +19,17 @@ public class CarrinhoController {
     private CarrinhoService carrinhoService;
 
     @PostMapping("/adiciona-livro")
-    public ResponseEntity<?> adicionarNoCarrinho(@RequestParam Long livroId,
-            @RequestParam int quantidade, HttpServletRequest principal) {
-        return carrinhoService.adicionarItemAoCarrinho(livroId, quantidade, principal);
+    public ResponseEntity<?> adicionarNoCarrinho(@RequestParam("codigo") Long codigo,
+            @RequestParam("quantidade") int quantidade, @RequestHeader("Authorization") String authorization) {
+                String token = authorization.replace("Bearer ", "");
+
+        return carrinhoService.adicionarItemAoCarrinho(codigo, quantidade, token);
+    }
+
+    @GetMapping("/mostra-carrinho/{email}")
+    public ResponseEntity<?> mostrarLivrosCarrinho(@PathVariable String email){
+        return carrinhoService.mostrarItensCarrinho(email);
+
     }
 
 }
