@@ -7,6 +7,7 @@ function autenticacao() {
   if (usuarioAutenticado != null && nomeUsuario != "") {
     loginButton.style.display = 'none';
     cadastroButton.style.display = 'none';
+    
     const navIcons = document.createElement("nav");
     navIcons.classList.add("card-icons");
     const header = document.querySelector(".cabecalho");
@@ -28,7 +29,7 @@ function autenticacao() {
             </button>
   
             <button class="item" id="carrinho-compras">
-            <a href="#">
+            <a href="carrinho">
                 <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
                 <span class="identificador">Carrinho</span>
     
@@ -50,7 +51,7 @@ function autenticacao() {
     </div>
   `;
     header.appendChild(navIcons);
-    document.getElementById('sua-conta').addEventListener('click', function() {
+    document.getElementById('sua-conta').addEventListener('mouseover', function() {
       const userMenu = document.getElementById('userMenu');
       userMenu.style.display = (userMenu.style.display === 'block') ? 'none' : 'block';
     });
@@ -99,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="detalhes-livro">
           <p class="titulo-livro">${livro.titulo}</p>
-          <h3 class="preco">R$${livro.preco}</h3>
+          <h3 class="preco">R$ ${livro.preco.toFixed(2)}</h3>
           <a href="#" class="ver-produto">Ver produto</a>
         </div>
       `;

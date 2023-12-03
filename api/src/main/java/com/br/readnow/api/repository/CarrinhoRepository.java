@@ -12,6 +12,6 @@ import com.br.readnow.api.model.CarrinhoModel;
 public interface CarrinhoRepository  extends CrudRepository<CarrinhoModel, Long>{
     boolean existsByCodigo(Long codigo);
     Optional<CarrinhoModel> findByClienteCodigo(Long codigo);
-    List<CarrinhoModel> findAllByUsuarioId(Long usuarioId);
+    List<CarrinhoModel> findAllByClienteCodigo(Long codigo);
 
 }

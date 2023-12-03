@@ -32,4 +32,10 @@ public class CarrinhoController {
 
     }
 
+    @PostMapping("/armazena-carrinho/{email}")
+    public ResponseEntity<?> armazenarEstadoCarrinho(@PathVariable String email){
+        return carrinhoService.mostrarItensCarrinho(email);
+
+    }
+
 }
