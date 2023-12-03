@@ -80,4 +80,9 @@ public class HtmlController {
         return "formulario-endereco";
     }
 
+    @GetMapping("/perfil-usuario")
+    public String mostrarPerfilUsuario() {
+        return "perfil-usuario";
+    }
+
 }
