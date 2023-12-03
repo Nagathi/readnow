@@ -1,9 +1,51 @@
 .carrinho-compras {
   width: 113.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .titulo h1 {
   padding-bottom: 2rem;
+}
+
+.card-subtotal {
+  border: .05rem solid var(--cinza);
+  border-radius: .8rem;
+  padding: 2.4rem;
+  width: 36rem;
+  margin-top: 2.2rem;
+  margin-bottom: 4rem;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.texto h2 {
+  font-family: var(--fonte-principal);
+  color: var(--preto);
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.btn-fechar-pedido {
+  border: none;
+  border-radius: 2.4rem;
+  font-family: var(--fonte-principal);
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 1rem;
+  background-color: var(--azul);
+  border: .2rem solid transparent;
+  color: var(--branco-primario);
+  margin-right: 1.2rem;
+}
+
+.btn-fechar-pedido:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover-1);
 }
 
 .card-itens-carrinho {
