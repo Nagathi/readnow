@@ -100,19 +100,7 @@ main {
   transition: all .3s;
 }
 
-.titulo-personalizado{
-  font-family: var(--fonte-principal);
-  font-size: 2rem;
-  font-weight: 700;
-  text-align: center;
-}
+
 .titulo-personalizado-agradecimento{
   color: #2A7AE4;
-}
-.img-personalizada{
-  height: 16.9rem;
-}
-
-.pag404{
-  background-color: #eaf2fd;
 }
