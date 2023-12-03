@@ -1,0 +1,95 @@
+.perfil-usuario, form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 2.2rem;
+  
+}
+
+.perfil-usuario {
+  width: 48rem;
+}
+
+.perfil-usuario .linha {
+  margin: 0;
+}
+
+.perfil-usuario form {
+  width: 100%;
+}
+
+.container-imagem {
+  width: 9.6rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.container-imagem img {
+  width: 100%;
+}
+
+.btn-upload-foto {
+  border: none;
+  background-color: transparent;
+  color: var(--azul);
+  font-family: var(--fonte-principal);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.btn-upload-foto:hover {
+  transition: all .3s;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.botoes {
+  width: 20rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: center;
+}
+
+
+
+.btn-cancelar, .btn-continuar {
+  border: none;
+  border-radius: 2.4rem;
+  font-family: var(--fonte-principal);
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: .6rem 1.6rem;
+}
+
+.btn-cancelar {
+  background-color: var(--azul);
+  border: .2rem solid transparent;
+  color: var(--branco-primario);
+}
+
+.btn-continuar {
+  color: var(--azul);
+  background-color: transparent;
+  border: .2rem solid var(--azul);
+}
+
+.btn-cancelar:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover-1);
+}
+
+.btn-continuar:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover);
+}
+
+.link-criar-avaliacao {
+  font-family: var(--fonte-principal);
+  color: var(--preto);
+  font-size: 1.2rem;
+  font-weight: 500;
+  align-self: flex-start;
+}

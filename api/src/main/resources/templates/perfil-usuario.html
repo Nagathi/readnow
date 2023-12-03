@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
-  <link rel="stylesheet" href="./css/global.css">
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/perfil-usuario.css">
-  <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/formulario.css">
+  <link rel="stylesheet" href="./css/formulario-simples.css">
+  <link rel="stylesheet" href="/css/perfil-usuario.css">
+  <link rel="stylesheet" href="/css/footer.css">
   <script src="components/header-autenticado.js" defer></script>
   <script src="components/footer-personalizado.js" defer></script>
   <title>Seu perfil</title>
@@ -18,7 +20,36 @@
   <!--Cabeçalho-->
   <header-autenticado></header-autenticado>
 
-  <main>
+  <main class="main">
+
+    <section class="container perfil-usuario">
+
+      <div class="titulo">
+        <h1>Seu perfil</h1>
+      </div>
+
+      <div class="linha"></div>
+
+      <div class="container-imagem">
+        <img src="images/icons/perfil-usuario.svg" alt="Imagem perfil">
+      </div>
+
+      <button class="btn-upload-foto">Alterar foto de perfil</button>
+
+      <form action="">
+        <div class="campo">
+          <input type="text" name="nome-usuario" id="nome-usuario" required>
+        </div>
+
+        <div class="botoes">
+          <button class="btn-cancelar">Cancelar</button>
+          <button class="btn-continuar">Continuar</button>
+        </div>
+      </form>
+
+      <a href="#" class="link-criar-avaliacao">Criar avaliação para produto</a>
+
+    </section>
     
   </main>
 
