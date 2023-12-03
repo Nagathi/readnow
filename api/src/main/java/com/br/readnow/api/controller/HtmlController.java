@@ -85,4 +85,9 @@ public class HtmlController {
         return "perfil-cliente";
     }
 
+    @GetMapping("/finalizar-pedido")
+    public String finalizarPedido() {
+        return "finalizar-pedido";
+    }
+
 }

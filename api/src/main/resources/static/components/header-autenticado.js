@@ -17,7 +17,7 @@
                     type="text"
                     placeholder="O que deseja encontrar?"
                     class="box-input"
-                    />
+                />
                 <button class="button-search">
                     <img src="images/icons/lupa.png" alt="Lupa" />
                 </button>
@@ -25,7 +25,7 @@
            
             <nav class="nav-icons">
                 <div class=opcoes>
-                    <button id ="conta" "class="item">
+                    <button id ="conta" class="item">
                         <a href="/conta-usuario">
                             <img src="images/icons/user.svg" alt="Perfil do usuário" style="width: 3.6rem ;">
                             <span class="identificador">Sua conta</span>
