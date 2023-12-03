@@ -11,9 +11,9 @@ function autenticacao() {
       const header = document.querySelector(".nav-icons");
       navIcons.innerHTML = `
         <ul>
+            <li><a href="/conta-usuario">Sua conta</a></li>
             <li><a href="#">Seus pedidos</a></li>
             <li><a href="#">Seus endereços</a></li>
-            <li><a href="#">Configurações</a></li>
             <li id="sair"><a href="#">Sair da conta</a></li>
         </ul>
       `

@@ -34,7 +34,7 @@ function autenticacao() {
     navIcons.innerHTML = `
        <div class="opcoes">
             <button id= "sua-conta" class="item">
-            <a href="#">
+            <a href="/conta-usuario">
                 <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
                 <span class="identificador"> Olá, ${nomeUsuario} <br> Sua conta</span>
             </a>
@@ -62,9 +62,9 @@ function autenticacao() {
 
     <div class="menu-list" id="userMenu">
       <ul>
+        <li><a href="/conta-usuario">Sua conta</a></li>
         <li><a href="#">Seus pedidos</a></li>
         <li><a href="#">Seus endereços</a></li>
-        <li><a href="#">Configurações</a></li>
         <li id="sair"><a href="/">Sair da conta</a></li>
       </ul>
     </div>
