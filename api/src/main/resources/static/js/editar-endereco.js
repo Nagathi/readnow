@@ -1,31 +1,38 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     const codigo = localStorage.getItem('codigo');
 
     if (codigo) {
-        fetch(`/endereco/${codigo}`)
-            .then((response) => response.json())
-            .then((endereco) => {
-                document.getElementById('nome').value = endereco.nomeDestino;
-                
-                document.getElementById('bairro').value = endereco.bairro;
-                document.getElementById('numero-telefone').value = endereco.telefone;
-                document.getElementById('endereco').value = endereco.logradouro;
-                document.getElementById('numero-residencia').value = endereco.numeroCasa;
-                document.getElementById('cep').value = endereco.cep;
-                document.getElementById('complemento').value = endereco.complemento;
-                document.getElementById('cidade').value = endereco.cidade;
-                document.getElementById('estado').value = endereco.estado;
-                document.getElementById('pais').value = endereco.pais;
-            })
-            .catch((error) => {
-                console.error("Erro ao obter endereço:", error);
-            });
+        try {
+            const response = await fetch(`/endereco/${codigo}`);
+            if (response.ok) {
+                const endereco = await response.json();
+                preencherCampos(endereco);
+            } else {
+                console.error("Erro ao obter endereço:", response.status);
+            }
+        } catch (error) {
+            console.error("Erro ao obter endereço:", error);
+        }
     } else {
         console.error("Código não encontrado na URL");
     }
 });
 
-function editar() {
+function preencherCampos(endereco) {
+    document.getElementById('nome').value = endereco.nomeDestino;
+    document.getElementById('bairro').value = endereco.bairro;
+    document.getElementById('numero-telefone').value = endereco.telefone;
+    document.getElementById('endereco').value = endereco.logradouro;
+    document.getElementById('numero-residencia').value = endereco.numeroCasa;
+    document.getElementById('cep').value = endereco.cep;
+    document.getElementById('complemento').value = endereco.complemento;
+    document.getElementById('cidade').value = endereco.cidade;
+    document.getElementById('estado').value = endereco.estado;
+    document.getElementById('pais').value = endereco.pais;
+}
+
+async function editar() {
+
     const codigo = localStorage.getItem('codigo');
     const nomeDestino = document.getElementById('nome').value;
     const bairro = document.getElementById('bairro').value;
@@ -52,20 +59,22 @@ function editar() {
         pais
     };
 
-    fetch(`/edita-endereco`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
+    try {
+        const response = await fetch(`/edita-endereco`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
         if (response.ok) {
-            localStorage.removeItem('codigo')
+            localStorage.removeItem('codigo');
             window.location.href = "/enderecos";
+        } else {
+            console.error("Erro ao editar endereço:", response.status);
         }
-    })
-    .catch(error => {
-        alert(error);
-    });
+    } catch (error) {
+        console.error("Erro ao editar endereço:", error);
+    }
 }
