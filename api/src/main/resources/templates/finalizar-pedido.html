@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./css/footer.css">
   <script src="components/header-autenticado.js" defer></script>
   <script src="components/footer-personalizado.js" defer></script>
+  <script src="js/finalizacao-pedido.js" defer></script>
   <title>Sua carteira</title>
   </head>
 <body>
@@ -28,10 +29,97 @@
 
       <div class="linha"></div>
 
-      <div class="selecionar-endereco">
-        <h2>Escolha um endereço de envio</h2>
-        
-        
+      <div class="menu-finalizar-pedido">
+
+        <div class="selecionar-endereco">
+          <h2>1. Escolha um endereço de envio</h2>
+          
+          <fieldset class="enderecos">
+  
+            <div class="endereco">
+              <label>
+                <input type="radio" name="endereco" value="1">
+                <div class="informacoes">
+                  <span class="destinatario">Destinatário</span>
+                  <span class="informacao-endereco">Endereco, N°, complemento, Bairro, Cidade, Estado</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="endereco">
+              <label>
+                <input type="radio" name="endereco" value="1">
+                <div class="informacoes">
+                  <span class="destinatario">Destinatário</span>
+                  <span class="informacao-endereco">Endereco, N°, complemento, Bairro, Cidade, Estado</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="endereco">
+              <label>
+                <input type="radio" name="endereco" value="1">
+                <div class="informacoes">
+                  <span class="destinatario">Destinatário</span>
+                  <span class="informacao-endereco">Endereco, N°, complemento, Bairro, Cidade, Estado</span>
+                </div>
+              </label>
+            </div>
+                   
+          </fieldset>
+          
+        </div>
+  
+        <div class="selecionar-cartao">
+          <h2>2. Escolha um cartao para pagamento</h2>
+          
+          <fieldset class="cartoes">
+
+            <div class="cartao">
+              <label>
+                <input type="radio" name="cartao" value="1">
+                <div class="informacoes">
+                  <span class="nome-cartao">Nome do cartão</span>
+                  <span class="informacao-cartao">Termina em XX, Vencimento mm/aa</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="cartao">
+              <label>
+                <input type="radio" name="cartao" value="1">
+                <div class="informacoes">
+                  <span class="nome-cartao">Nome do cartão</span>
+                  <span class="informacao-cartao">Termina em XX, Vencimento mm/aa</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="cartao">
+              <label>
+                <input type="radio" name="cartao" value="1">
+                <div class="informacoes">
+                  <span class="nome-cartao">Nome do cartão</span>
+                  <span class="informacao-cartao">Termina em XX, Vencimento mm/aa</span>
+                </div>
+              </label>
+            </div>
+
+            
+          </fieldset>
+          
+        </div>
+
+        <div class="resumo-pedido">
+          <h2>3. Revisar itens e envio</h2>
+
+          <div class="confirmar-compra">
+            <button class="btn-finalizar-pedido">Finalizar pedido</button>
+            <h2 class="valor-pedido">Total do pedido: XX,XX</h2>
+          </div>
+        </div>
+
+       
       </div>
 
     </section>
