@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function editar(endereco){
-
+    
   }
 
   function excluir(codigo){
