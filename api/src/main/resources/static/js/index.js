@@ -4,55 +4,61 @@ function autenticacao() {
   const loginButton = document.querySelector(".button-login");
   const cadastroButton = document.querySelector(`a[href="${'cadastro'}"]`);
 
-  if (usuarioAutenticado != null) {
+  if (usuarioAutenticado != null && nomeUsuario != "") {
     loginButton.style.display = 'none';
     cadastroButton.style.display = 'none';
+    
     const navIcons = document.createElement("nav");
     navIcons.classList.add("card-icons");
     const header = document.querySelector(".cabecalho");
 
     navIcons.innerHTML = `
-
-    <button class="item" id="conta">
-      <a href="#">
-        <img src="images/icons/user.svg" alt="Sua conta" style="width: 3.6rem ;">
-        <span class="identificador"> Olá, ${nomeUsuario} <br>Sua conta</span>
-      </a>
-    </button>
+    <div class="opcoes">
+            <button id= "sua-conta" class="item">
+            <a href="/conta-usuario">
+                <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                <span class="identificador"> Olá, ${nomeUsuario} <br> Sua conta</span>
+            </a>
+            </button>
+  
+            <button class="item">
+            <a href="#">
+                <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                <span class="identificador">Ouvidoria</span>
+            </a>
+            </button>
+  
+            <button class="item" id="carrinho-compras">
+            <a href="carrinho">
+                <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                <span class="identificador">Carrinho</span>
+    
+                <div class="produtos-carrinho">
+                <span class="quantidade">9</span>
+                <span class="simbolo-mais">+</span>
+                </div>
+            </a>
+            </button>
+      </div>
 
     <div class="menu-list" id="userMenu">
-      <ul>
-        <li><a href="#">Seus pedidos</a></li>
-        <li id="sair"><a href="/">Sair da conta</a></li>
-      </ul>
+    <ul>
+      <li><a href="/conta-usuario">Sua conta</a></li>
+      <li><a href="#">Seus pedidos</a></li>
+      <li><a href="#">Seus endereços</a></li>
+      <li id="sair"><a href="#">Sair da conta</a></li>
+    </ul>
     </div>
-
-    <button class="item">
-      <a href="#">
-        <img src="images/icons/ouvidoria.svg" alt="Ouvidoria" style="width: 3.6rem ;">
-        <span class="identificador">Ouvidoria</span>
-      </a>
-    </button>
-
-    <button class="item" id="carrinho-compras">
-      <a href="#">
-        <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
-        <span class="identificador">Carrinho</span>
-
-        <div class="produtos-carrinho">
-          <span class="quantidade">9</span>
-          <span class="simbolo-mais">+</span>
-        </div>
-      </a>
-    </button>
   `;
     header.appendChild(navIcons);
-    document.getElementById('conta').addEventListener('click', function() {
+    document.getElementById('sua-conta').addEventListener('mouseover', function() {
       const userMenu = document.getElementById('userMenu');
       userMenu.style.display = (userMenu.style.display === 'block') ? 'none' : 'block';
     });
     document.getElementById('sair').addEventListener('click', function() {
       localStorage.removeItem("token")
+      localStorage.removeItem("nome")
+      localStorage.removeItem("email")
 
       const cardIcons = document.querySelector(".card-icons");
 
@@ -94,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="detalhes-livro">
           <p class="titulo-livro">${livro.titulo}</p>
-          <h3 class="preco">R$${livro.preco}</h3>
+          <h3 class="preco">R$ ${livro.preco.toFixed(2)}</h3>
           <a href="#" class="ver-produto">Ver produto</a>
         </div>
       `;

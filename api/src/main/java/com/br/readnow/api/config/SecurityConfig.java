@@ -28,7 +28,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/efetua-login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/adiciona-livro").permitAll()
+                        .requestMatchers( "/adiciona-livro/**").permitAll()
+                        .requestMatchers( "/atualiza-carrinho/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/efetua-cadastro").permitAll()
                         .requestMatchers(HttpMethod.GET, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/envia-email").permitAll()

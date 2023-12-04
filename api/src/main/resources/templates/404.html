@@ -4,16 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="images/icons/404.png" type="image/x-icon">
-  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/formulario.css">
+  <link rel="stylesheet" href="./css/404.css">
   <title>404</title>
 </head>
-<body bgcolor="#eaf2fd">
+<body>
   <main class="pag404">
-    <img class="img-personalizada" src="images/icons/404.png" alt="Mensagem de erro 404">
+
+    <div class="img-container">
+      <img src="images/icons/404.png" alt="Mensagem de erro 404">
+    </div>
+
     <h1 class="titulo-personalizado">
         Ops! <br>
-        A página que você procura não existe ou está em manutenção.</h1>
-      <button onclick="goToHome()" type="submit" class="btn-submit">Página Inicial</button>
+        A página que você procura não existe ou está em manutenção.
+    </h1>
+
+    <button class="btn-submit">Página Inicial</button>
   </main>
 </body>
+  <script>
+    const btnVoltar = document.querySelector('.btn-submit');
+    btnVoltar.addEventListener('click',(event) => {
+      window.location.href = "/";
+    });
+  </script>
 </html>

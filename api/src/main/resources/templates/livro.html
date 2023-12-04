@@ -8,55 +8,22 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/livro.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/modal.css">
+
+    <script src="components/header-principal.js" defer></script>
     <script src="components/footer-personalizado.js" defer></script>
+    
     <script src="js/livro.js" defer></script>
+
     <title>ReadNow</title>
   </head>
 <body>
 
   <!--Cabeçalho-->
-  <header class="cabecalho">
-    <a href="/"><img src="images/icons/logo.svg" alt="Logo" class="logo"></a>
-    
-    <div class="box-search">
-      <input type="text" placeholder="O que deseja encontrar?" class="box-input">
-      <button class="button-search">
-        <img src="images/icons/lupa.png" alt="Lupa">
-      </button>
-    </div>
-
-    <nav class="opcoes">
-      <button class="item">
-        <a href="#">
-          <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
-          <span class="identificador">Sua conta</span>
-        </a>
-      </button>
-
-      <button class="item">
-        <a href="#">
-          <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
-          <span class="identificador">Ouvidoria</span>
-        </a>
-      </button>
-
-      <button class="item" id="carrinho-compras">
-        <a href="#">
-          <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
-          <span class="identificador">Carrinho</span>
-
-          <div class="produtos-carrinho">
-            <span class="quantidade">9</span>
-            <span class="simbolo-mais">+</span>
-          </div>
-        </a>
-      </button>
-    </nav>
-  </header>
-
+  <header-principal></header-principal>
   <!--Main-->
   <main>
-
     <section class="livro">
       <div class="livro-destaque">
         <img src="" alt="Imagem do Produto" class="imagem-produto">
@@ -73,7 +40,14 @@
           <button class="adicionar-carrinho">Adicionar no carrinho</button>
         </div>
       </div>
-    </section>      
+    </section>   
+    
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="modal-message"></p>
+      </div>
+    </div>
 
     <section class="categorias-livros">
 

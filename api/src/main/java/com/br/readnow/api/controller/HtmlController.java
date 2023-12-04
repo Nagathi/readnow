@@ -15,14 +15,14 @@ public class HtmlController {
         return "login";
     }
 
-    @GetMapping("/cadastro")
+    @GetMapping("/cadastro-cliente")
     public String cadastrar() {
-        return "new_user";
+        return "cadastro-cliente";
     }
 
     @GetMapping("/esqueci-minha-senha")
     public String recuperarSenha() {
-        return "formulario-email";
+        return "formulario-recuperar-senha";
     }
 
     @GetMapping("/livro")
@@ -32,7 +32,7 @@ public class HtmlController {
 
     @GetMapping("/alterar-senha")
     public String alterarSenha() {
-        return "formulario-senha";
+        return "formulario-nova-senha";
     }
 
     @GetMapping("/cadastrado")
@@ -78,6 +78,16 @@ public class HtmlController {
     @GetMapping("/formulario-endereco")
     public String mostrarFormEndereco() {
         return "formulario-endereco";
+    }
+
+    @GetMapping("/perfil-cliente")
+    public String mostrarPerfilUsuario() {
+        return "perfil-cliente";
+    }
+
+    @GetMapping("/finalizar-pedido")
+    public String finalizarPedido() {
+        return "finalizar-pedido";
     }
 
 }

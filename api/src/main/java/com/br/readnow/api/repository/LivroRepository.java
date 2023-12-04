@@ -11,4 +11,5 @@ import com.br.readnow.api.model.LivroModel;
 public interface LivroRepository extends CrudRepository <LivroModel, Long>{
     boolean existsByIsbn(String isbn);
     List<LivroModel> findByCategoria(String categoria);
+
 }

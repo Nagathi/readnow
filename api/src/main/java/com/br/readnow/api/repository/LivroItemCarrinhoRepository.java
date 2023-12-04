@@ -10,6 +10,6 @@ import com.br.readnow.api.model.LivroItemCarrinhoModel;
 public interface LivroItemCarrinhoRepository extends CrudRepository<LivroItemCarrinhoModel, Long>{
     boolean existsByCodigo(Long codigo);
     List<LivroItemCarrinhoModel> findAllByLivroCodigo(Long codigo);
-
+    List<LivroItemCarrinhoModel> findAllByCarrinhoCodigo(Long codigo);
 
 }
