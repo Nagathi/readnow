@@ -3,7 +3,6 @@ package com.br.readnow.api.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +33,7 @@ public class ContaService {
 
             for (EnderecoModel enderecoModel : enderecosModel) {
                 EnderecoDTO enderecoDTO = new EnderecoDTO();
+                enderecoDTO.setCodigo(enderecoModel.getCodigo());
                 enderecoDTO.setNomeDestino(enderecoModel.getNomeDestino());
                 enderecoDTO.setLogradouro(enderecoModel.getLogradouro());
                 enderecoDTO.setBairro(enderecoModel.getBairro());
@@ -58,7 +58,7 @@ public class ContaService {
     }
 
 
-    public ResponseEntity<List<EnderecoDTO>> cadastrarEndereco(EnderecoDTO enderecoDTO){
+    public ResponseEntity<?> cadastrarEndereco(EnderecoDTO enderecoDTO){
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(enderecoDTO.getEmail());
 
         if(usuarioOptional.isPresent()){
@@ -81,27 +81,45 @@ public class ContaService {
             usuario.getEnderecos().add(novoEndereco);
             usuarioRepository.save(usuario);
 
-            return ResponseEntity.ok(usuario.getEnderecos().stream()
-                .map(this::mapToEnderecoDTO)
-                .collect(Collectors.toList()));
+            return ResponseEntity.ok("Endereço cadastrado!");
         } else {
             return ResponseEntity.noContent().build();
         }
     }
 
-    private EnderecoDTO mapToEnderecoDTO(EnderecoModel enderecoModel) {
-        EnderecoDTO enderecoDTO = new EnderecoDTO();
-        enderecoDTO.setEmail(enderecoModel.getUsuario().getEmail());
-        enderecoDTO.setNomeDestino(enderecoModel.getNomeDestino());
-        enderecoDTO.setLogradouro(enderecoModel.getLogradouro());
-        enderecoDTO.setBairro(enderecoModel.getBairro());
-        enderecoDTO.setNumeroCasa(enderecoModel.getNumeroCasa());
-        enderecoDTO.setCep(enderecoModel.getCep());
-        enderecoDTO.setComplemento(enderecoModel.getComplemento());
-        enderecoDTO.setCidade(enderecoModel.getCidade());
-        enderecoDTO.setEstado(enderecoModel.getEstado());
-        enderecoDTO.setPais(enderecoModel.getPais());
-        return enderecoDTO;
+    public ResponseEntity<?> editarEndereco(EnderecoDTO enderecoDTO){
+        Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(enderecoDTO.getCodigo());
+
+        if(enderecoOptional.isPresent()){
+            EnderecoModel endereco = enderecoOptional.get();
+
+            endereco.setNomeDestino(enderecoDTO.getNomeDestino());
+            endereco.setLogradouro(enderecoDTO.getLogradouro());
+            endereco.setBairro(enderecoDTO.getBairro());
+            endereco.setNumeroCasa(enderecoDTO.getNumeroCasa());
+            endereco.setCep(enderecoDTO.getCep());
+            endereco.setComplemento(enderecoDTO.getComplemento());
+            endereco.setCidade(enderecoDTO.getCidade());
+            endereco.setEstado(enderecoDTO.getEstado());
+            endereco.setPais(enderecoDTO.getPais());
+
+            enderecoRepository.save(endereco);
+
+            return ResponseEntity.ok("Endereço atualizado!");
+        }else{
+            return ResponseEntity.badRequest().body("Ocorreu um erro ao atualizar o endereço.");
+        }
+    }
+
+    public ResponseEntity<?> excluirEndereco(Long codigo){
+        
+        if(enderecoRepository.findById(codigo).isPresent()){
+            enderecoRepository.deleteById(codigo);
+            return ResponseEntity.ok("Endereço excluído");
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
 }

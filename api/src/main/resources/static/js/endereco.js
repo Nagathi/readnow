@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p class="telefone">Telefone: ${endereco.telefone}</p>
               </div>
               <div class="botoes">
-                <button class="btn-editar">Editar</button>
-                <button class="btn-excluir">Excluir</button>
+                <button onclick="editar(${endereco})" class="btn-editar">Editar</button>
+                <button onclick="excluir(${endereco.codigo})" class="btn-excluir">Excluir</button>
               </div>
             `;
             listaEnderecos.appendChild(novoEndereco);
@@ -36,3 +36,19 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("E-mail não encontrado no localStorage");
     }
   });
+
+  function editar(endereco){
+
+  }
+
+  function excluir(codigo){
+    fetch(`/exclui-endereco/${codigo}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response =>{
+      window.location.href = "/enderecos"
+    })
+  }
