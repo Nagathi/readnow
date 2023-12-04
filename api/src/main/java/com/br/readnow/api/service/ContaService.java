@@ -6,11 +6,15 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.br.readnow.api.dto.CartaoDTO;
 import com.br.readnow.api.dto.EnderecoDTO;
+import com.br.readnow.api.model.CartaoModel;
 import com.br.readnow.api.model.EnderecoModel;
 import com.br.readnow.api.model.UsuarioModel;
+import com.br.readnow.api.repository.CartaoRepository;
 import com.br.readnow.api.repository.EnderecoRepository;
 import com.br.readnow.api.repository.UsuarioRepository;
 
@@ -22,6 +26,9 @@ public class ContaService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private CartaoRepository cartaoRepository;
 
     public ResponseEntity<List<EnderecoDTO>> listarEnderecosPorEmail(String email){
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
@@ -148,6 +155,29 @@ public class ContaService {
         }else{
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public ResponseEntity<?> cadastrarCartao(CartaoDTO cartaoDTO){
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(cartaoDTO.getEmail());
+        if(usuarioOptional.isPresent()){
+            UsuarioModel usuario = usuarioOptional.get();
+
+            CartaoModel cartao = new CartaoModel();
+            cartao.setNome(cartaoDTO.getNome());
+
+            String encryptedNumero = new BCryptPasswordEncoder().encode(cartaoDTO.getNumero());
+
+            cartao.setNumero(encryptedNumero);
+            cartao.setData(cartaoDTO.getData());
+            cartao.setUsuario(usuario);
+            cartaoRepository.save(cartao);
+
+            return ResponseEntity.ok("Cartão cadastrado!");
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+        
+        
     }
 
 }

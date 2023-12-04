@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.br.readnow.api.dto.CartaoDTO;
 import com.br.readnow.api.dto.EnderecoDTO;
 import com.br.readnow.api.service.ContaService;
 
@@ -44,5 +45,10 @@ public class ContaController {
     @GetMapping("/endereco/{codigo}")
     public ResponseEntity<EnderecoDTO> buscarEnderecoPorCodigo(@PathVariable Long codigo){
         return contaService.buscarEnderecoPorCodigo(codigo);
+    }
+
+    @PostMapping("/cadastra-cartao")
+    public ResponseEntity<?> cadastrarCartao(@RequestBody CartaoDTO cartao){
+        return contaService.cadastrarCartao(cartao);
     }
 }
