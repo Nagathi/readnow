@@ -41,4 +41,8 @@ public class ContaController {
         return contaService.excluirEndereco(codigo);
     }
 
+    @GetMapping("/endereco/{codigo}")
+    public ResponseEntity<EnderecoDTO> buscarEnderecoPorCodigo(@PathVariable Long codigo){
+        return contaService.buscarEnderecoPorCodigo(codigo);
+    }
 }

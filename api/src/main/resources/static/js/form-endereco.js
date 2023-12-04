@@ -6,6 +6,7 @@ form.addEventListener('submit', function(event) {
   const email = localStorage.getItem('email');
 
   const nomeDestino = document.getElementById('nome').value;
+  const telefone = document.getElementById('numero-telefone').value;
   const logradouro = document.getElementById('endereco').value;
   const bairro = document.getElementById('bairro').value;
   const numeroCasa = document.getElementById('numero-residencia').value;
@@ -19,6 +20,7 @@ form.addEventListener('submit', function(event) {
     email: email,
     nomeDestino: nomeDestino,
     logradouro: logradouro,
+    telefone: telefone,
     bairro: bairro,
     numeroCasa: numeroCasa,
     cep: cep,

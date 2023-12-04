@@ -21,6 +21,7 @@ public class EnderecoModel {
         private Long codigo;
     
         private String nomeDestino;
+        private String telefone;
         private String logradouro;
         private String bairro;
         private String numeroCasa;

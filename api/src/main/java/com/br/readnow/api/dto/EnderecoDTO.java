@@ -10,6 +10,7 @@ public class EnderecoDTO {
     private String email;
     private String nomeDestino;
     private String logradouro;
+    private String telefone;
     private String bairro;
     private String numeroCasa;
     private String cep;
