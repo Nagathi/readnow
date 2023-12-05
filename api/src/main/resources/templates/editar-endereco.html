@@ -13,11 +13,10 @@
   <link rel="stylesheet" href="./css/footer.css">
   <link rel="stylesheet" href="../css/menu.css">
 
-  <script src="components/autenticado.js" defer></script>
+  <script src="js/autenticado.js" defer></script>
   <script src="components/header-autenticado.js" defer></script>
   <script src="components/footer-personalizado.js" defer></script>
-  <script src="js/form-endereco.js" defer></script>
-  <script src="js/form-endereco.js" defer></script>
+  <script src="js/editar-endereco.js" defer></script>
 
   <title>Seus endereços</title>
   </head>
@@ -36,7 +35,7 @@
 
       <div class="linha"></div>
 
-      <form action="" id="formulario-1">
+      <form  id="formulario-1">
 
         <div class="campo">
           <label for="nome">Nome completo (nome sobrenome)</label>
@@ -88,7 +87,7 @@
           <input type="text" name="pais" id="pais" required>
         </div>
 
-        <button type="submit" class="btn-adicionar-endereco">Adicionar Endereço</button>
+        <button onclick="editar()" type="button" class="btn-adicionar-endereco">Editar Endereço</button>
 
       </form>
 

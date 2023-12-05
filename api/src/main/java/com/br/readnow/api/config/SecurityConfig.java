@@ -39,6 +39,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/cadastrado").permitAll()
                         .requestMatchers(HttpMethod.GET, "/cadastro").permitAll()
                         .requestMatchers(HttpMethod.POST, "/autenticacao").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/enderecos/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/cadastra-endereco").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/edita-endereco").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/exclui-endereco/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/endereco/**").permitAll()
 
                         .requestMatchers("/**").permitAll()
                         .requestMatchers("/alterar-senha/**").permitAll()

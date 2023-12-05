@@ -90,4 +90,9 @@ public class HtmlController {
         return "finalizar-pedido";
     }
 
+    @GetMapping("/editar-endereco")
+    public String editarEndereco() {
+        return "editar-endereco";
+    }
+
 }

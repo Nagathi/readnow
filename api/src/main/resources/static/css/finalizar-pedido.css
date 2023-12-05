@@ -1,3 +1,106 @@
 .finalizar-pedido {
-  background-color: red;
+  width: 72.2rem;
+}
+
+.finalizar-pedido .linha {
+  margin: 2.2rem 0 2.2rem 0;
+}
+
+.menu-finalizar-pedido {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: .5rem;
+}
+
+.endereco, .cartao {
+  border: .05rem solid var(--cinza);
+  border-radius: .8rem;
+  color: var(--preto);
+  font-family: var(--fonte-principal);
+  padding: 1rem;
+}
+
+.endereco:hover, .endereco label:hover, .cartao:hover, .cartao label:hover {
+  transition: all .5s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover);
+}
+
+label {
+  display: flex;
+  align-items: center;
+}
+
+h2, .informacoes {
+  color: var(--preto);
+  font-family: var(--fonte-principal);
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.informacoes {
+  margin-left: .8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.destinatario, .nome-cartao {
+  font-size: 1.4rem;
+  font-weight: 600;
+  display: inline;
+}
+
+span {
+  margin-left: .05rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.confirmar-compra {
+  padding: 1.2rem 3.4rem;
+  border: .05rem solid var(--cinza);
+  border-radius: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-finalizar-pedido {
+  font-family: var(--fonte-principal);
+  font-size: 1.2rem;
+  color: var(--branco-primario);
+  font-weight: 500;
+  padding: .8rem 3rem;
+  background-color: var(--azul);
+  border-radius: 2.4rem;
+  border: none;
+}
+
+.btn-finalizar-pedido:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover-1);
+}
+
+h2.valor-pedido {
+  margin-bottom: 0;
+  color: var(--vermelho);
+}
+
+#endereco-selecionado, #cartao-selecionado {
+  transition: all .5s;
+  background-color: var(--azul-btn-hover);
+  border: .05rem solid var(--azul);
 }

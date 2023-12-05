@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.br.readnow.api.dto.CartaoDTO;
 import com.br.readnow.api.dto.EnderecoDTO;
 import com.br.readnow.api.service.ContaService;
 
@@ -25,8 +28,27 @@ public class ContaController {
     }
 
     @PostMapping("/cadastra-endereco")
-    public ResponseEntity<List<EnderecoDTO>> cadastrarEndereco(@RequestBody EnderecoDTO endereco){
+    public ResponseEntity<?> cadastrarEndereco(@RequestBody EnderecoDTO endereco){
         return contaService.cadastrarEndereco(endereco);
     }
 
+    @PutMapping("/edita-endereco")
+    public ResponseEntity<?> editarEndereco(@RequestBody EnderecoDTO endereco){
+        return contaService.editarEndereco(endereco);
+    }
+
+    @DeleteMapping("/exclui-endereco/{codigo}")
+    public ResponseEntity<?> excluirEndereco(@PathVariable Long codigo){
+        return contaService.excluirEndereco(codigo);
+    }
+
+    @GetMapping("/endereco/{codigo}")
+    public ResponseEntity<EnderecoDTO> buscarEnderecoPorCodigo(@PathVariable Long codigo){
+        return contaService.buscarEnderecoPorCodigo(codigo);
+    }
+
+    @PostMapping("/cadastra-cartao")
+    public ResponseEntity<?> cadastrarCartao(@RequestBody CartaoDTO cartao){
+        return contaService.cadastrarCartao(cartao);
+    }
 }

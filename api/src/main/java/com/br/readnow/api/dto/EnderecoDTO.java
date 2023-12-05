@@ -6,9 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EnderecoDTO {
+    private long codigo;
     private String email;
     private String nomeDestino;
     private String logradouro;
+    private String telefone;
     private String bairro;
     private String numeroCasa;
     private String cep;

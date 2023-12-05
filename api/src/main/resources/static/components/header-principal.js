@@ -23,8 +23,8 @@
                 <img src="images/icons/lupa.png" alt="Lupa" />
               </button>
             </div>
-            <a href="login" class="button-login">Login</a>
-            <a href="cadastro-cliente" class="button-login">Cadastro</a>  
+            <a href="/login" class="button-login">Login</a>
+            <a href="/cadastro-cliente" class="button-login">Cadastro</a>  
           </header>
 
         `;
