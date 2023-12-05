@@ -42,7 +42,7 @@ public class LivroService {
 
                 //  C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/livros/
                 //  /home/victoria/Documentos/UFPA/Optativas/DesenvolvimentoWeb/ReadNow/api/src/main/resources/static/images/livros/
-                String uploadImagem = "/home/victoria/Documentos/UFPA/Optativas/DesenvolvimentoWeb/ReadNow/api/src/main/resources/static/images/livros/";
+                String uploadImagem = "C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/livros/";
                 String uniqueImageName = UUID.randomUUID().toString() + "_" + imagem.getOriginalFilename();
 
                 Path destinoImagem = Path.of(uploadImagem + uniqueImageName);
@@ -78,6 +78,15 @@ public class LivroService {
             return ResponseEntity.ok(livro);
         }else{
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    public ResponseEntity<List<LivroModel>> pesquisar(String pesquisa) {
+        List<LivroModel> resultados = livroRepository.findByTituloContainingOrAutorContainingOrEditoraContainingOrIsbnContainingOrCategoriaContaining(pesquisa, pesquisa, pesquisa, pesquisa, pesquisa);
+        if (resultados.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(resultados);
         }
     }
 }

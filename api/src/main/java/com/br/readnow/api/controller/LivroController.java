@@ -60,4 +60,9 @@ public class LivroController {
     public ResponseEntity<?> buscarLivro(@PathVariable long codigo){
         return livroService.buscarLivro(codigo);
     }
+
+    @GetMapping("/pesquisa")
+    public ResponseEntity<List<LivroModel>> buscarLivro(@RequestParam(value = "palavra") String pesquisa){
+        return livroService.pesquisar(pesquisa);
+    }
 }

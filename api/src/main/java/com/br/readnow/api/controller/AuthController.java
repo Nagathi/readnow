@@ -19,5 +19,4 @@ public class AuthController {
         return authService.verificarUUID(uuid);
     }
 
-
 }
