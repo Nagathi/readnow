@@ -18,13 +18,14 @@
                 type="text"
                 placeholder="O que deseja encontrar?"
                 class="box-input"
+                id="campo-pesquisa"
               />
-              <button class="button-search">
+              <button id="btn-pesquisa" class="button-search">
                 <img src="images/icons/lupa.png" alt="Lupa" />
               </button>
             </div>
-            <a href="/login" class="button-login">Login</a>
-            <a href="/cadastro-cliente" class="button-login">Cadastro</a>  
+            <a id="login" href="/login" class="button-login">Login</a>
+            <a id="cadastro" href="/cadastro-cliente" class="button-login">Cadastro</a>  
           </header>
 
         `;

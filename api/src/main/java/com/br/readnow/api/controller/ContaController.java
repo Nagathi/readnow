@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.br.readnow.api.dto.CartaoDTO;
 import com.br.readnow.api.dto.EnderecoDTO;
+import com.br.readnow.api.dto.RequestDeleteDTO;
 import com.br.readnow.api.service.ContaService;
 
 @RestController
@@ -47,8 +48,23 @@ public class ContaController {
         return contaService.buscarEnderecoPorCodigo(codigo);
     }
 
+    @GetMapping("/cartoes/{email}")
+    public ResponseEntity<List<CartaoDTO>> listarCartoesPorEmail(@PathVariable String email){
+        return contaService.listarCartoesPorEmail(email);
+    }
+
     @PostMapping("/cadastra-cartao")
     public ResponseEntity<?> cadastrarCartao(@RequestBody CartaoDTO cartao){
         return contaService.cadastrarCartao(cartao);
+    }
+
+    @PutMapping("/edita-cartao")
+    public ResponseEntity<?> editarCartao(@RequestBody CartaoDTO cartaoDTO){
+        return contaService.editarCartao(cartaoDTO);
+    }
+
+    @DeleteMapping("/exclui-cartao")
+    public ResponseEntity<?> excluirCartao(@RequestBody RequestDeleteDTO requestDeleteDTO){
+        return contaService.excluirCartao(requestDeleteDTO);
     }
 }

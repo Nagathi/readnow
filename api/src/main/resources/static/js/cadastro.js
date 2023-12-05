@@ -1,4 +1,11 @@
 const form = document.getElementById("formulario");
+const modal = document.getElementById("modal");
+const modalMessage = document.getElementById("modal-message");
+const closeButton = document.querySelector(".close");
+
+function closeModal() {
+  modal.style.display = "none";
+}
 
 function efetuarCadastro() {
   const nome = document.getElementById("nome").value;
@@ -22,12 +29,14 @@ function efetuarCadastro() {
       if(response.ok){
         window.location.href = '/cadastrado';
       }else{
-        alert("Ocorreu um erro ao processar o cadastro")
+        modalMessage.textContent = "Ocorreu um erro ao processar o cadastro.";
+        modal.style.display = "block";
       }
     })
   }
   else{
-    alert("Senhas não conferem!");
+    modalMessage.textContent = "Senhas não conferem!";
+    modal.style.display = "block";
   }
 }
 
@@ -35,8 +44,14 @@ function goToHome(){
   window.location.href = '/';
 }
 
-
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   efetuarCadastro();
+});
+
+closeButton.addEventListener("click", closeModal);
+window.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    closeModal();
+  }
 });

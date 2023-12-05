@@ -50,6 +50,11 @@ public class HtmlController {
         return "carteira";
     }
 
+    @GetMapping("/edita-cartao")
+    public String formEditarCartao() {
+        return "editar-cartao";
+    }
+
     @GetMapping("/central-ajuda")
     public String mostrarCentralAjuda() {
         return "central-ajuda";
@@ -93,6 +98,11 @@ public class HtmlController {
     @GetMapping("/editar-endereco")
     public String editarEndereco() {
         return "editar-endereco";
+    }
+
+    @GetMapping("/resultado-pesquisa")
+    public String pesquisar() {
+        return "resultado-pesquisa";
     }
 
 }

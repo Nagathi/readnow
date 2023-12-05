@@ -1,8 +1,8 @@
 function autenticacao() {
   const usuarioAutenticado = localStorage.getItem("token");
   const nomeUsuario = localStorage.getItem("nome");
-  const loginButton = document.querySelector(".button-login");
-  const cadastroButton = document.querySelector(`a[href="${'/cadastro-cliente'}"]`);
+  const loginButton = document.querySelector("#login");
+  const cadastroButton = document.querySelector("#cadastro");
 
   if (usuarioAutenticado != null && nomeUsuario != "") {
     loginButton.style.display = 'none';
@@ -22,7 +22,7 @@ function autenticacao() {
             </button>
   
             <button class="item">
-            <a href="#">
+            <a href="/central-ajuda">
                 <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
                 <span class="identificador">Ouvidoria</span>
             </a>
@@ -69,7 +69,7 @@ function autenticacao() {
   }
   else{
     loginButton.style.display = 'block';
-      cadastroButton.style.display = 'block';     
+    cadastroButton.style.display = 'block';     
   }
 }
 

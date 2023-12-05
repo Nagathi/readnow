@@ -30,3 +30,33 @@ function cadastrar(){
         console.error('Erro:', error);
     });
 }
+
+function editar() {
+    const codigo = localStorage.getItem("codigoCartao");
+    const email = localStorage.getItem("email");
+
+    const nome = document.getElementById("nome").value;
+    const numero = document.getElementById("numero-cartao").value;
+    const mesExpiracao = document.getElementById("mes-expiracao").value;
+    const anoExpiracao = document.getElementById("ano-expiracao").value;
+
+    const data = {
+        codigo,
+        email,
+        nome,
+        numero,
+        data: `${mesExpiracao}/${anoExpiracao}`,
+    };
+
+    fetch('/edita-cartao', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(response => {
+        if (response.ok) {
+            window.location.href = "/carteira";
+        }
+    });
+}

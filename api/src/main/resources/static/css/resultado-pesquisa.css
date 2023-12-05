@@ -1,7 +1,8 @@
-.resultado-pesquisa ul {
-  max-width: 113.6rem;
+.lista-livros {
+  display: flex;
   flex-wrap: wrap;
   column-gap: 1.6rem;
   row-gap: 3.6rem;
   justify-content: flex-start;
+  max-width: 113.6rem;
 }
