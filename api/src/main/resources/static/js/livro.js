@@ -21,9 +21,9 @@ function obterParametrosURL() {
   return params;
 }
 function autenticacao() {
-  const loginButton = document.querySelector(`a[href="${"login"}"]`);
+  const loginButton = document.querySelector(`a[href="${"/login"}"]`);
   const cadastroButton = document.querySelector(
-    `a[href="${"cadastro-cliente"}"]`
+    `a[href="${"/cadastro-cliente"}"]`
   );
 
   if (usuarioAutenticado != null && nomeUsuario != null) {
