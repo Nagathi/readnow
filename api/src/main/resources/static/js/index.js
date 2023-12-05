@@ -14,39 +14,39 @@ function autenticacao() {
 
     navIcons.innerHTML = `
     <div class="opcoes">
-            <button id= "sua-conta" class="item">
+            <div id= "sua-conta" class="item">
             <a href="/conta-usuario">
                 <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
                 <span class="identificador"> Olá, ${nomeUsuario} <br> Sua conta</span>
             </a>
-            </button>
+            </div>
   
-            <button class="item">
+            <div class="item" id="carrinho-compras">
+              <a href="carrinho">
+                  <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                  <span class="identificador">Carrinho</span>
+      
+                  <div class="produtos-carrinho">
+                  <span class="quantidade">9</span>
+                  <span class="simbolo-mais">+</span>
+                  </div>
+              </a>
+            </div>
+
+            <div class="item">
             <a href="/central-ajuda">
                 <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
-                <span class="identificador">Ouvidoria</span>
+                <span class="identificador">Ajuda</span>
             </a>
-            </button>
-  
-            <button class="item" id="carrinho-compras">
-            <a href="carrinho">
-                <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
-                <span class="identificador">Carrinho</span>
-    
-                <div class="produtos-carrinho">
-                <span class="quantidade">9</span>
-                <span class="simbolo-mais">+</span>
-                </div>
-            </a>
-            </button>
+            </div>
       </div>
 
     <div class="menu-list" id="userMenu">
     <ul>
-      <li><a href="/conta-usuario">Sua conta</a></li>
-      <li><a href="#">Seus pedidos</a></li>
-      <li><a href="#">Seus endereços</a></li>
-      <li id="sair"><a href="#">Sair da conta</a></li>
+      <li><a href="/conta-usuario">Conta</a></li>
+      <li><a href="#">Pedidos</a></li>
+      <li><a href="/enderecos">Endereços</a></li>
+      <li id="sair"><a href="/">Sair</a></li>
     </ul>
     </div>
   `;

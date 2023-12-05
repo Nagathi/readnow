@@ -11,23 +11,39 @@ function autenticacao() {
       const header = document.querySelector(".nav-icons");
       navIcons.innerHTML = `
         <ul>
-            <li><a href="/conta-usuario">Sua conta</a></li>
-            <li><a href="#">Seus pedidos</a></li>
-            <li><a href="#">Seus endereços</a></li>
-            <li id="sair"><a href="#">Sair da conta</a></li>
+            <li>
+              <a href="/conta-usuario">Conta</a>
+            </li>
+
+            <li>
+              <a href="#">Pedidos</a>
+            </li>
+
+            <li>
+              <a href="/enderecos">Endereços</a>
+            </li>
+
+            <li id="sair">
+              <a href="/">Sair</a>
+            </li>
         </ul>
       `
       header.appendChild(navIcons);
 
-      document.getElementById('conta').addEventListener('mouseover', function() {
-        const userMenu = document.querySelector('.menu-list');
-        userMenu.style.display = (userMenu.style.display === 'block') ? 'none' : 'block';
+      document.getElementById('conta').addEventListener('mouseover', () => {
+        navIcons.classList.add("ativo");
       });
+
+      window.addEventListener('click', () => {
+        navIcons.classList.remove('ativo');
+      });
+
       document.getElementById('sair').addEventListener('click', function() {
         salvarEstadoCarrinho(localStorage.getItem("carrinhoItens"));
         localStorage.removeItem("token")
         localStorage.removeItem("email")
         localStorage.removeItem("nome")
+        
         localStorage.removeItem("carrinhoItens")
   
         const cardIcons = document.querySelector(".nav-icons");

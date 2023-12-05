@@ -17,6 +17,7 @@ fieldset {
   display: flex;
   flex-direction: column;
   row-gap: .5rem;
+  margin-bottom: .8rem;
 }
 
 .endereco, .cartao {
@@ -103,4 +104,19 @@ h2.valor-pedido {
   transition: all .5s;
   background-color: var(--azul-btn-hover);
   border: .05rem solid var(--azul);
+}
+
+.adicionar-endereco,
+.adicionar-cartao {
+  color: var(--azul);
+  font-family: var(--fonte-principal);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.adicionar-endereco:hover,
+.adicionar-cartao:hover {
+  transition: all .5s;
+  color: var(--vermelho);
+  text-decoration: underline;
 }
