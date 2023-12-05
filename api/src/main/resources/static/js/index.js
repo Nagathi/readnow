@@ -2,7 +2,7 @@ function autenticacao() {
   const usuarioAutenticado = localStorage.getItem("token");
   const nomeUsuario = localStorage.getItem("nome");
   const loginButton = document.querySelector(".button-login");
-  const cadastroButton = document.querySelector(`a[href="${'cadastro'}"]`);
+  const cadastroButton = document.querySelector(`a[href="${'cadastro-cliente'}"]`);
 
   if (usuarioAutenticado != null && nomeUsuario != "") {
     loginButton.style.display = 'none';

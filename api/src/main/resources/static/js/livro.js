@@ -21,12 +21,14 @@ function obterParametrosURL() {
   return params;
 }
 function autenticacao() {
-  const loginButton = document.querySelector(`a[href="${'login'}"]`);
-  const cadastroButton = document.querySelector(`a[href="${'cadastro'}"]`);
+  const loginButton = document.querySelector(`a[href="${"login"}"]`);
+  const cadastroButton = document.querySelector(
+    `a[href="${"cadastro-cliente"}"]`
+  );
 
   if (usuarioAutenticado != null && nomeUsuario != null) {
-    loginButton.style.display = 'none';
-    cadastroButton.style.display = 'none';
+    loginButton.style.display = "none";
+    cadastroButton.style.display = "none";
     const navIcons = document.createElement("nav");
     navIcons.classList.add("card-icons");
     const header = document.querySelector(".cabecalho");
@@ -71,25 +73,25 @@ function autenticacao() {
   `;
     header.appendChild(navIcons);
 
-    document.getElementById('sua-conta').addEventListener('click', function () {
-      const userMenu = document.getElementById('userMenu');
-      userMenu.style.display = (userMenu.style.display === 'block') ? 'none' : 'block';
+    document.getElementById("sua-conta").addEventListener("click", function () {
+      const userMenu = document.getElementById("userMenu");
+      userMenu.style.display =
+        userMenu.style.display === "block" ? "none" : "block";
     });
-    document.getElementById('sair').addEventListener('click', function () {
-      localStorage.removeItem("token")
-      localStorage.removeItem("nome")
-      localStorage.removeItem("email")
+    document.getElementById("sair").addEventListener("click", function () {
+      localStorage.removeItem("token");
+      localStorage.removeItem("nome");
+      localStorage.removeItem("email");
 
       const cardIcons = document.querySelector(".card-icons");
 
-      cardIcons.style.display = 'none';
-      loginButton.style.display = 'block';
-      cadastroButton.style.display = 'block';
+      cardIcons.style.display = "none";
+      loginButton.style.display = "block";
+      cadastroButton.style.display = "block";
     });
-  }
-  else {
-    loginButton.style.display = 'block';
-    cadastroButton.style.display = 'block';
+  } else {
+    loginButton.style.display = "block";
+    cadastroButton.style.display = "block";
   }
 }
 
@@ -141,8 +143,9 @@ document.addEventListener("DOMContentLoaded", function () {
               <div class="detalhes-livro">
                 <p class="titulo-livro">${produto.titulo}</p>
                 <h3 class="preco">R$${produto.preco.toFixed(2)}</h3>
-                <a href="/livro?codigo=${produto.codigo
-              }" class="ver-produto">Ver produto</a>
+                <a href="/livro?codigo=${
+                  produto.codigo
+                }" class="ver-produto">Ver produto</a>
               </div>
             `;
 
@@ -178,17 +181,37 @@ function adicionarItemCarrinho() {
       "Content-Type": "application/json",
       Authorization: `Bearer ${usuarioAutenticado}`,
     },
-  }).then((response) => {
-    if (response.ok) {
-      modalMessage.textContent = "Livro adicionado ao carrinho!";
-      modal.style.display = "block";
+  })
+    .then((response) => {
+      if (response.ok) {
+        modalMessage.textContent = "Livro adicionado ao carrinho!";
+        modal.style.display = "block";
+      } else {
+        alert("Ocorreu um erro ao processar o cadastro");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      var livros = [];
+      if (localStorage.getItem("carrinhoItens") != null) {
+        var recuperado = Array.from(
+          JSON.parse(localStorage.getItem("carrinhoItens"))
+        );
+        var indice = encontrarIndiceLivro(recuperado, data);
+        if (indice == -1) {
+          recuperado.push(data);
+        }
+        else{
+          recuperado[indice].quantidade += 1; 
+          // recuperado.push(data);
+        }
+        localStorage.setItem("carrinhoItens", JSON.stringify(recuperado));
 
-    } else {
-      alert("Ocorreu um erro ao processar o cadastro");
-    }
-  });
-
-
+      } else {
+        livros.push(data);
+        localStorage.setItem("carrinhoItens", JSON.stringify(livros));
+      }
+    });
 }
 const botaoAdicionarCarrinho = document.querySelector(".adicionar-carrinho");
 botaoAdicionarCarrinho.addEventListener("click", function () {
@@ -197,8 +220,19 @@ botaoAdicionarCarrinho.addEventListener("click", function () {
   }
 });
 closeButton.addEventListener("click", closeModal);
-window.addEventListener("click", function(event) {
+window.addEventListener("click", function (event) {
   if (event.target === modal) {
     closeModal();
   }
 });
+function encontrarIndiceLivro(array, novoLivro) {
+  return array.findIndex(item => sãoIguais(item, novoLivro));
+}
+
+function sãoIguais(livro1, livro2) {
+  // Implemente sua lógica de comparação aqui
+  // Retorna true se os livros forem iguais, false caso contrário
+  console.log(livro1.livro.codigo);
+  console.log(livro2.livro.codigo);
+  return livro1.livro.codigo === livro2.livro.codigo; // Exemplo: comparando pelo código
+}

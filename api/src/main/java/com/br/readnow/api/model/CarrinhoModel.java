@@ -31,7 +31,6 @@ public class CarrinhoModel {
 
     @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LivroItemCarrinhoModel> livros = new ArrayList<>();
-    private double valorTotal;
 
     public void criarCarrinho(UsuarioModel cliente) {
         this.cliente = cliente;

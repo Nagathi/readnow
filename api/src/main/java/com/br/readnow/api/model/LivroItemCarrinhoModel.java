@@ -23,6 +23,7 @@ public class LivroItemCarrinhoModel {
     @ManyToOne
     @JoinColumn(name = "livro_codigo")
     private LivroModel livro;
+
     private int quantidade;
 
     @ManyToOne

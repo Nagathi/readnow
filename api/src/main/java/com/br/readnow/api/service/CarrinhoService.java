@@ -2,7 +2,6 @@ package com.br.readnow.api.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,9 @@ public class CarrinhoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public ResponseEntity<List<LivroItemCarrinhoDTO>> mostrarItensCarrinho(String email) {
+    public ResponseEntity<List<LivroItemCarrinhoDTO>> mostrarItensCarrinho(String token) {
+        String email = tokenService.validarToken(token);
+
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
 
         if (usuarioOptional.isPresent()) {
@@ -52,7 +53,7 @@ public class CarrinhoService {
                 LivroItemCarrinhoDTO itemLivro = new LivroItemCarrinhoDTO();
                 itemLivro.setEmail(email);
                 itemLivro.setLivro(item.getLivro());
-                itemLivro.setQuantidade(item.getQuantidade());
+                itemLivro.setQuantidade(1);
                 itens.add(itemLivro);
             }
 
@@ -68,7 +69,6 @@ public class CarrinhoService {
     }
 
     public void armazenaEstadoCarrinho(List<LivroItemCarrinhoDTO> livrosItemCarrinhoDTO) {
-        double valorTotal = 0;
         Optional<CarrinhoModel> carrinhoOptional = null;
         for (LivroItemCarrinhoDTO item : livrosItemCarrinhoDTO) {
             Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(item.getEmail());
@@ -76,31 +76,38 @@ public class CarrinhoService {
                 carrinhoOptional = carrinhoRepository
                         .findByClienteCodigo(usuarioOptional.get().getCodigo());
                 if (carrinhoOptional.isPresent()) {
-                    List<LivroItemCarrinhoModel> itensCarrinho = livroItemCarrinhoRepository
-                            .findAllByLivroCodigo(item.getLivro().getCodigo());
-
-                    LivroItemCarrinhoModel itemCarrinho = encontrarItemNoCarrinho(itensCarrinho,
-                            carrinhoOptional.get());
-
-                    itemCarrinho.setQuantidade(item.getQuantidade());
-                    livroItemCarrinhoRepository.save(itemCarrinho);
-
-                    valorTotal += item.getLivro().getPreco() * item.getQuantidade();
-
+                    Optional<LivroItemCarrinhoModel> livroOptional = livroItemCarrinhoRepository
+                            .findByLivroCodigo(item.getLivro().getCodigo());
+                    if (livroOptional.isPresent()) {
+                        livroOptional.get().setQuantidade(item.getQuantidade());
+                    } else {
+                        LivroItemCarrinhoModel itemCarrinhoModel = new LivroItemCarrinhoModel();
+                        itemCarrinhoModel.setCarrinho(carrinhoOptional.get());
+                        itemCarrinhoModel.setLivro(item.getLivro());
+                        livroItemCarrinhoRepository.save(itemCarrinhoModel);
+                    }
                 }
             }
-
         }
         if (carrinhoOptional != null) {
-            carrinhoOptional.get().setValorTotal(valorTotal);
-            carrinhoRepository.save(carrinhoOptional.get());
-        }
+            List<LivroItemCarrinhoModel> livrosNoCarrinho = livroItemCarrinhoRepository
+                    .findAllByCarrinhoCodigo(carrinhoOptional.get().getCodigo());
 
+            for (LivroItemCarrinhoModel livroNoCarrinho : livrosNoCarrinho) {
+                boolean livroPresenteNoDTO = livrosItemCarrinhoDTO.stream()
+                        .anyMatch(itemDTO -> itemDTO.getLivro().getCodigo()
+                                .equals(livroNoCarrinho.getLivro().getCodigo()));
+
+                if (!livroPresenteNoDTO) {
+                    // O livro está no carrinho, mas não está em livrosItemCarrinhoDTO, então remove
+                    // do carrinho
+                    livroItemCarrinhoRepository.delete(livroNoCarrinho);
+                }
+            }
+        }
     }
 
-    public ResponseEntity<String> adicionarItemAoCarrinho(Long livroId, int quantidade, String token) {
-
-        // if (token != null && tokenService.validarToken(token) != null) {
+    public ResponseEntity<?> removerItemCarrinho(Long livroId, String token) {
         String email = tokenService.validarToken(token);
 
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
@@ -114,31 +121,12 @@ public class CarrinhoService {
                 Optional<LivroModel> livroOptional = livroRepository.findById(livroId);
 
                 if (livroOptional.isPresent()) {
-                    LivroModel livro = livroOptional.get();
-
-                    List<LivroItemCarrinhoModel> itensCarrinho = livroItemCarrinhoRepository
-                            .findAllByLivroCodigo(livroId);
-
-                    LivroItemCarrinhoModel itemCarrinho = encontrarItemNoCarrinho(itensCarrinho, carrinho);
-
-                    if (itemCarrinho != null) {
-                        // Item já existe no carrinho, atualiza a quantidade
-                        itemCarrinho.setQuantidade(itemCarrinho.getQuantidade() + quantidade);
-                        carrinho.setValorTotal(carrinho.getValorTotal() + livro.getPreco());
-                    } else {
-                        // Item não existe no carrinho, cria um novo
-                        itemCarrinho = new LivroItemCarrinhoModel();
-                        itemCarrinho.setCarrinho(carrinho);
-                        itemCarrinho.setLivro(livro);
-                        itemCarrinho.setQuantidade(quantidade);
-                        carrinho.getLivros().add(itemCarrinho);
-                        carrinho.setValorTotal(carrinho.getValorTotal() + livro.getPreco());
-                    }
-
-                    livroItemCarrinhoRepository.save(itemCarrinho);
+                    Optional<LivroItemCarrinhoModel> item = livroItemCarrinhoRepository.findByLivroCodigo(livroId);
+                    Long codigoItem = item.get().getCodigo();
+                    livroItemCarrinhoRepository.deleteById(item.get().getCodigo());
                     carrinhoRepository.save(carrinho);
 
-                    return ResponseEntity.status(HttpStatus.CREATED).body("Item adicionado ao carrinho!");
+                    return ResponseEntity.ok(codigoItem);
                 } else {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Livro não encontrado!");
                 }
@@ -148,22 +136,37 @@ public class CarrinhoService {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado!");
         }
-        // } else {
-        // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido ou
-        // expirado!");
-        // }
     }
 
-    private LivroItemCarrinhoModel encontrarItemNoCarrinho(List<LivroItemCarrinhoModel> itensCarrinho,
-            CarrinhoModel carrinho) {
+    public ResponseEntity<?> adicionarItemAoCarrinho(Long livroId, int quantidade, String token) {
+        String email = tokenService.validarToken(token);
 
-        for (LivroItemCarrinhoModel item : itensCarrinho) {
-            if (Objects.equals(item.getCarrinho().getCodigo(), carrinho.getCodigo())) {
-                return item;
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
+
+        if (usuarioOptional.isPresent()) {
+            Optional<CarrinhoModel> carrinhoOptional = carrinhoRepository
+                    .findByClienteCodigo(usuarioOptional.get().getCodigo());
+
+            if (carrinhoOptional.isPresent()) {
+                Optional<LivroModel> livroOptional = livroRepository.findById(livroId);
+
+                if (livroOptional.isPresent()) {
+                    LivroModel livro = livroOptional.get();
+                    LivroItemCarrinhoDTO livroItemCarrinhoDTO = new LivroItemCarrinhoDTO();
+
+                    livroItemCarrinhoDTO.setEmail(email);
+                    livroItemCarrinhoDTO.setLivro(livro);
+                    livroItemCarrinhoDTO.setQuantidade(quantidade);
+
+                    return ResponseEntity.status(HttpStatus.CREATED).body(livroItemCarrinhoDTO);
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Livro não encontrado!");
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Carrinho não encontrado para o usuário!");
             }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado!");
         }
-
-        return null;
     }
-
 }

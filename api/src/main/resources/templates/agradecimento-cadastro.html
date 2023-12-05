@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="images/icons/new_user.svg" type="image/x-icon">
+  <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
   <link rel="stylesheet" href="./css/global.css">
   <link rel="stylesheet" href="./css/header.css">
-  <link rel="stylesheet" href="./css/formulario.css">
+  <link rel="stylesheet" href="./css/agradecimento-cadastro.css">
   <link rel="stylesheet" href="./css/footer.css">
   <script src="components/footer-personalizado.js" defer></script>
   <script src="js/cadastro.js" defer></script>
@@ -21,11 +21,22 @@
 
   <!--Main-->
   <main>
-    <img class="img-personalizada" src="images/icons/alegre-livro.png" alt="Pessoa alegre por se cadastrar">
-    <h1 class="titulo-personalizado titulo-personalizado-agradecimento">
+    
+    <div class="card-agradecimento">
+
+      <div class="container-img">
+        <img class="img-personalizada" src="images/icons/alegre-livro.svg" alt="Pessoa alegre por se cadastrar">
+      </div>
+
+      <h1 class="titulo-agradecimento">
         Obrigado por se juntar a nós! <br>
-        Seu cadastro foi concluído com sucesso.</h1>
-      <button onclick="goToHome()" type="submit" class="btn-submit" >Página Inicial</button>
+        Seu cadastro foi concluído com sucesso.
+      </h1>
+
+      <button onclick="goToHome()" class="btn-voltar" >Ir às compras</button>
+
+    </div>
+
   </main>
 
   <!--Rodapé-->
