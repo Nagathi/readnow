@@ -25,22 +25,16 @@
             </div>
            
             <nav class="nav-icons">
+            
                 <div class=opcoes>
-                    <button id ="conta" class="item">
+                    <div id ="conta" class="item">
                         <a href="/conta-usuario">
                             <img src="images/icons/user.svg" alt="Perfil do usuário" style="width: 3.6rem ;">
                             <span class="identificador">Sua conta</span>
                         </a>
-                    </button>
+                    </div>
         
-                    <button class="item">
-                        <a href="/central-ajuda">
-                            <img src="images/icons/ouvidoria.svg" alt="Fale conosco" style="width: 3.6rem ;">
-                            <span class="identificador">Ouvidoria</span>
-                        </a>
-                    </button>
-        
-                    <button class="item" id="carrinho-compras">
+                    <div class="item" id="carrinho-compras">
                         <a href="/carrinho">
                             <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
                             <span class="identificador">Carrinho</span>
@@ -50,7 +44,15 @@
                             <span class="simbolo-mais">+</span>
                             </div>
                         </a>
-                    </button>
+                    </div>
+
+                    <div class="item">
+                        <a href="/central-ajuda">
+                            <img src="images/icons/ouvidoria.svg" alt="Fale conosco" style="width: 3.6rem ;">
+                            <span class="identificador">Ajuda</span>
+                        </a>
+                    </div>
+                    
                 </div>
             </nav>
         </header>

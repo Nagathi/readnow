@@ -71,7 +71,6 @@
   background-color: var(--azul-btn-hover);
 }
 
-
 /*Estilização específica para o cabecalho do cliente*/
 .opcoes {
   width: 25rem;
@@ -84,10 +83,9 @@
 }
 
 .item {
-  border: none;
   background-color: transparent;
   padding: .6rem;
-  text-decoration: none;
+  text-align: center;
 }
 
 .item:hover {
@@ -137,4 +135,53 @@
   top: -.7rem;
   right: -.7rem;
   font-size: 2rem;
+}
+
+/*Estilização do menu Suspenso*/
+.menu-list {
+  display: none;
+  background-color: var(--azul-btn-hover); 
+  position: absolute;
+  top: 11rem;
+  right: 24rem;
+  box-shadow: 0 .2rem .5rem rgba(0, 0, 0, 0.1);
+  list-style-type: none;
+  padding: .8rem 1.2rem;
+  width: 9rem; 
+  z-index: 1;
+}
+
+.menu-list::before {
+  content: "";
+  position: absolute;
+  top: -.8rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--azul-btn-hover);
+  transform: rotate(45deg);
+}
+
+.menu-list ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.menu-list a {
+  text-decoration: none;
+  color: var(--preto);
+  font-family: var(--fonte-principal);
+  font-size: 1.4rem; 
+  font-weight: 500;
+}
+
+.menu-list a:hover {
+  transition: all .5s;
+  text-decoration: underline;
+}
+
+.ativo {
+  transition: all .5s;
+  display: block;
 }
