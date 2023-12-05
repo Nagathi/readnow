@@ -56,7 +56,7 @@ function listarLivrosCarrinho(novoLivro, item, listaLivros) {
   
                 <div class="botoes">
                   <select id="quantidade">
-                    <option selected disabled value="">1</option>
+                    <option selected disabled value="">${item.quantidade}</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -160,6 +160,7 @@ function mostrarLivrosBd() {
       data.forEach((item, index) => {
         const listaLivros = document.querySelector(".card-itens-carrinho");
         const novoLivro = document.createElement("li");
+        novoLivro.classList.add(item.livro.isbn);
 
         listarLivrosCarrinho(novoLivro, item, listaLivros);
         alterarQuantidadeLivro(novoLivro, data, index);
@@ -170,7 +171,4 @@ function mostrarLivrosBd() {
       console.error("Erro ao obter livros:", error);
     });
 }
-// const excluir = document.querySelector("#excluir");
-// excluir.addEventListener("click", function() {
-//   console.log("oi");
-// });
+

@@ -49,4 +49,9 @@ public class CarrinhoController {
 
     }
 
+    @GetMapping("/finaliza-pedido")
+    public ResponseEntity<?> finalizarPedido() {
+        return carrinhoService.finalizarPedido();
+    }
+
 }

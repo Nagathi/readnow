@@ -53,7 +53,7 @@ public class CarrinhoService {
                 LivroItemCarrinhoDTO itemLivro = new LivroItemCarrinhoDTO();
                 itemLivro.setEmail(email);
                 itemLivro.setLivro(item.getLivro());
-                itemLivro.setQuantidade(1);
+                itemLivro.setQuantidade(item.getQuantidade());
                 itens.add(itemLivro);
             }
 
@@ -80,10 +80,13 @@ public class CarrinhoService {
                             .findByLivroCodigo(item.getLivro().getCodigo());
                     if (livroOptional.isPresent()) {
                         livroOptional.get().setQuantidade(item.getQuantidade());
+                        livroItemCarrinhoRepository.save(livroOptional.get());
+                        
                     } else {
                         LivroItemCarrinhoModel itemCarrinhoModel = new LivroItemCarrinhoModel();
                         itemCarrinhoModel.setCarrinho(carrinhoOptional.get());
                         itemCarrinhoModel.setLivro(item.getLivro());
+                        itemCarrinhoModel.setQuantidade(item.getQuantidade());
                         livroItemCarrinhoRepository.save(itemCarrinhoModel);
                     }
                 }
@@ -99,8 +102,6 @@ public class CarrinhoService {
                                 .equals(livroNoCarrinho.getLivro().getCodigo()));
 
                 if (!livroPresenteNoDTO) {
-                    // O livro está no carrinho, mas não está em livrosItemCarrinhoDTO, então remove
-                    // do carrinho
                     livroItemCarrinhoRepository.delete(livroNoCarrinho);
                 }
             }
@@ -168,5 +169,9 @@ public class CarrinhoService {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado!");
         }
+    }
+
+    public ResponseEntity<?> finalizarPedido(){
+        return null;
     }
 }
