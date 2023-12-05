@@ -50,6 +50,11 @@ public class HtmlController {
         return "carteira";
     }
 
+    @GetMapping("/edita-cartao")
+    public String formEditarCartao() {
+        return "editar-cartao";
+    }
+
     @GetMapping("/central-ajuda")
     public String mostrarCentralAjuda() {
         return "central-ajuda";

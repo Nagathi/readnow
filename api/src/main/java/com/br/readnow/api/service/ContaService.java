@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.br.readnow.api.dto.CartaoDTO;
 import com.br.readnow.api.dto.EnderecoDTO;
+import com.br.readnow.api.dto.RequestDeleteDTO;
 import com.br.readnow.api.model.CartaoModel;
 import com.br.readnow.api.model.EnderecoModel;
 import com.br.readnow.api.model.UsuarioModel;
@@ -157,6 +158,38 @@ public class ContaService {
         }
     }
 
+    public ResponseEntity<List<CartaoDTO>> listarCartoesPorEmail(String email) {
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
+
+        if(usuarioOptional.isPresent()){
+            UsuarioModel usuario = usuarioOptional.get();
+            List<CartaoModel> cartoesModel = cartaoRepository.findAllByUsuarioId(usuario.getCodigo());
+            List<CartaoDTO> cartoesDTO = new ArrayList<>();
+
+            for (CartaoModel cartaoModel : cartoesModel) {
+                CartaoDTO cartaoDTO = new CartaoDTO();
+                cartaoDTO.setCodigo(cartaoModel.getCodigo());
+                cartaoDTO.setNome(cartaoModel.getNome());
+                String numero = cartaoModel.getNumero();
+                int comprimento = numero.length();
+                String numeroFormatado = numero.substring(comprimento - 4, comprimento);
+
+                cartaoDTO.setNumero(numeroFormatado);
+                cartaoDTO.setData(cartaoModel.getData());
+
+                cartoesDTO.add(cartaoDTO);
+            }
+
+            if (!cartoesDTO.isEmpty()) {
+                return ResponseEntity.ok(cartoesDTO);
+            } else {
+                return ResponseEntity.noContent().build();
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     public ResponseEntity<?> cadastrarCartao(CartaoDTO cartaoDTO){
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(cartaoDTO.getEmail());
         if(usuarioOptional.isPresent()){
@@ -164,10 +197,7 @@ public class ContaService {
 
             CartaoModel cartao = new CartaoModel();
             cartao.setNome(cartaoDTO.getNome());
-
-            String encryptedNumero = new BCryptPasswordEncoder().encode(cartaoDTO.getNumero());
-
-            cartao.setNumero(encryptedNumero);
+            cartao.setNumero(cartaoDTO.getNumero());
             cartao.setData(cartaoDTO.getData());
             cartao.setUsuario(usuario);
             cartaoRepository.save(cartao);
@@ -176,8 +206,44 @@ public class ContaService {
         }else{
             return ResponseEntity.notFound().build();
         }
-        
-        
+    }
+
+    public ResponseEntity<?> editarCartao(CartaoDTO cartaoDTO) {
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(cartaoDTO.getEmail());
+        Optional<CartaoModel> cartaoOptional = cartaoRepository.findById(cartaoDTO.getCodigo());
+        if(usuarioOptional.isPresent() && cartaoOptional.isPresent()){
+            if(usuarioOptional.get().getCodigo() == cartaoOptional.get().getUsuario().getCodigo()){
+                CartaoModel cartao = new CartaoModel();
+                cartao.setCodigo(cartaoDTO.getCodigo());
+                cartao.setNome(cartaoDTO.getNome());
+                cartao.setNumero(cartaoDTO.getNumero());
+                cartao.setData(cartaoDTO.getData());
+                cartao.setUsuario(usuarioOptional.get());
+
+                cartaoRepository.save(cartao);
+                return ResponseEntity.ok("Cartão editado!");
+            }else{
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Acesso não autorizado");
+            }
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public ResponseEntity<?> excluirCartao(RequestDeleteDTO requestDeleteDTO) {
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(requestDeleteDTO.getEmail());
+        Optional<CartaoModel> cartaoOptional = cartaoRepository.findById(requestDeleteDTO.getCodigo());
+        if(usuarioOptional.isPresent() && cartaoOptional.isPresent()){
+            if(usuarioOptional.get().getCodigo() == cartaoOptional.get().getUsuario().getCodigo()){
+                cartaoRepository.deleteById(requestDeleteDTO.getCodigo());
+                return ResponseEntity.ok("Cartão excluído!");
+            }else{
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Acesso não autorizado");
+            }
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
 }
