@@ -1,8 +1,8 @@
 function autenticacao() {
   const usuarioAutenticado = localStorage.getItem("token");
   const nomeUsuario = localStorage.getItem("nome");
-  const loginButton = document.querySelector(".button-login");
-  const cadastroButton = document.querySelector(`a[href="${'cadastro-cliente'}"]`);
+  const loginButton = document.querySelector("#login");
+  const cadastroButton = document.querySelector("#cadastro");
 
   if (usuarioAutenticado != null && nomeUsuario != "") {
     loginButton.style.display = 'none';
@@ -69,7 +69,7 @@ function autenticacao() {
   }
   else{
     loginButton.style.display = 'block';
-      cadastroButton.style.display = 'block';     
+    cadastroButton.style.display = 'block';     
   }
 }
 
@@ -169,19 +169,5 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
-
-const buttonSearch = document.querySelector('.button-search');
-const campoPesquisa = document.getElementById('campo-pesquisa');
-
-document.addEventListener('DOMContentLoaded', () => {
-  const buttonSearch = document.getElementById('btn-pesquisa');
-  const campoPesquisa = document.getElementById('campo-pesquisa');
-
-  buttonSearch.addEventListener('click', () => {
-  const valorPesquisa = campoPesquisa.value;
-  window.location.href = `/resultado-pesquisa?palavra=${encodeURIComponent(valorPesquisa)}`;
-  });
-});
-       
 
 
