@@ -29,9 +29,17 @@ public class CarrinhoController {
         return carrinhoService.adicionarItemAoCarrinho(codigo, quantidade, token);
     }
 
-    @GetMapping("/mostra-carrinho/{email}")
-    public ResponseEntity<?> mostrarLivrosCarrinho(@PathVariable String email) {
-        return carrinhoService.mostrarItensCarrinho(email);
+    @PostMapping("/remove-livro")
+    public ResponseEntity<?> removerDoCarrinho(@RequestParam("codigo") Long codigo,
+            @RequestHeader("Authorization") String authorization) {
+        String token = authorization.replace("Bearer ", "");
+
+        return carrinhoService.removerItemCarrinho(codigo, token);
+    }
+
+    @GetMapping("/mostra-carrinho/{token}")
+    public ResponseEntity<?> mostrarLivrosCarrinho(@PathVariable String token) {
+        return carrinhoService.mostrarItensCarrinho(token);
 
     }
 

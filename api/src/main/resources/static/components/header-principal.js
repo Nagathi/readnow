@@ -24,7 +24,7 @@
               </button>
             </div>
             <a href="login" class="button-login">Login</a>
-            <a href="cadastro" class="button-login">Cadastro</a>  
+            <a href="cadastro-cliente" class="button-login">Cadastro</a>  
           </header>
 
         `;

@@ -4,7 +4,7 @@ function autenticacao() {
   
     if (usuarioAutenticado != null && nomeUsuario != null) {
       const suaContaButton = document.querySelector(".identificador");
-      suaContaButton.innerHTML = `<br> Olá, ${nomeUsuario} <br> Sua conta`
+      suaContaButton.innerHTML = `Olá, ${nomeUsuario} <br> Sua conta`
 
       const navIcons = document.createElement("div");
       navIcons.classList.add("menu-list");
@@ -50,4 +50,21 @@ function salvarEstadoCarrinho(data) {
     },
     body:data,
   });
+}
+
+function removerItemCarrinho(codigoLivro, usuarioAutenticado) {
+  fetch(`/remove-livro?codigo=${codigoLivro}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${usuarioAutenticado}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+    });
 }
