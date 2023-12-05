@@ -1,5 +1,6 @@
+const token = localStorage.getItem("token");
+
 document.addEventListener("DOMContentLoaded", function () {
-  const token = localStorage.getItem("email");
 
   if (token) {
     if (localStorage.getItem("carrinhoItens") != null) {
@@ -8,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
       mostrarLivrosBd();
     }
   } else {
-    console.error("E-mail não encontrado no localStorage");
+    console.error("token não encontrado no localStorage");
   }
 });
 
@@ -171,4 +172,3 @@ function mostrarLivrosBd() {
       console.error("Erro ao obter livros:", error);
     });
 }
-
