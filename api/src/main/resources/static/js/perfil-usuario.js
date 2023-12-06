@@ -2,6 +2,7 @@
 
   const inputFile = document.querySelector("#picture__input");
   const pictureImage = document.querySelector(".imagem-perfil");
+  const containerImagem = document.querySelector(".container-imagem");
 
   inputFile.addEventListener("change", function (e) {
     const inputTarget = e.target;
@@ -15,6 +16,8 @@
         
         pictureImage.src = "";
         pictureImage.src = readerTarget.result;
+
+        containerImagem.classList.add("container-border");
       });
   
       reader.readAsDataURL(file);

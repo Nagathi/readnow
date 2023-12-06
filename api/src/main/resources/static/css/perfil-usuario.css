@@ -25,6 +25,10 @@
   overflow: hidden;
 }
 
+.container-border {
+  border: .3rem solid var(--azul);
+}
+
 .imagem-perfil {
   width: 100%;
   height: 100%;
