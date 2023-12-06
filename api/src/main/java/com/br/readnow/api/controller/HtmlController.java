@@ -105,4 +105,9 @@ public class HtmlController {
         return "resultado-pesquisa";
     }
 
+    @GetMapping("/agradecimento-compra")
+    public String agradecimento() {
+        return "agradecimento-compra";
+    }
+
 }

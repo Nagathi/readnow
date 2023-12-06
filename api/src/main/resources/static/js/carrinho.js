@@ -82,7 +82,7 @@ function listarLivrosCarrinho(novoLivro, item, listaLivros) {
     botaoExcluir.addEventListener("click", function () {
       var livroTitulo = botaoExcluir.dataset.livroTitulo;
       var itemLista = document.querySelector(`.${item.livro.isbn}`);
-
+      console.log(livroTitulo);
       if (itemLista.classList.contains(livroTitulo)) {
         itemLista.remove();
         removerLivro(livroTitulo, item);

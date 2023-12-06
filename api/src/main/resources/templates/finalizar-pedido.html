@@ -1,127 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
-  <link rel="stylesheet" href="./css/global.css">
-  <link rel="stylesheet" href="./css/header.css">
-  <link rel="stylesheet" href="./css/main.css">
-  <link rel="stylesheet" href="css/carrinho-compras.css">
-  <link rel="stylesheet" href="./css/finalizar-pedido.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="images/icons/book.svg"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="css/carrinho-compras.css" />
+    <link rel="stylesheet" href="./css/finalizar-pedido.css" />
 
-  <link rel="stylesheet" href="./css/footer.css">
-  <!-- <link rel="stylesheet" href="./css/menu.css"> -->
+    <link rel="stylesheet" href="./css/footer.css" />
+    <!-- <link rel="stylesheet" href="./css/menu.css"> -->
 
-  <script src="components/header-autenticado.js" defer></script>
-  <script src="components/footer-personalizado.js" defer></script>
-  <script src="js/autenticado.js" defer></script>
-  <script src="js/finalizacao-pedido.js" defer></script>
-  
-  <title>Finalização do pedido</title>
+    <script src="components/header-autenticado.js" defer></script>
+    <script src="components/footer-personalizado.js" defer></script>
+    <script src="js/autenticado.js" defer></script>
+    <script src="js/finalizacao-pedido.js" defer></script>
+
+    <title>Finalização do pedido</title>
   </head>
-<body>
+  <body>
+    <!--Cabeçalho-->
+    <header-autenticado></header-autenticado>
 
-  <!--Cabeçalho-->
-  <header-autenticado></header-autenticado>
-
-  <!--Main-->
-  <main class="main">
-    <section class="container finalizar-pedido">
-
-      <div class="titulo">
-        <h1>Finalizar a compra</h1>
-      </div>
-
-      <div class="linha"></div>
-
-      <div class="menu-finalizar-pedido">
-
-        <div class="selecionar-endereco">
-          <h2>1. Escolha um endereço de envio</h2>
-          
-          <fieldset class="enderecos"></fieldset>
-
-          <a href="/formulario-endereco" class="adicionar-endereco">Adicionar um novo endereço</a>
-          
-        </div>
-  
-        <div class="selecionar-cartao">
-          <h2>2. Escolha um cartao para pagamento</h2>
-          
-          <fieldset class="cartoes"></fieldset>
-
-          <a href="/formulario-cartao" class="adicionar-cartao">Adicionar um novo cartão de crédito</a>
-          
+    <!--Main-->
+    <main class="main">
+      <section class="container finalizar-pedido">
+        <div class="titulo">
+          <h1>Finalizar a compra</h1>
         </div>
 
-        <div class="resumo-pedido">
-          <h2>3. Revisar itens e envio</h2>
-          <div class="livros">
+        <div class="linha"></div>
+
+        <div class="menu-finalizar-pedido">
+          <div class="selecionar-endereco">
+            <h2>1. Escolha um endereço de envio</h2>
+
+            <fieldset class="enderecos"></fieldset>
+
+            <a href="/formulario-endereco" class="adicionar-endereco"
+              >Adicionar um novo endereço</a
+            >
           </div>
 
-          <ul class="itens-carrinho">
-            
-            <li class="item-carrinho">
-              <!-- <div class="container-imagem">
-              <img src="./images/icons/imagem_produto.png" alt="Imagem Produto">
-              </div>
+          <div class="selecionar-cartao">
+            <h2>2. Escolha um cartao para pagamento</h2>
 
-              <div class="direita">
+            <fieldset class="cartoes"></fieldset>
 
-                <div class="textos">
-
-                  <div class="detalhes-livro">
-                    <h1 class="nome-livro"></h1>
-                    <p class="nome-autor"></p>
-                  </div>
-
-                  <p class="preco"></p>
-
-                </div>
-
-                <div class="detalhes">
-
-                  <p class="estimativa-entrega">Entrega estimada: XX dias</p>
-    
-                </div> -->
-
-                <select id="quantidade">
-                  <option selected disabled value="">Qtd:</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-
-              </div>
-
-            </li>
-
-          </ul>
-
-          <div class="confirmar-compra">
-            <fieldset class="confirmacao"></fieldset> 
-            <button class="btn-finalizar-pedido">Finalizar pedido</button>
-            <h2 class="valor-pedido">Total do pedido: XX,XX</h2>
+            <a href="/formulario-cartao" class="adicionar-cartao"
+              >Adicionar um novo cartão de crédito</a
+            >
           </div>
 
+          <div class="resumo-pedido">
+            <h2>3. Revisar itens e envio</h2>
+            <div class="livros"></div>
+
+            <ul class="itens-carrinho">
+              <li class="item-carrinho"></li>
+            </ul>
+
+            <div class="confirmar-compra">
+              <a href="/agradecimento-compra">
+                <button class="btn-finalizar-pedido">Finalizar pedido</button>
+              </a>
+              <h2 class="valor-pedido"></h2>
+            </div>
+          </div>
         </div>
+      </section>
+    </main>
 
-       
-      </div>
-
-    </section>
-
-  </main>
-
-  <!--Rodapé-->
-  <footer-personalizado></footer-personalizado>
-</body>
+    <!--Rodapé-->
+    <footer-personalizado></footer-personalizado>
+  </body>
 </html>
