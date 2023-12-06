@@ -3,7 +3,7 @@
 }
 
 .finalizar-pedido .linha {
-  margin: 2.2rem 0 2.2rem 0;
+  margin-bottom: 2.2rem;
 }
 
 .menu-finalizar-pedido {
@@ -167,3 +167,56 @@ h2.valor-pedido {
   cursor: pointer;
   background-color: var(--azul-btn-hover-1);
 }
+
+.card-suspenso {
+  align-self: self-start;
+  border-radius: .8rem;
+  background-color: var(--branco-primario);
+  color: var(--preto);
+  padding: 1.2rem;
+  font-family: var(--fonte-principal);
+  margin-left: 1.8rem;
+  
+  position: sticky;
+  top: 0rem;
+  left: 0rem;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.2rem;
+}
+
+.card-suspenso .btn-finalizar-pedido {
+  border-radius: .8rem;
+  padding: 1rem 3rem 1rem 3rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.resumo-pedido h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  border-top: .05rem solid var(--preto);
+  padding: 1.2rem 0 .8rem 0;
+}
+
+.detalhes-pedido {
+  border-bottom: .05rem solid var(--preto);
+  padding-bottom: .3rem;
+  margin-bottom: .6rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: .6rem;
+}
+
+.preco-itens, .valor-frete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.preco-itens p, .valor-frete p {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
