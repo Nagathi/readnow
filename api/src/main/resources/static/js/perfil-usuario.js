@@ -1,26 +1,29 @@
 (() => {
   const pictureImage = document.querySelector(".imagem-perfil");
+  const nomeInput = document.querySelector("#nome");
+  const inputFile = document.querySelector("#picture__input");
+  const cancelBtn = document.querySelector(".btn-cancelar");
+  const continuarBtn = document.querySelector(".btn-continuar");
   const email = localStorage.getItem("email");
 
-  function buscarFotoUsuario(email) {
+  function buscarDadosUsuario(email) {
     fetch(`/busca-foto?email=${email}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Erro ao buscar a foto do usuário.");
+          throw new Error("Erro ao buscar os dados do usuário.");
         }
-        return response.text();
+        return response.json();
       })
-      .then((imageUrl) => {
-        pictureImage.src = "./images/usuarios/" + imageUrl;
+      .then((data) => {
+        pictureImage.src = "./images/usuarios/" + data.foto;
+        nomeInput.value = data.nome;
       })
       .catch((error) => {
-        console.error("Erro ao buscar a foto do usuário:", error);
+        console.error("Erro ao buscar os dados do usuário:", error);
       });
   }
 
-  buscarFotoUsuario(email);
-
-  const inputFile = document.querySelector("#picture__input");
+  buscarDadosUsuario(email);
 
   inputFile.addEventListener("change", function (e) {
     const inputTarget = e.target;
@@ -32,32 +35,45 @@
       reader.addEventListener("load", function (e) {
         const readerTarget = e.target;
 
-        pictureImage.src = "";
         pictureImage.src = readerTarget.result;
-
-        const formData = new FormData();
-        formData.append("foto", file);
-        formData.append("email", email);
-
-        fetch("/foto", {
-          method: "PUT",
-          body: formData,
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Erro ao enviar a imagem.");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log("Resposta da API:", data);
-          })
-          .catch((error) => {
-            console.error("Erro ao enviar a imagem:", error);
-          });
       });
 
       reader.readAsDataURL(file);
     }
+  });
+
+  continuarBtn.addEventListener("click", function () {
+    const formData = new FormData();
+    const nome = nomeInput.value;
+    const file = inputFile.files[0];
+
+    formData.append("foto", file);
+    formData.append("email", email);
+    formData.append("nome", nome);
+
+    fetch("/foto", {
+      method: "PUT",
+      body: formData,
+    })
+      .then((response) => {
+        if (response.ok) {
+          window.location.href = "/conta-usuario"
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Dados do usuário atualizados:", data);
+      })
+      .catch((error) => {
+        console.error("Erro ao salvar os dados do usuário:", error);
+      });
+  });
+
+  cancelBtn.addEventListener("click", function () {
+    buscarDadosUsuario(email);
+  });
+
+  cancelBtn.addEventListener("click", function () {
+    window.location.href = "/conta-usuario";
   });
 })();

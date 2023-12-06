@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.br.readnow.api.dto.LoginDTO;
+import com.br.readnow.api.dto.PerfilDTO;
 import com.br.readnow.api.dto.RedefinirSenhaDTO;
 import com.br.readnow.api.dto.RequestNovaSenhaDTO;
 import com.br.readnow.api.dto.UsuarioDTO;
@@ -193,7 +194,7 @@ public class UsuarioService {
         }
     }
 
-    public ResponseEntity<?> alterarFoto(MultipartFile foto, String email){
+    public ResponseEntity<?> alterarFoto(MultipartFile foto, String nome, String email){
         Optional<UsuarioModel> usuarOptional = usuarioRepository.findByEmail(email);
 
         try{
@@ -206,6 +207,7 @@ public class UsuarioService {
 
                 UsuarioModel usuario = usuarOptional.get();
                 usuario.setFoto(uniqueImageName);
+                usuario.setNome(nome);
                 usuarioRepository.save(usuario);
 
                 return ResponseEntity.ok("Foto alterada!");
@@ -221,10 +223,13 @@ public class UsuarioService {
         
     }
 
-    public ResponseEntity<String> retornarFoto(String email){
+    public ResponseEntity<PerfilDTO> retornarNomeEFoto(String email){
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
         if(usuarioOptional.isPresent()){
-            return ResponseEntity.ok(usuarioOptional.get().getFoto());
+            PerfilDTO perfilDTO = new PerfilDTO();
+            perfilDTO.setFoto(usuarioOptional.get().getFoto());
+            perfilDTO.setNome(usuarioOptional.get().getNome());
+            return ResponseEntity.ok(perfilDTO);
         }else{
             return ResponseEntity.notFound().build();
         }

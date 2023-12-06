@@ -19,6 +19,7 @@ import jakarta.validation.Valid;
 
 import com.br.readnow.api.dto.EmailDTO;
 import com.br.readnow.api.dto.LoginDTO;
+import com.br.readnow.api.dto.PerfilDTO;
 import com.br.readnow.api.dto.RequestNovaSenhaDTO;
 
 @RestController
@@ -53,12 +54,13 @@ public class UsuarioController {
 
     @PutMapping("/foto")
     public ResponseEntity<?> alterarFoto(@RequestPart(value = "foto") MultipartFile foto,
+                                         @RequestPart(value = "nome") String nome,
                                          @RequestParam(value = "email") String email){
-        return usuarioService.alterarFoto(foto, email);
+        return usuarioService.alterarFoto(foto, nome, email);
     }
 
     @GetMapping("/busca-foto")
-    public ResponseEntity<?> buscarFoto(@RequestParam(value = "email") String email){
-        return usuarioService.retornarFoto(email);
+    public ResponseEntity<PerfilDTO> buscarPerfil(@RequestParam(value = "email") String email){
+        return usuarioService.retornarNomeEFoto(email);
     }
 }
