@@ -142,6 +142,11 @@ h2.valor-pedido {
   font-weight: 600;
 }
 
+#quantidade {
+  padding: .6rem;
+  max-width: 6rem;
+}
+
 .confirmar-compra {
   padding: 1.2rem 3.4rem;
   border: .05rem solid var(--cinza);
