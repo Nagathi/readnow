@@ -90,15 +90,9 @@ public class UsuarioService {
             usuario.setSenha(encryptedPassword);
             usuarioRepository.save(usuario);
 
-            AuthModel auth = new AuthModel();
-            auth.setUsuario(usuario);
-            auth.setExpirado(false);
-            auth.setUuid(UUID.randomUUID().toString());
-            authRepository.save(auth);
-
             UsuarioDTO usuarioDTO = new UsuarioDTO();
             usuarioDTO.setNome(usuario.getNome());
-            usuarioDTO.setToken(auth.getUuid());
+            // usuarioDTO.setToken(auth.getUuid());
             usuarioDTO.setTipo(usuario.getRole());
 
             CarrinhoModel carrinhoModel = new CarrinhoModel();

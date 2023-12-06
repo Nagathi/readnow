@@ -39,7 +39,7 @@ label {
   align-items: center;
 }
 
-h2, .informacoes {
+h3, h2, .informacoes {
   color: var(--preto);
   font-family: var(--fonte-principal);
 }
@@ -48,6 +48,12 @@ h2 {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
 }
 
 .informacoes {
@@ -120,3 +126,105 @@ h2.valor-pedido {
   color: var(--vermelho);
   text-decoration: underline;
 }
+
+.container-imagem {
+  width: 17.6rem;
+  margin-right: 1rem;
+  display: flex;
+  justify-content: start;
+}
+
+.container-imagem img {
+  width: 12.2rem;
+}
+.card-itens-carrinho {
+  margin-top: 2.2rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 2.2rem;
+}
+
+.detalhes {
+  margin-top: 2.2rem;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  row-gap: 2.2rem;
+}
+
+.titulo h1 {
+  padding-bottom: 2rem;
+}
+
+.texto h2 {
+  font-family: var(--fonte-principal);
+  color: var(--preto);
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.direita {
+  width: 20rem;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.textos {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.textos a:hover > h1.nome-livro {
+  transition: all .3s;
+  font-weight: 700;
+}
+
+.nome-livro {
+  color: var(--preto);
+  font-family: var(--fonte-principal);
+  font-size: 1.6rem;
+}
+
+.nome-livro {
+  font-weight: 500;
+}
+
+.preco {
+  color: var(--vermelho);
+  font-weight: 700;
+  font-family: var(--fonte-principal);
+  font-size: 1.6rem;
+}
+
+.botoes {
+  margin-top:1rem;
+  width: 17.4rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#quantidade {
+  background-color: var(--azul);
+  border: none;
+  border-radius: 2.4rem;
+  color: var(--branco-primario);
+  font-family: var(--fonte-principal);
+  font-size: 1.2rem;
+  font-weight: 600;
+  outline: 0;
+  padding: .9rem 2rem;
+}
+
+#quantidade:hover {
+  cursor: pointer;
+}
+
+#quantidade option {
+  font-size: 1.8rem;
+}
+

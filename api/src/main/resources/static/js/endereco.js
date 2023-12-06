@@ -1,18 +1,20 @@
+
 document.addEventListener("DOMContentLoaded", function () {
-    const listaEnderecos = document.querySelector(".lista-enderecos");
-  
-    const email = localStorage.getItem('email');
-  
-    if (email) {
-      fetch(`/enderecos/${email}`)
-        .then((response) => response.json())
-        .then((data) => {
-          listaEnderecos.innerHTML = "";
-  
-          data.forEach((endereco) => {
-            const novoEndereco = document.createElement("li");
-            novoEndereco.classList.add("card-endereco");
-            novoEndereco.innerHTML = `
+
+  const listaEnderecos = document.querySelector(".lista-enderecos");
+
+  const email = localStorage.getItem("email");
+
+  if (email) {
+    fetch(`/enderecos/${email}`)
+      .then((response) => response.json())
+      .then((data) => {
+        listaEnderecos.innerHTML = "";
+
+        data.forEach((endereco) => {
+          const novoEndereco = document.createElement("li");
+          novoEndereco.classList.add("card-endereco");
+          novoEndereco.innerHTML = `
               <div class="detalhes-enderecos">
                 <h2 class="nome-destinatario">${endereco.nomeDestino}</h2>
                 <p class="endereco">${endereco.logradouro}</p>
@@ -27,30 +29,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button onclick="excluir(${endereco.codigo})" class="btn-excluir">Excluir</button>
               </div>
             `;
-            listaEnderecos.appendChild(novoEndereco);
-          });
-        })
-        .catch((error) => {
-          console.error("Erro ao obter endereços:", error);
+          listaEnderecos.appendChild(novoEndereco);
         });
-    } else {
-      console.error("E-mail não encontrado no localStorage");
-    }
-  });
+      })
+      .catch((error) => {
+        console.error("Erro ao obter endereços:", error);
+      });
+  } else {
+    console.error("E-mail não encontrado no localStorage");
+  }
+});
 
-  function editar(codigo) {
-    localStorage.setItem('codigo', codigo);
-    window.location.href = '/editar-endereco';
+function editar(codigo) {
+  localStorage.setItem("codigo", codigo);
+  window.location.href = "/editar-endereco";
 }
 
-  function excluir(codigo){
-    fetch(`/exclui-endereco/${codigo}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-    .then(response =>{
-      window.location.href = "/enderecos"
-    })
-  }
+function excluir(codigo) {
+  fetch(`/exclui-endereco/${codigo}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    window.location.href = "/enderecos";
+  });
+}
+

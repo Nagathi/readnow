@@ -1,8 +1,18 @@
-const form = document.getElementById('formulario-1');
+const formulario = document.querySelector('#formulario-1');
 
-form.addEventListener('submit', function(event) {
+formulario.addEventListener('submit', function(event) {
+
   event.preventDefault();
+ 
+  var pagina;
+  const paginaFinalizacaoPedido = localStorage.getItem('paginaFinalizacao') || null;
 
+  if(paginaFinalizacaoPedido != null){
+    pagina = localStorage.getItem('paginaFinalizacao');
+  }
+  else{
+    pagina = "/enderecos";
+  }
   const email = localStorage.getItem('email');
 
   const nomeDestino = document.getElementById('nome').value;
@@ -39,7 +49,7 @@ form.addEventListener('submit', function(event) {
   })
   .then(response => {
     if (response.ok) {
-        window.location.href = "/enderecos";
+        window.location.href = pagina;
     } else {
       throw new Error('Erro ao cadastrar endereço');
     }
@@ -47,6 +57,6 @@ form.addEventListener('submit', function(event) {
   .catch(error => {
     console.error('Erro:', error);
   });
+ 
 });
 
-  

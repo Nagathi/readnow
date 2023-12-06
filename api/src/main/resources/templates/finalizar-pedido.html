@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./css/header.css">
   <link rel="stylesheet" href="./css/main.css">
   <link rel="stylesheet" href="./css/finalizar-pedido.css">
+
   <link rel="stylesheet" href="./css/footer.css">
   <!-- <link rel="stylesheet" href="./css/menu.css"> -->
 
@@ -38,33 +39,7 @@
         <div class="selecionar-endereco">
           <h2>1. Escolha um endereço de envio</h2>
           
-          <fieldset class="enderecos">
-<!--   
-            <div class="endereco">
-              
-            </div> -->
-
-            <!-- <div class="endereco">
-              <label>
-                <input type="radio" name="endereco" value="1">
-                <div class="informacoes">
-                  <span class="destinatario">Destinatário</span>
-                  <span class="informacao-endereco">Endereco, N°, complemento, Bairro, Cidade, Estado</span>
-                </div>
-              </label>
-            </div>
-
-            <div class="endereco">
-              <label>
-                <input type="radio" name="endereco" value="1">
-                <div class="informacoes">
-                  <span class="destinatario">Destinatário</span>
-                  <span class="informacao-endereco">Endereco, N°, complemento, Bairro, Cidade, Estado</span>
-                </div>
-              </label>
-            </div>
-                    -->
-          </fieldset>
+          <fieldset class="enderecos"></fieldset>
 
           <a href="/formulario-endereco" class="adicionar-endereco">Adicionar um novo endereço</a>
           
@@ -73,40 +48,7 @@
         <div class="selecionar-cartao">
           <h2>2. Escolha um cartao para pagamento</h2>
           
-          <fieldset class="cartoes">
-
-            <div class="cartao">
-              <label>
-                <input type="radio" name="cartao" value="1">
-                <div class="informacoes">
-                  <span class="nome-cartao">Nome do cartão</span>
-                  <span class="informacao-cartao">Termina em XX, Vencimento mm/aa</span>
-                </div>
-              </label>
-            </div>
-
-            <div class="cartao">
-              <label>
-                <input type="radio" name="cartao" value="1">
-                <div class="informacoes">
-                  <span class="nome-cartao">Nome do cartão</span>
-                  <span class="informacao-cartao">Termina em XX, Vencimento mm/aa</span>
-                </div>
-              </label>
-            </div>
-
-            <div class="cartao">
-              <label>
-                <input type="radio" name="cartao" value="1">
-                <div class="informacoes">
-                  <span class="nome-cartao">Nome do cartão</span>
-                  <span class="informacao-cartao">Termina em XX, Vencimento mm/aa</span>
-                </div>
-              </label>
-            </div>
-
-            
-          </fieldset>
+          <fieldset class="cartoes"></fieldset>
 
           <a href="/formulario-cartao" class="adicionar-cartao">Adicionar um novo cartão de crédito</a>
           
@@ -114,10 +56,14 @@
 
         <div class="resumo-pedido">
           <h2>3. Revisar itens e envio</h2>
+          <div class="livros">
+            <ul class="card-itens-carrinho"></ul>
+          </div>
 
           <div class="confirmar-compra">
-            <button class="btn-finalizar-pedido">Finalizar pedido</button>
-            <h2 class="valor-pedido">Total do pedido: XX,XX</h2>
+            <!-- <fieldset class="confirmacao"></fieldset> -->
+            <!-- <button class="btn-finalizar-pedido">Finalizar pedido</button>
+            <h2 class="valor-pedido">Total do pedido: XX,XX</h2> -->
           </div>
         </div>
 

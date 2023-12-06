@@ -59,6 +59,7 @@ function autenticacao() {
       localStorage.removeItem("token")
       localStorage.removeItem("nome")
       localStorage.removeItem("email")
+      localStorage.removeItem("carrinhoItens")
 
       const cardIcons = document.querySelector(".card-icons");
 
@@ -169,5 +170,4 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
-
 
