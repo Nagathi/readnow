@@ -75,32 +75,6 @@ span {
   font-weight: 500;
 }
 
-.confirmar-compra {
-  padding: 1.2rem 3.4rem;
-  border: .05rem solid var(--cinza);
-  border-radius: 2.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.btn-finalizar-pedido {
-  font-family: var(--fonte-principal);
-  font-size: 1.2rem;
-  color: var(--branco-primario);
-  font-weight: 500;
-  padding: .8rem 3rem;
-  background-color: var(--azul);
-  border-radius: 2.4rem;
-  border: none;
-}
-
-.btn-finalizar-pedido:hover {
-  transition: all .3s;
-  cursor: pointer;
-  background-color: var(--azul-btn-hover-1);
-}
-
 h2.valor-pedido {
   margin-bottom: 0;
   color: var(--vermelho);
@@ -127,104 +101,70 @@ h2.valor-pedido {
   text-decoration: underline;
 }
 
-.container-imagem {
-  width: 17.6rem;
-  margin-right: 1rem;
-  display: flex;
-  justify-content: start;
-}
-
-.container-imagem img {
-  width: 12.2rem;
-}
-.card-itens-carrinho {
-  margin-top: 2.2rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  row-gap: 2.2rem;
-}
-
-.detalhes {
-  margin-top: 2.2rem;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  row-gap: 2.2rem;
-}
-
-.titulo h1 {
-  padding-bottom: 2rem;
-}
-
-.texto h2 {
-  font-family: var(--fonte-principal);
-  color: var(--preto);
-  font-size: 1.8rem;
-  font-weight: 500;
+.item-carrinho, .direita {
+  width: 100%;
 }
 
 .direita {
-  width: 20rem;
-  /* display: flex;
-  flex-direction: column; */
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding-right: 2.2rem;
 }
 
 .textos {
   display: flex;
-  align-items: start;
-  justify-content: space-between;
-  flex-direction: column;
+  align-items: flex-start;
 }
 
-.textos a:hover > h1.nome-livro {
-  transition: all .3s;
-  font-weight: 700;
-}
-
-.nome-livro {
+.nome-autor {
+  font-family: var(--fonte-principal);
   color: var(--preto);
-  font-family: var(--fonte-principal);
-  font-size: 1.6rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: .8rem;
+}
+
+.itens-carrinho {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.2rem;
 }
 
 .nome-livro {
-  font-weight: 500;
+  font-weight: 700;
 }
 
-.preco {
-  color: var(--vermelho);
-  font-weight: 700;
+.estimativa-entrega {
+  color: var(--laranja);
   font-family: var(--fonte-principal);
   font-size: 1.6rem;
+  font-weight: 600;
 }
 
-.botoes {
-  margin-top:1rem;
-  width: 17.4rem;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#quantidade {
-  background-color: var(--azul);
-  border: none;
+.confirmar-compra {
+  padding: 1.2rem 3.4rem;
+  border: .05rem solid var(--cinza);
   border-radius: 2.4rem;
-  color: var(--branco-primario);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2.4rem;
+}
+
+.btn-finalizar-pedido {
   font-family: var(--fonte-principal);
   font-size: 1.2rem;
-  font-weight: 600;
-  outline: 0;
-  padding: .9rem 2rem;
+  color: var(--branco-primario);
+  font-weight: 500;
+  padding: .8rem 3rem;
+  background-color: var(--azul);
+  border-radius: 2.4rem;
+  border: none;
 }
 
-#quantidade:hover {
+.btn-finalizar-pedido:hover {
+  transition: all .3s;
   cursor: pointer;
+  background-color: var(--azul-btn-hover-1);
 }
-
-#quantidade option {
-  font-size: 1.8rem;
-}
-

@@ -34,6 +34,7 @@ public class UsuarioModel implements UserDetails {
     @JsonIgnore
     private List<EnderecoModel> enderecos;
 
+    private String foto;
     private String celular;
     private String email;
     private String senha;

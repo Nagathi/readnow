@@ -1,5 +1,9 @@
 package com.br.readnow.api.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -14,8 +18,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.br.readnow.api.dto.LoginDTO;
+import com.br.readnow.api.dto.PerfilDTO;
 import com.br.readnow.api.dto.RedefinirSenhaDTO;
 import com.br.readnow.api.dto.RequestNovaSenhaDTO;
 import com.br.readnow.api.dto.UsuarioDTO;
@@ -179,6 +185,47 @@ public class UsuarioService {
             
         } else {
             return ResponseEntity.badRequest().body("Esse link está expirado ou é inválido.");
+        }
+    }
+
+    public ResponseEntity<?> alterarFoto(MultipartFile foto, String nome, String email){
+        Optional<UsuarioModel> usuarOptional = usuarioRepository.findByEmail(email);
+
+        try{
+            if(usuarOptional.isPresent()){
+                String uploadImagem = "C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/usuarios/";
+                String uniqueImageName = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
+
+                Path destinoImagem = Path.of(uploadImagem + uniqueImageName);
+                Files.copy(foto.getInputStream(), destinoImagem, StandardCopyOption.REPLACE_EXISTING);
+
+                UsuarioModel usuario = usuarOptional.get();
+                usuario.setFoto(uniqueImageName);
+                usuario.setNome(nome);
+                usuarioRepository.save(usuario);
+
+                return ResponseEntity.ok("Foto alterada!");
+            }else{
+                return ResponseEntity.notFound().build();
+            }
+            
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.badRequest().build();
+        
+    }
+
+    public ResponseEntity<PerfilDTO> retornarNomeEFoto(String email){
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
+        if(usuarioOptional.isPresent()){
+            PerfilDTO perfilDTO = new PerfilDTO();
+            perfilDTO.setFoto(usuarioOptional.get().getFoto());
+            perfilDTO.setNome(usuarioOptional.get().getNome());
+            return ResponseEntity.ok(perfilDTO);
+        }else{
+            return ResponseEntity.notFound().build();
         }
     }
 
