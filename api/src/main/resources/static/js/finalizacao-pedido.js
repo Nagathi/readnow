@@ -94,49 +94,32 @@ function buscarCartoes() {
 
 function revisarItens() {
   const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
-  carrinhoItens.forEach((item, index) => {
-    var listaLivros = document.querySelector(".confirmar-compra");
-    var novoLivro = document.createElement("div");
-    novoLivro.classList.add("confirmacao");
+  carrinhoItens.forEach((item) => {
+    var listaLivros = document.querySelector(".itens-carrinho");
+    var novoLivro = document.createElement("li");
+    novoLivro.classList.add("item-carrinho");
     novoLivro.innerHTML = `
-          <label>
-            <div class="container-imagem">
-                <img src="./images/livros/${
-                  item.livro.imagem
-                }" alt="Imagem Produto">
-            </div>
+    <div class="container-imagem">
+    <img src="./images/livros/${item.livro.imagem}" alt="Imagem Produto">
+    </div>
 
-            <div class="direita">
-              <div class="textos">
-                <a href="#">
-                  <h1 class="nome-livro">${item.livro.titulo}</h1>
-                  <h3 class="nome-autor">Por ${item.livro.autor}</h3>
-                </a>
-                <p class="preco">R$ ${item.livro.preco.toFixed(2)}</p>
-              </div>
+    <div class="direita">
+      <div class="textos">
 
-              <div class="detalhes">
-  
-                <div class="botoes">
-                  <select id="quantidade">
-                    <option selected disabled value="">${
-                      item.quantidade
-                    }</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                  </select>
-                </div>
-              </div>
-            <label>
+        <div class="detalhes-livro">
+          <h1 class="nome-livro">${item.livro.titulo}</h1>
+          <p class="nome-autor">Por ${item.livro.autor}</p>
+        </div>
 
+        <p class="preco">R$ ${item.livro.preco.toFixed(2)}</p>
+
+      </div>
+
+      <div class="detalhes">
+
+        <p class="estimativa-entrega">Entrega estimada: XX dias</p>
+
+      </div>
               `;
 
     listaLivros.appendChild(novoLivro);
