@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.br.readnow.api.model.UsuarioModel;
 import com.br.readnow.api.service.UsuarioService;
@@ -28,7 +31,6 @@ public class UsuarioController {
         return usuarioService.login(login);
     }
 
-
     @PostMapping("/efetua-cadastro")
     public ResponseEntity<?> cadastrarUsuario(@RequestBody @Valid UsuarioModel usuarioModel){
         return usuarioService. cadastrarUsuario(usuarioModel);
@@ -47,5 +49,16 @@ public class UsuarioController {
     @PutMapping("/altera-senha")
     public ResponseEntity<?> redefinirSenha(@RequestBody RequestNovaSenhaDTO request) {
         return usuarioService.redefinirSenha(request);
+    }
+
+    @PutMapping("/foto")
+    public ResponseEntity<?> alterarFoto(@RequestPart(value = "foto") MultipartFile foto,
+                                         @RequestParam(value = "email") String email){
+        return usuarioService.alterarFoto(foto, email);
+    }
+
+    @GetMapping("/busca-foto")
+    public ResponseEntity<?> buscarFoto(@RequestParam(value = "email") String email){
+        return usuarioService.retornarFoto(email);
     }
 }
