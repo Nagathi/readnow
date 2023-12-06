@@ -69,32 +69,6 @@ span {
   font-weight: 500;
 }
 
-.confirmar-compra {
-  padding: 1.2rem 3.4rem;
-  border: .05rem solid var(--cinza);
-  border-radius: 2.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.btn-finalizar-pedido {
-  font-family: var(--fonte-principal);
-  font-size: 1.2rem;
-  color: var(--branco-primario);
-  font-weight: 500;
-  padding: .8rem 3rem;
-  background-color: var(--azul);
-  border-radius: 2.4rem;
-  border: none;
-}
-
-.btn-finalizar-pedido:hover {
-  transition: all .3s;
-  cursor: pointer;
-  background-color: var(--azul-btn-hover-1);
-}
-
 h2.valor-pedido {
   margin-bottom: 0;
   color: var(--vermelho);
@@ -119,4 +93,72 @@ h2.valor-pedido {
   transition: all .5s;
   color: var(--vermelho);
   text-decoration: underline;
+}
+
+.item-carrinho, .direita {
+  width: 100%;
+}
+
+.direita {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding-right: 2.2rem;
+}
+
+.textos {
+  display: flex;
+  align-items: flex-start;
+}
+
+.nome-autor {
+  font-family: var(--fonte-principal);
+  color: var(--preto);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: .8rem;
+}
+
+.itens-carrinho {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.2rem;
+}
+
+.nome-livro {
+  font-weight: 700;
+}
+
+.estimativa-entrega {
+  color: var(--laranja);
+  font-family: var(--fonte-principal);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.confirmar-compra {
+  padding: 1.2rem 3.4rem;
+  border: .05rem solid var(--cinza);
+  border-radius: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2.4rem;
+}
+
+.btn-finalizar-pedido {
+  font-family: var(--fonte-principal);
+  font-size: 1.2rem;
+  color: var(--branco-primario);
+  font-weight: 500;
+  padding: .8rem 3rem;
+  background-color: var(--azul);
+  border-radius: 2.4rem;
+  border: none;
+}
+
+.btn-finalizar-pedido:hover {
+  transition: all .3s;
+  cursor: pointer;
+  background-color: var(--azul-btn-hover-1);
 }
