@@ -166,6 +166,8 @@ h2.valor-pedido {
   background-color: var(--azul);
   border-radius: 2.4rem;
   border: none;
+
+  
 }
 
 .btn-finalizar-pedido:hover {

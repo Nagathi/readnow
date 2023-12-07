@@ -4,7 +4,7 @@ function autenticacao() {
   
     if (usuarioAutenticado != null && nomeUsuario != null) {
       const suaContaButton = document.querySelector(".identificador");
-      suaContaButton.innerHTML = `Olá, ${nomeUsuario} <br> Sua conta`
+      suaContaButton.innerHTML = `Olá, ${nomeUsuario.split(" ")[0]} <br> Sua conta`
 
       const navIcons = document.createElement("div");
       navIcons.classList.add("menu-list");

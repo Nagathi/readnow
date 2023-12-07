@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="./css/finalizar-pedido.css" />
 
     <link rel="stylesheet" href="./css/footer.css" />
-    <!-- <link rel="stylesheet" href="./css/menu.css"> -->
 
     <script src="components/header-autenticado.js" defer></script>
     <script src="components/footer-personalizado.js" defer></script>
@@ -65,13 +64,6 @@
             <ul class="itens-carrinho">
               <li class="item-carrinho"></li>
             </ul>
-
-            <div class="confirmar-compra">
-              <a href="/agradecimento-compra">
-                <button class="btn-finalizar-pedido">Finalizar pedido</button>
-              </a>
-              <h2 class="valor-pedido"></h2>
-            </div>
           </div>
         </div>
        
@@ -80,7 +72,9 @@
     </section>
 
     <div class="card-suspenso">
-      <button class="btn-finalizar-pedido">Finalizar pedido</button>
+      <a id="linkFinalizarPedido" href="#">
+        <button class="btn-finalizar-pedido">Finalizar pedido</button>
+      </a>
 
       <div class="resumo-pedido">
 
@@ -90,17 +84,17 @@
 
           <div class="preco-itens">
             <p>Itens:</p>
-            <p class="valor-itens">R$ XX,XX</p>
+            <p class="valor-itens"></p>
           </div>
 
-          <div class="valor-frete">
+          <div class="preco-itens">
             <p>Frete</p>
-            <p class="valor-frete">R$ XX,XX</p>
+            <p class="valor-frete"></p>
           </div>
 
         </div>
 
-        <h2 class="valor-pedido">Total do pedido: XX,XX</h2>
+        <h2 class="valor-pedido"></h2>
 
       </div>
     </div>

@@ -42,7 +42,7 @@ function buscarEnderecos() {
           <input type="radio" name="endereco" value="1">
             <div class="informacoes">
               <span class="destinatario">${endereco.nomeDestino}<br></span>
-              <span class="informacao-endereco">${endereco.logradouro}, ${endereco.numeroCasa}, ${endereco.complemento}, ${endereco.bairro}, ${endereco.cidade}, ${endereco.estado}<br>Telefone: ${endereco.telefone}</span>
+              <span class="informacao-endereco">${endereco.logradouro}, ${endereco.numeroCasa}, ${endereco.complemento}, ${endereco.bairro}, ${endereco.cidade}, ${endereco.estado}<br> CEP: ${endereco.cep}<br>Telefone: ${endereco.telefone}</span>
             </div>
         <label>`;
 
@@ -111,7 +111,9 @@ function revisarItens() {
     <div class="direita">
       <div class="textos">
         <div class="detalhes-livro">
-          <h1 id = "${item.livro.isbn}" class="nome-livro">${item.livro.titulo}</h1>
+          <h1 id = "${item.livro.isbn}" class="nome-livro">${
+      item.livro.titulo
+    }</h1>
           <p class="nome-autor">${item.livro.autor}</p>
         </div>
 
@@ -141,30 +143,42 @@ function revisarItens() {
     listaLivros.appendChild(novoLivro);
   });
 
+  const valorTotalFrete = 10.0;
+  const valorTotal = valorTotalLivros + valorTotalFrete;
+
   const valorPedido = document.querySelector(".valor-pedido");
-  valorPedido.innerHTML = `Total do pedido: R$ ${valorTotalLivros.toFixed(2)}`;
+  const valorItens = document.querySelector(".valor-itens");
+  const valorFrete = document.querySelector(".valor-frete");
+  valorItens.innerHTML = `R$ ${valorTotalLivros.toFixed(2)}`;
+  valorFrete.innerHTML = `R$ ${valorTotalFrete.toFixed(2)}`;
+  valorPedido.innerHTML = `Total do pedido: R$ ${valorTotal.toFixed(2)}`;
 
   const selectQuantidade = document.querySelectorAll(`#quantidade`);
   selectQuantidade.forEach(function (selectElement) {
     selectElement.addEventListener("change", function () {
-      const classeDoSelect = selectElement.classList.value.toString().split("-")[1];
+      const classeDoSelect = selectElement.classList.value
+        .toString()
+        .split("-")[1];
       const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
       carrinhoItens.forEach((item, index) => {
-        if(classeDoSelect === index.toString()) {
+        if (classeDoSelect === index.toString()) {
           item.quantidade = parseInt(selectElement.value, 10);
-
         }
       });
 
       localStorage.setItem("carrinhoItens", JSON.stringify(carrinhoItens));
-
     });
   });
-
-
 }
 const buttonConfirmacao = document.querySelector(".btn-finalizar-pedido");
 buttonConfirmacao.addEventListener("click", function (event) {
   event.preventDefault();
   localStorage.removeItem("paginaFinalizacao");
 });
+
+document
+  .getElementById("linkFinalizarPedido")
+  .addEventListener("click", function (event) {
+    event.preventDefault(); // Impede o comportamento padrão do link
+    window.location.href = "/agradecimento-compra"; // Redireciona manualmente
+  });

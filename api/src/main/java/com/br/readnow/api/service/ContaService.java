@@ -31,10 +31,13 @@ public class ContaService {
     @Autowired
     private CartaoRepository cartaoRepository;
 
-    public ResponseEntity<List<EnderecoDTO>> listarEnderecosPorEmail(String email){
+    @Autowired
+    private TokenService tokenService;
+
+    public ResponseEntity<List<EnderecoDTO>> listarEnderecosPorEmail(String email) {
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
 
-        if(usuarioOptional.isPresent()){
+        if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
             List<EnderecoModel> enderecosModel = enderecoRepository.findAllByUsuarioId(usuario.getCodigo());
             List<EnderecoDTO> enderecosDTO = new ArrayList<>();
@@ -66,11 +69,10 @@ public class ContaService {
         }
     }
 
-
-    public ResponseEntity<?> cadastrarEndereco(EnderecoDTO enderecoDTO){
+    public ResponseEntity<?> cadastrarEndereco(EnderecoDTO enderecoDTO) {
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(enderecoDTO.getEmail());
 
-        if(usuarioOptional.isPresent()){
+        if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
 
             EnderecoModel novoEndereco = new EnderecoModel();
@@ -97,10 +99,10 @@ public class ContaService {
         }
     }
 
-    public ResponseEntity<?> editarEndereco(EnderecoDTO enderecoDTO){
+    public ResponseEntity<?> editarEndereco(EnderecoDTO enderecoDTO) {
         Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(enderecoDTO.getCodigo());
 
-        if(enderecoOptional.isPresent()){
+        if (enderecoOptional.isPresent()) {
             EnderecoModel endereco = enderecoOptional.get();
 
             endereco.setNomeDestino(enderecoDTO.getNomeDestino());
@@ -117,26 +119,26 @@ public class ContaService {
             enderecoRepository.save(endereco);
 
             return ResponseEntity.ok("Endereço atualizado!");
-        }else{
+        } else {
             return ResponseEntity.badRequest().body("Ocorreu um erro ao atualizar o endereço.");
         }
     }
 
-    public ResponseEntity<?> excluirEndereco(Long codigo){
-        
-        if(enderecoRepository.findById(codigo).isPresent()){
+    public ResponseEntity<?> excluirEndereco(Long codigo) {
+
+        if (enderecoRepository.findById(codigo).isPresent()) {
             enderecoRepository.deleteById(codigo);
             return ResponseEntity.ok("Endereço excluído");
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
 
     }
 
-    public ResponseEntity<EnderecoDTO> buscarEnderecoPorCodigo(Long codigo){
+    public ResponseEntity<EnderecoDTO> buscarEnderecoPorCodigo(Long codigo) {
         Optional<EnderecoModel> enderecoOptional = enderecoRepository.findById(codigo);
 
-        if(enderecoOptional.isPresent()){
+        if (enderecoOptional.isPresent()) {
             EnderecoModel endereco = enderecoOptional.get();
 
             EnderecoDTO enderecoDTO = new EnderecoDTO();
@@ -152,16 +154,50 @@ public class ContaService {
             enderecoDTO.setEstado(endereco.getEstado());
             enderecoDTO.setPais(endereco.getPais());
 
-            return ResponseEntity.ok(enderecoDTO);  
-        }else{
+            return ResponseEntity.ok(enderecoDTO);
+        } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public ResponseEntity<EnderecoDTO> buscarEnderecoPorUsuario(String token) {
+        String email = tokenService.validarToken(token);
+        Optional<UsuarioModel> usuario = usuarioRepository.findByEmail(email);
+
+        if (usuario.isPresent()) {
+            Optional<EnderecoModel> enderecoOptional = enderecoRepository.findByUsuario(usuario.get());
+
+            if (enderecoOptional.isPresent()) {
+                EnderecoModel endereco = enderecoOptional.get();
+
+                EnderecoDTO enderecoDTO = new EnderecoDTO();
+                enderecoDTO.setCodigo(endereco.getCodigo());
+                enderecoDTO.setNomeDestino(endereco.getNomeDestino());
+                enderecoDTO.setTelefone(endereco.getTelefone());
+                enderecoDTO.setLogradouro(endereco.getLogradouro());
+                enderecoDTO.setBairro(endereco.getBairro());
+                enderecoDTO.setNumeroCasa(endereco.getNumeroCasa());
+                enderecoDTO.setCep(endereco.getCep());
+                enderecoDTO.setComplemento(endereco.getComplemento());
+                enderecoDTO.setCidade(endereco.getCidade());
+                enderecoDTO.setEstado(endereco.getEstado());
+                enderecoDTO.setPais(endereco.getPais());
+
+                return ResponseEntity.ok(enderecoDTO);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+
+        }
+
     }
 
     public ResponseEntity<List<CartaoDTO>> listarCartoesPorEmail(String email) {
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
 
-        if(usuarioOptional.isPresent()){
+        if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
             List<CartaoModel> cartoesModel = cartaoRepository.findAllByUsuarioId(usuario.getCodigo());
             List<CartaoDTO> cartoesDTO = new ArrayList<>();
@@ -190,9 +226,9 @@ public class ContaService {
         }
     }
 
-    public ResponseEntity<?> cadastrarCartao(CartaoDTO cartaoDTO){
+    public ResponseEntity<?> cadastrarCartao(CartaoDTO cartaoDTO) {
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(cartaoDTO.getEmail());
-        if(usuarioOptional.isPresent()){
+        if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
 
             CartaoModel cartao = new CartaoModel();
@@ -203,7 +239,7 @@ public class ContaService {
             cartaoRepository.save(cartao);
 
             return ResponseEntity.ok("Cartão cadastrado!");
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
@@ -211,8 +247,8 @@ public class ContaService {
     public ResponseEntity<?> editarCartao(CartaoDTO cartaoDTO) {
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(cartaoDTO.getEmail());
         Optional<CartaoModel> cartaoOptional = cartaoRepository.findById(cartaoDTO.getCodigo());
-        if(usuarioOptional.isPresent() && cartaoOptional.isPresent()){
-            if(usuarioOptional.get().getCodigo() == cartaoOptional.get().getUsuario().getCodigo()){
+        if (usuarioOptional.isPresent() && cartaoOptional.isPresent()) {
+            if (usuarioOptional.get().getCodigo() == cartaoOptional.get().getUsuario().getCodigo()) {
                 CartaoModel cartao = new CartaoModel();
                 cartao.setCodigo(cartaoDTO.getCodigo());
                 cartao.setNome(cartaoDTO.getNome());
@@ -222,10 +258,10 @@ public class ContaService {
 
                 cartaoRepository.save(cartao);
                 return ResponseEntity.ok("Cartão editado!");
-            }else{
+            } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Acesso não autorizado");
             }
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
@@ -233,14 +269,14 @@ public class ContaService {
     public ResponseEntity<?> excluirCartao(RequestDeleteDTO requestDeleteDTO) {
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(requestDeleteDTO.getEmail());
         Optional<CartaoModel> cartaoOptional = cartaoRepository.findById(requestDeleteDTO.getCodigo());
-        if(usuarioOptional.isPresent() && cartaoOptional.isPresent()){
-            if(usuarioOptional.get().getCodigo() == cartaoOptional.get().getUsuario().getCodigo()){
+        if (usuarioOptional.isPresent() && cartaoOptional.isPresent()) {
+            if (usuarioOptional.get().getCodigo() == cartaoOptional.get().getUsuario().getCodigo()) {
                 cartaoRepository.deleteById(requestDeleteDTO.getCodigo());
                 return ResponseEntity.ok("Cartão excluído!");
-            }else{
+            } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Acesso não autorizado");
             }
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
 
