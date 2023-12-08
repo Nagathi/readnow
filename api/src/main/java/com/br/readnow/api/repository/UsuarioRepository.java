@@ -10,7 +10,7 @@ import com.br.readnow.api.model.UsuarioModel;
 
 
 @Repository
-public interface UsuarioRepository extends  CrudRepository <UsuarioModel, Long>{
+public interface UsuarioRepository extends CrudRepository <UsuarioModel, Long>{
     Optional<UsuarioModel> findByEmailAndSenha(String email, String senha);
     boolean existsByEmail(String email);
     Optional<UsuarioModel> findByCodigo(Long codigo);

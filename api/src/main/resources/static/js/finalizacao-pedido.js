@@ -1,17 +1,5 @@
 (() => {
-  const listaDeEnderecos = document.querySelectorAll(".endereco");
   const listaDeCartoes = document.querySelectorAll(".cartao");
-
-  function selecionaEndereco() {
-    listaDeEnderecos.forEach((endereco) => {
-      endereco.removeAttribute("id");
-      this.id = "endereco-selecionado";
-    });
-  }
-
-  listaDeEnderecos.forEach((endereco) => {
-    endereco.addEventListener("click", selecionaEndereco);
-  });
 
   function selecionaCartao() {
     listaDeCartoes.forEach((cartao) => {
@@ -39,7 +27,7 @@ function buscarEnderecos() {
           element.classList.add("endereco");
           element.innerHTML = ` 
         <label>
-          <input type="radio" name="endereco" value="1">
+          <input type="radio" id="${endereco.codigo}"  name="endereco" value="1">
             <div class="informacoes">
               <span class="destinatario">${endereco.nomeDestino}<br></span>
               <span class="informacao-endereco">${endereco.logradouro}, ${endereco.numeroCasa}, ${endereco.complemento}, ${endereco.bairro}, ${endereco.cidade}, ${endereco.estado}<br> CEP: ${endereco.cep}<br>Telefone: ${endereco.telefone}</span>
@@ -57,12 +45,6 @@ function buscarEnderecos() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  buscarEnderecos();
-  buscarCartoes();
-  revisarItens();
-});
-
 function buscarCartoes() {
   fetch(`/cartoes/${email}`)
     .then((response) => response.json())
@@ -74,7 +56,7 @@ function buscarCartoes() {
         divCartoes.innerHTML = `
                     
             <label>
-              <input type="radio" name="cartao" value="1">
+              <input type="radio" id="${cartao.codigo}" name="cartao" value="1">
               <div class="informacoes">
                 <span class="nome-cartao">${cartao.nome}<br></span>
                 <span class="informacao-cartao">(Crédito) Cartão <br>Terminado em ${
@@ -114,7 +96,7 @@ function revisarItens() {
           <h1 id = "${item.livro.isbn}" class="nome-livro">${
       item.livro.titulo
     }</h1>
-          <p class="nome-autor">${item.livro.autor}</p>
+          <p class="nome-autor">Por ${item.livro.autor}</p>
         </div>
 
         <p class="preco">R$ ${item.livro.preco.toFixed(2)}</p>
@@ -152,6 +134,7 @@ function revisarItens() {
   valorItens.innerHTML = `R$ ${valorTotalLivros.toFixed(2)}`;
   valorFrete.innerHTML = `R$ ${valorTotalFrete.toFixed(2)}`;
   valorPedido.innerHTML = `Total do pedido: R$ ${valorTotal.toFixed(2)}`;
+  localStorage.setItem("valorTotalCarrinho", valorTotal.toFixed(2));
 
   const selectQuantidade = document.querySelectorAll(`#quantidade`);
   selectQuantidade.forEach(function (selectElement) {
@@ -170,6 +153,61 @@ function revisarItens() {
     });
   });
 }
+
+function salvarPedido() {
+  const dataAtual = new Date();
+
+  const dia = dataAtual.getDate();
+  const mes = dataAtual.getMonth() + 1; // Mês começa do zero, então adicionamos 1
+  const ano = dataAtual.getFullYear();
+  const horas = dataAtual.getHours();
+  const minutos = dataAtual.getMinutes();
+
+
+  const dataPedido = `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+  localStorage.setItem("dataPedido", dataPedido);
+
+  const valorTotal = Number(localStorage.getItem("valorTotalCarrinho"));
+  const dataEntregaPrevista = "15/12/2023";
+  const codigoCartao = Number(
+    localStorage.getItem("cartao-selecionado-finalizacao")
+  );
+  const codigoEndereco = Number(
+    localStorage.getItem("endereco-selecionado-finalizacao")
+  );
+  const email = localStorage.getItem("email");
+
+  var data = {
+    dataPedido: dataPedido,
+    valorTotal: valorTotal,
+    dataEntregaPrevista: dataEntregaPrevista,
+    codigoCartao: codigoCartao,
+    codigoEndereco: codigoEndereco,
+    email: email,
+  };
+
+  fetch("/salva-pedido", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erro ao processar pedido");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      localStorage.setItem("pedidoId", data);
+      window.location.href = "/agradecimento-compra";
+    })
+    .catch((error) => {
+      console.error("Erro durante a requisição:", error);
+    });
+}
+
 const buttonConfirmacao = document.querySelector(".btn-finalizar-pedido");
 buttonConfirmacao.addEventListener("click", function (event) {
   event.preventDefault();
@@ -179,6 +217,28 @@ buttonConfirmacao.addEventListener("click", function (event) {
 document
   .getElementById("linkFinalizarPedido")
   .addEventListener("click", function (event) {
-    event.preventDefault(); // Impede o comportamento padrão do link
-    window.location.href = "/agradecimento-compra"; // Redireciona manualmente
+    event.preventDefault();
+    salvarPedido();
   });
+
+document.addEventListener("change", function (event) {
+  const radio = event.target;
+
+  if (radio.type === "radio" && radio.name === "endereco" && radio.checked) {
+    const enderecoSelecionado = radio.closest(".endereco");
+    if (enderecoSelecionado) {
+      localStorage.setItem("endereco-selecionado-finalizacao", radio.id);
+    }
+  } else {
+    const cartaoSelecionado = radio.closest(".cartao");
+    if (cartaoSelecionado) {
+      localStorage.setItem("cartao-selecionado-finalizacao", radio.id);
+    }
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  buscarEnderecos();
+  buscarCartoes();
+  revisarItens();
+});

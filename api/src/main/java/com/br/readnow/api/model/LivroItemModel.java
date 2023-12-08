@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class LivroItemCarrinhoModel {
+public class LivroItemModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,4 +29,9 @@ public class LivroItemCarrinhoModel {
     @ManyToOne
     @JoinColumn(name = "carrinho_codigo")
     private CarrinhoModel carrinho;
+
+    @ManyToOne
+    @JoinColumn(name = "pedido_id")
+    private PedidoModel pedido;
+
 }

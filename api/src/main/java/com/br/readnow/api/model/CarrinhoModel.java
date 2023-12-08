@@ -30,7 +30,7 @@ public class CarrinhoModel {
     private UsuarioModel cliente;
 
     @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LivroItemCarrinhoModel> livros = new ArrayList<>();
+    private List<LivroItemModel> livros = new ArrayList<>();
 
     public void criarCarrinho(UsuarioModel cliente) {
         this.cliente = cliente;

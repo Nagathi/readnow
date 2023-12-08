@@ -9,13 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.br.readnow.api.dto.LivroItemCarrinhoDTO;
+import com.br.readnow.api.dto.LivroItemDTO;
 import com.br.readnow.api.model.CarrinhoModel;
-import com.br.readnow.api.model.LivroItemCarrinhoModel;
+import com.br.readnow.api.model.LivroItemModel;
 import com.br.readnow.api.model.LivroModel;
 import com.br.readnow.api.model.UsuarioModel;
 import com.br.readnow.api.repository.CarrinhoRepository;
-import com.br.readnow.api.repository.LivroItemCarrinhoRepository;
+import com.br.readnow.api.repository.LivroItemRepository;
 import com.br.readnow.api.repository.LivroRepository;
 import com.br.readnow.api.repository.UsuarioRepository;
 
@@ -23,7 +23,7 @@ import com.br.readnow.api.repository.UsuarioRepository;
 public class CarrinhoService {
 
     @Autowired
-    private LivroItemCarrinhoRepository livroItemCarrinhoRepository;
+    private LivroItemRepository livroItemCarrinhoRepository;
 
     @Autowired
     private CarrinhoRepository carrinhoRepository;
@@ -37,7 +37,7 @@ public class CarrinhoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public ResponseEntity<List<LivroItemCarrinhoDTO>> mostrarItensCarrinho(String token) {
+    public ResponseEntity<List<LivroItemDTO>> mostrarItensCarrinho(String token) {
         String email = tokenService.validarToken(token);
 
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
@@ -45,15 +45,16 @@ public class CarrinhoService {
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
             Optional<CarrinhoModel> carrinho = carrinhoRepository.findByClienteCodigo(usuario.getCodigo());
-            List<LivroItemCarrinhoModel> livrosCarrinho = livroItemCarrinhoRepository
+            List<LivroItemModel> livrosCarrinho = livroItemCarrinhoRepository
                     .findAllByCarrinhoCodigo(carrinho.get().getCodigo());
-            List<LivroItemCarrinhoDTO> itens = new ArrayList<>();
+            List<LivroItemDTO> itens = new ArrayList<>();
 
-            for (LivroItemCarrinhoModel item : livrosCarrinho) {
-                LivroItemCarrinhoDTO itemLivro = new LivroItemCarrinhoDTO();
+            for (LivroItemModel item : livrosCarrinho) {
+                LivroItemDTO itemLivro = new LivroItemDTO();
                 itemLivro.setEmail(email);
                 itemLivro.setLivro(item.getLivro());
                 itemLivro.setQuantidade(item.getQuantidade());
+                itemLivro.setCodigoCarrinho(carrinho.get().getCodigo());
                 itens.add(itemLivro);
             }
 
@@ -68,22 +69,22 @@ public class CarrinhoService {
 
     }
 
-    public void armazenaEstadoCarrinho(List<LivroItemCarrinhoDTO> livrosItemCarrinhoDTO) {
+    public void armazenaEstadoCarrinho(List<LivroItemDTO> livrosItemCarrinhoDTO) {
         Optional<CarrinhoModel> carrinhoOptional = null;
-        for (LivroItemCarrinhoDTO item : livrosItemCarrinhoDTO) {
+        for (LivroItemDTO item : livrosItemCarrinhoDTO) {
             Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(item.getEmail());
             if (usuarioOptional.isPresent()) {
                 carrinhoOptional = carrinhoRepository
                         .findByClienteCodigo(usuarioOptional.get().getCodigo());
                 if (carrinhoOptional.isPresent()) {
-                    Optional<LivroItemCarrinhoModel> livroOptional = livroItemCarrinhoRepository
+                    Optional<LivroItemModel> livroOptional = livroItemCarrinhoRepository
                             .findByLivroCodigo(item.getLivro().getCodigo());
                     if (livroOptional.isPresent()) {
                         livroOptional.get().setQuantidade(item.getQuantidade());
                         livroItemCarrinhoRepository.save(livroOptional.get());
                         
                     } else {
-                        LivroItemCarrinhoModel itemCarrinhoModel = new LivroItemCarrinhoModel();
+                        LivroItemModel itemCarrinhoModel = new LivroItemModel();
                         itemCarrinhoModel.setCarrinho(carrinhoOptional.get());
                         itemCarrinhoModel.setLivro(item.getLivro());
                         itemCarrinhoModel.setQuantidade(item.getQuantidade());
@@ -93,10 +94,10 @@ public class CarrinhoService {
             }
         }
         if (carrinhoOptional != null) {
-            List<LivroItemCarrinhoModel> livrosNoCarrinho = livroItemCarrinhoRepository
+            List<LivroItemModel> livrosNoCarrinho = livroItemCarrinhoRepository
                     .findAllByCarrinhoCodigo(carrinhoOptional.get().getCodigo());
 
-            for (LivroItemCarrinhoModel livroNoCarrinho : livrosNoCarrinho) {
+            for (LivroItemModel livroNoCarrinho : livrosNoCarrinho) {
                 boolean livroPresenteNoDTO = livrosItemCarrinhoDTO.stream()
                         .anyMatch(itemDTO -> itemDTO.getLivro().getCodigo()
                                 .equals(livroNoCarrinho.getLivro().getCodigo()));
@@ -122,7 +123,7 @@ public class CarrinhoService {
                 Optional<LivroModel> livroOptional = livroRepository.findById(livroId);
 
                 if (livroOptional.isPresent()) {
-                    Optional<LivroItemCarrinhoModel> item = livroItemCarrinhoRepository.findByLivroCodigo(livroId);
+                    Optional<LivroItemModel> item = livroItemCarrinhoRepository.findByLivroCodigo(livroId);
                     Long codigoItem = item.get().getCodigo();
                     livroItemCarrinhoRepository.deleteById(item.get().getCodigo());
                     carrinhoRepository.save(carrinho);
@@ -153,7 +154,7 @@ public class CarrinhoService {
 
                 if (livroOptional.isPresent()) {
                     LivroModel livro = livroOptional.get();
-                    LivroItemCarrinhoDTO livroItemCarrinhoDTO = new LivroItemCarrinhoDTO();
+                    LivroItemDTO livroItemCarrinhoDTO = new LivroItemDTO();
 
                     livroItemCarrinhoDTO.setEmail(email);
                     livroItemCarrinhoDTO.setLivro(livro);

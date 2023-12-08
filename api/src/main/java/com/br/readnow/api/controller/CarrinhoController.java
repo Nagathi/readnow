@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.br.readnow.api.dto.LivroItemCarrinhoDTO;
+import com.br.readnow.api.dto.LivroItemDTO;
 import com.br.readnow.api.service.CarrinhoService;
 
 @RestController
@@ -44,7 +44,7 @@ public class CarrinhoController {
     }
 
     @PostMapping("/atualiza-carrinho")
-    public void atualizaEstadoCarrinho(@RequestBody List<LivroItemCarrinhoDTO> livros) {
+    public void atualizaEstadoCarrinho(@RequestBody List<LivroItemDTO> livros) {
         carrinhoService.armazenaEstadoCarrinho(livros);
 
     }

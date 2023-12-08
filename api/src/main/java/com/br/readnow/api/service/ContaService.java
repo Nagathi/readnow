@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.br.readnow.api.dto.CartaoDTO;
 import com.br.readnow.api.dto.EnderecoDTO;
+import com.br.readnow.api.dto.LivroItemDTO;
 import com.br.readnow.api.dto.RequestDeleteDTO;
 import com.br.readnow.api.model.CartaoModel;
 import com.br.readnow.api.model.EnderecoModel;
+import com.br.readnow.api.model.LivroItemModel;
 import com.br.readnow.api.model.UsuarioModel;
 import com.br.readnow.api.repository.CartaoRepository;
 import com.br.readnow.api.repository.EnderecoRepository;

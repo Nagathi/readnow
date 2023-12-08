@@ -34,6 +34,10 @@ public class UsuarioModel implements UserDetails {
     @JsonIgnore
     private List<EnderecoModel> enderecos;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<PedidoModel> pedidos;
+
     private String foto;
     private String celular;
     private String email;

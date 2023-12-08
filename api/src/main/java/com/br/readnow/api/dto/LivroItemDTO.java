@@ -7,8 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LivroItemCarrinhoDTO {
+public class LivroItemDTO {
     private String email;
     private LivroModel livro;
     private int quantidade;
+    private Long codigoCarrinho;
 }
