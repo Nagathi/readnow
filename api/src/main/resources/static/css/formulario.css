@@ -23,6 +23,16 @@ main {
   width: 42.3rem;
 }
 
+#formulario-avaliacao {
+  border-radius: 2.2rem;
+  padding: 1.5rem;
+  width: 42.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+}
+
 #campos-login {
   border: none;
 }
@@ -38,6 +48,8 @@ main {
   background-color: var(--branco-primario);
   margin-top: 2.5rem;
 }
+
+
 
 .campo input, .campo textarea {
   color: var(--preto);

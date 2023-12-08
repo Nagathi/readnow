@@ -19,7 +19,7 @@
 .campo label {
   font-size: 1.6rem;
   font-weight: 500;
-  display: block;
+  display: flex;
   margin-bottom: 1rem;
 }
 
