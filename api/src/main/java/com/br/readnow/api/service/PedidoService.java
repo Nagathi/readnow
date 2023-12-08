@@ -4,11 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.br.readnow.api.dto.LivroItemDTO;
 import com.br.readnow.api.dto.PedidoDTO;
 import com.br.readnow.api.model.CarrinhoModel;
 import com.br.readnow.api.model.CartaoModel;
