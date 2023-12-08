@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,8 @@
   <script src="./js/formulario-central-ajuda.js" defer></script>
   <script src="./js/avaliacao.js" defer></script>
   <title>Avaliação</title>
-  </head>
+</head>
+
 <body>
 
   <!--Cabeçalho-->
@@ -60,9 +62,19 @@
 
         <div class="campo">
           <label for="descricao-problema">Descrição</label>
-          <textarea name="descricao-problema" id="descricao-problema" cols="20" rows="5" placeholder="Por favor, utilize até 1000 caracteres." required></textarea>
+          <textarea name="descricao-problema" id="descricao-problema" cols="20" rows="5"
+            placeholder="Por favor, utilize até 1000 caracteres." required></textarea>
         </div>
-
+        <div class="campo image-container">
+          <div id="selectedImageContainer" class="hidden">
+            <img id="selectedImage" alt="Imagem selecionada">
+          </div>
+          <button id="selectImageButton" class="custom-button">
+            <img src="images/icons/anexar-imagem.png" alt="Botão de seleção de imagem" class="imagem-input">
+          </button>
+          <input type="file" id="fileInput" name="fileInput" accept="image/*" style="display: none;"
+            onchange="handleFileSelect(event)">
+        </div>
         <button type="submit" class="btn-submit">Envie sua avaliação</button>
 
       </form>
@@ -74,4 +86,5 @@
   <!--Rodapé-->
   <footer-personalizado></footer-personalizado>
 </body>
+
 </html>
