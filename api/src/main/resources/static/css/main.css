@@ -38,21 +38,3 @@
   height: .05rem;
   width: 100%;
 }
-
-.texto-compra-realizada {
-  display: flex;
-  align-items: center;
-  font-family: var(--fonte-principal);
-  font-size: 2.8rem;
-}
-.texto-compra-realizada h2{
-  font-weight: 600;
-}
-
-.img-compra-realizada {
-  height: 20rem;
-}
-.link-visualizar-pedido{
-  text-decoration: underline;
-  font-size: 1.5rem;
-}
