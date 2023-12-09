@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="css/global.css"/>
+    <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/tela-pedido.css">
+    <link rel="stylesheet" href="css/footer.css" />
+
+    <script src="components/header-autenticado.js" defer></script>
+    <script src="components/footer-personalizado.js" defer></script>
+    <script src="js/autenticado.js" defer></script>
+
+    <title>Seus Pedidos</title>
+</head>
+<body>
+
+    <!--Cabeçalho-->
+    <header-autenticado></header-autenticado>
+
+    <main class="main">
+
+        <div class="painelMaior">
+
+            <div class="div-pedidos">
+                <p id="paragrafo-pedido">Seus Pedidos</p>
+            </div>
+            
+            <div class="lista-pedidos">
+
+                <div class="painel-interno">
+
+                    <div class="container-imagem">
+                        <img src="images/icons/produto_semelhante.jpg" alt="imagem" class="imagem">
+                    </div>
+                    
+                    <div class="div-textos-internos">
+
+                        <h3 id="textoInternoTempoDias">Chega em X dias</h3>
+
+                        <div class="textoInternoDescricao">
+                            <p>Pedido em dd/mm</p>
+                            <p>Produto XYZ</p>
+                        </div>
+
+                    </div>
+
+                    <div class="div-botao">
+                        <button class="bnt" type="button">Precisa de ajuda?</button>
+                    </div>
+
+                </div>
+    
+            </div>
+
+        </div>
+
+    </main>
+
+    <!--Rodapé-->
+    <footer-personalizado></footer-personalizado>
+</body>
+</html>

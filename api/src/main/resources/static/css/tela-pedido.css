@@ -1,0 +1,181 @@
+.div-pedidos{
+    display: flex;
+    height: 15%;
+    width: 100%;
+    align-items: center; 
+    padding: 2.2rem 4.2rem;
+    font-weight: 600;
+    margin-bottom: 2.2rem;
+    border-bottom: .05rem solid var(--cinza);
+    /*border: none;*/
+    /*justify-content: center;*/  
+    /*flex-direction: column; */
+    /*margin-top: -170px;*/
+    /*margin-left: -75px;*/
+}
+
+#paragrafo-pedido{
+    /*margin-right: 61rem;*/
+    align-items: center;
+    /*margin-top: 2.5rem;*/
+    font-family: var(--fonte-principal);
+    /*font-family: "Raleway", sans-ser;*/
+    font-size: 2.4rem; /* Tamanho da fonte em pixels */
+    color: var(--preto);
+}
+
+.painelMaior {
+    /*border-radius: 0 0 8px 8px;*/
+    /* width: 78rem; Ajuste o tamanho conforme necessário */
+    /* height: 36rem; Ajuste o tamanho conforme necessário */
+    background-color: var(--branco-primario); /* Cor de fundo */
+    border-radius: 10px; /* Borda arredondada (opcional) */
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  Sombra (opcional) */
+     /* Espaçamento interno */
+    /* color:brown; Cor do texto */ 
+
+    width: 113.6rem;
+    padding-bottom: 2.4rem;
+}
+
+.lista-pedidos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 3rem;
+}
+
+.painel-interno {
+    display: flex;
+    background-color: var(--branco-primario);
+    width: 77.8rem;
+    height: 17rem;
+    border: .05rem solid var(--cinza);
+}
+
+.container-imagem {
+    width: 12rem;
+    height: 100%;
+    margin-left: 2.8rem;
+}
+
+.imagem{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    /*
+    width: 100px;
+    height: 130px;
+    transform: translateY(50%);
+    margin-left: 20px;
+    margin-top: -65px;
+    border-radius: 50%;*/
+}
+
+.div-textos-internos{
+    display: flex;
+    height: 100%;
+    width: 40%;
+    align-items: center; 
+    justify-content: center;  
+    flex-direction: column; 
+    /*margin-top: 50px;*/
+    margin-left: .2rem;
+    row-gap: 2rem;
+}
+
+#textoInternoTempoDias{
+    /*margin-bottom: 5px;*//*adiciona espaço abaixo do parágrafo*/
+    font-family: var(--fonte-principal);
+    font-size: 2.2rem; /* Tamanho da fonte em pixels */
+    font-weight: 700;
+    color: #008577;
+    margin-left: 2rem;
+}
+
+.textoInternoDescricao {
+    display: flex;
+    flex-direction: column;
+    row-gap: .3rem;
+}
+
+.textoInternoDescricao p {
+    /*margin-bottom: 0px;*/
+    /*line-height: 0.3; ajusta o espaçamento entre linhas dos parágrafos */
+    /*margin-top: 0px;*/
+    font-family: var(--fonte-principal);
+    font-size: 1.6rem; /* Tamanho da fonte em pixels */
+    color: #464646;
+    font-weight: 500;
+}
+
+.painelInterno1 {
+    display: flex;
+    background-color: #FFFFFF;
+    /*top: 190px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);*/
+    width: 50rem;
+    height: 13rem;
+    border: 2px solid #A2A2A2;
+    margin-top: 5px;  
+}
+
+.painelInterno2 {
+    display: flex;
+    background-color: #FFFFFF;
+    /*top: 335px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);*/
+    width: 500px; 
+    height: 130px;
+    border: 2px solid #A2A2A2;
+}
+
+.div-botao{
+    display: flex;
+    /*height: 100%;*/
+    width: 35%;
+    align-items: center;
+    justify-content:end;
+    /*margin-right: 40px;*/
+
+    align-self: flex-end;
+    margin-bottom: 4.38rem;
+}
+
+.bnt {
+    background-color: var(--azul);
+    /*padding: 5px 10px;*/
+    padding: .8rem 2rem;
+    border: none;
+    border-radius: 2.4rem;
+    cursor: pointer;
+    font-size: 1.4rem;
+    /* margin-right: 10px;
+    margin-top: 48%;*/
+    font-family: var(--fonte-principal);
+    /*font-size: 12px;  Tamanho da fonte em pixels */
+    color: var(--branco-primario);
+    /*width: 50%;*/
+    /*height: 20%;
+    padding-right: 15px;
+    align-self: flex-start;*/
+}
+
+.bnt:hover {
+    transition: all .4s;
+    background-color: var(--azul-btn-hover-1);
+    cursor: pointer;
+}
+
+
+/*.div-imagem{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content:center;
+}*/
