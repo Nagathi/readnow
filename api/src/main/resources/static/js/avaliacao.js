@@ -1,33 +1,55 @@
-var stars = document.querySelectorAll('.star-icon');
+document.addEventListener('DOMContentLoaded', function () {
+  var stars = document.querySelectorAll('.star-icon');
+  var formularioAvaliacao = document.getElementById('formulario-avaliacao');
+  var starSelected = 0;
 
-document.addEventListener('click', function (e) {
-  var classStar = e.target.classList;
-  if (!classStar.contains('ativo')) {
-    stars.forEach(function (star) {
-      star.classList.remove('ativo');
+  stars.forEach(function(star) {
+    star.addEventListener('click', function(e) {
+      var classStar = e.target.classList;
+      if (!classStar.contains('ativo')) {
+        stars.forEach(function(star) {
+          star.classList.remove('ativo');
+        });
+        classStar.add('ativo');
+        starSelected = parseInt(e.target.getAttribute('data-avaliacao'));
+      }
     });
-    classStar.add('ativo');
-    console.log(e.target.getAttribute('data-avaliacao'));
-  }
-});
-document.getElementById('selectImageButton').addEventListener('click', function () {
-  document.getElementById('fileInput').click();
-});
+  });
 
-function handleFileSelect(event) {
-  const fileInput = event.target;
-  const selectedImageContainer = document.getElementById('selectedImageContainer');
-  const selectedImage = document.getElementById('selectedImage');
+  document.getElementById('selectImageButton').addEventListener('click', function () {
+    document.getElementById('fileInput').click();
+  });
 
-  if (fileInput.files && fileInput.files[0]) {
-    const reader = new FileReader();
+  formularioAvaliacao.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-    reader.onload = function (e) {
-      selectedImage.src = e.target.result;
-      selectedImageContainer.style.display = 'block';
+    const qtdEstrelas = starSelected;
+    const descricao = document.getElementById('descricao-problema').value;
+
+    const emailLivro = "ragbr7070@gmail.com";
+    const codigoLivro = 1;
+
+    const data = {
+      email: emailLivro,
+      codigo: codigoLivro,
+      qtdEstrelas: qtdEstrelas,
+      descricao: descricao
     };
 
-    reader.readAsDataURL(fileInput.files[0]);
-  }
-}
-
+    fetch('/avaliacao', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if(response.ok){
+        window.location.href = "/";
+      }
+    })
+    .catch(error => {
+      console.error('Erro:', error);
+    });
+  });
+});

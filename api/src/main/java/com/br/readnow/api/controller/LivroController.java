@@ -7,11 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.br.readnow.api.dto.AvaliacaoDTO;
 import com.br.readnow.api.dto.LivroDTO;
 import com.br.readnow.api.model.LivroModel;
 import com.br.readnow.api.service.LivroService;
@@ -64,5 +66,10 @@ public class LivroController {
     @GetMapping("/pesquisa")
     public ResponseEntity<List<LivroModel>> buscarLivro(@RequestParam(value = "palavra") String pesquisa){
         return livroService.pesquisar(pesquisa);
+    }
+
+    @PostMapping("/avaliacao")
+    public ResponseEntity<?> realizarAvaliacao(@RequestBody AvaliacaoDTO avaliacaoDTO) {
+        return livroService.realizarAvaliacao(avaliacaoDTO.getEmail(), avaliacaoDTO.getCodigo(), avaliacaoDTO.getQtdEstrelas(), avaliacaoDTO.getDescricao());
     }
 }
