@@ -119,4 +119,9 @@ public class HtmlController {
         public String seusPedidos() {
             return "tela-pedido";
     }
+
+    @GetMapping("/suas-compras")
+        public String suasCompras() {
+            return "suas-compras";
+    }
 }
