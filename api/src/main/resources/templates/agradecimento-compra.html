@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="images/icons/compra-finalizada.svg" type="image/x-icon">
+  
+  <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
+
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/agradecimento-compra.css">
   <link rel="stylesheet" href="css/enderecos.css">
   <link rel="stylesheet" href="css/footer.css">
-  <script src="./components/header-autenticado.js" defer></script>
+
+  <script src="components/header-autenticado.js" defer></script>
   <script src="components/footer-personalizado.js" defer></script>
   <script src="js/autenticado.js" defer></script>
   <script src="js/agradecimento-compra.js" defer></script>
@@ -23,17 +27,26 @@
 
   <!--Main-->
   <main class="main">
+
       <div class="texto-compra-realizada container">
-        <h2>
+
+        <h1>
+
           Gratidão pela sua compra! <br>
           Que cada página seja uma jornada enriquecedora para você.
           <br><br>
-          Número do pedido: <span class="pedido"></span>.<br>
-          Data da compra: <span class="data"></span><br><br>
+          Número do pedido: <span class="pedido">1223437325</span>.<br>
+          Data da compra: <span class="data"></span> às <span class="horario"></span> <br><br>
           <a class="link-visualizar-pedido" href="#">Visualizar ou editar pedido.</a>
-        </h2>
-        <img class="img-compra-realizada" src="images/icons/comprando-livro.png" alt="Pessoa levando livros">
-      </div>     
+
+        </h1>
+
+        <div class="container-imagem">
+          <img class="img-compra-realizada" src="images/icons/comprando-livro.png" alt="Pessoa levando livros">
+        </div>
+
+      </div>
+      
   </main>
 
   <!--Rodapé-->

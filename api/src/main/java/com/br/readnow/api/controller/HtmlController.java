@@ -109,8 +109,14 @@ public class HtmlController {
     public String agradecimento() {
         return "agradecimento-compra";
     }
+
     @GetMapping("/avaliacao-produto")
         public String mostrarAvaliacaoProduto() {
             return "avaliacao-produto";
+    }
+
+    @GetMapping("/seus-pedidos")
+        public String seusPedidos() {
+            return "tela-pedido";
     }
 }

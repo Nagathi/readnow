@@ -1,0 +1,26 @@
+.texto-compra-realizada {
+  display: flex;
+  align-items: center;
+}
+
+.texto-compra-realizada h1, .texto-compra-realizada span {
+  font-family: var(--fonte-principal);
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--preto);
+}
+
+.container-imagem {
+  width: 35.7rem;
+  height: 34.2rem;
+}
+
+.img-compra-realizada {
+  width: 100%;
+  height: 100%;
+}
+
+.link-visualizar-pedido {
+  text-decoration: underline;
+  font-size: 1.5rem;
+}
