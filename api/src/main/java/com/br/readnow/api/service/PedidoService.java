@@ -13,13 +13,12 @@ import org.springframework.stereotype.Service;
 import com.br.readnow.api.dto.LivroQuantidadeDTO;
 import com.br.readnow.api.dto.PedidoDTO;
 import com.br.readnow.api.dto.PedidoEntregueDTO;
-import com.br.readnow.api.model.CarrinhoModel;
 import com.br.readnow.api.model.CartaoModel;
 import com.br.readnow.api.model.EnderecoModel;
 import com.br.readnow.api.model.LivroItemModel;
+import com.br.readnow.api.model.LivroPedidoModel;
 import com.br.readnow.api.model.PedidoModel;
 import com.br.readnow.api.model.UsuarioModel;
-import com.br.readnow.api.repository.CarrinhoRepository;
 import com.br.readnow.api.repository.CartaoRepository;
 import com.br.readnow.api.repository.EnderecoRepository;
 import com.br.readnow.api.repository.LivroItemRepository;
@@ -31,9 +30,6 @@ import com.br.readnow.api.repository.UsuarioRepository;
 public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
-
-    @Autowired
-    private CarrinhoRepository carrinhoRepository;
 
     @Autowired
     private EnderecoRepository enderecoRepository;
@@ -80,9 +76,7 @@ public class PedidoService {
         Optional<CartaoModel> cartOptional = cartaoRepository.findById(pedido.getCodigoCartao());
         Optional<EnderecoModel> enderecOptional = enderecoRepository.findById(pedido.getCodigoEndereco());
         Optional<UsuarioModel> usOptional = usuarioRepository.findByEmail(pedido.getEmail());
-        Optional<CarrinhoModel> carrinhOptional = carrinhoRepository.findByClienteCodigo(usOptional.get().getCodigo());
-        List<LivroItemModel> livrosCarrinho = livroItemRepository
-                .findAllByCarrinhoCodigo(carrinhOptional.get().getCodigo());
+        List<LivroPedidoModel> livrosPedido = new ArrayList<LivroPedidoModel>();
 
         if (usOptional.isPresent()) {
             PedidoModel pedidoModel = new PedidoModel();
@@ -96,23 +90,22 @@ public class PedidoService {
             pedidoModel.setDataEntregaPrevista(dataPedidoFormatada);
             pedidoModel.setDataPedido("07/12/2023");
             pedidoModel.setEndereco(enderecOptional.get());
-            pedidoModel.setLivros(livrosCarrinho);
+            pedidoModel.setLivrosPedido(livrosPedido);
             pedidoModel.setValorTotal(pedido.getValorTotal());
             pedidoModel.setUsuario(usOptional.get());
             pedidoModel.setEntregue(false);
 
             for (LivroQuantidadeDTO livroQuantidadeDTO : pedido.getLivros()) {
-                LivroItemModel livroItem = new LivroItemModel();
-                livroItem.setQuantidade(livroQuantidadeDTO.getQuantidade());
-                livroItem.setLivro(livroRepository.findById(livroQuantidadeDTO.getCodigoLivro()).orElse(null));
-                livroItem.setCarrinho(carrinhOptional.orElse(null));
-                livroItem.setPedido(pedidoModel); // Definindo a referência ao PedidoModel
+                LivroPedidoModel livroPedidoModel = new LivroPedidoModel();
+                livroPedidoModel.setQuantidade(livroQuantidadeDTO.getQuantidade());
+                livroPedidoModel.setLivro(livroRepository.findById(livroQuantidadeDTO.getCodigoLivro()).orElse(null));
+                livroPedidoModel.setPedido(pedidoModel);
 
-                livrosCarrinho.add(livroItem);
+                livrosPedido.add(livroPedidoModel);
                 
             }
 
-            pedidoModel.setLivros(livrosCarrinho);
+            pedidoModel.setLivrosPedido(livrosPedido);
             pedidoRepository.save(pedidoModel);
 
 

@@ -177,6 +177,15 @@ function salvarPedido() {
   );
   const email = localStorage.getItem("email");
 
+  const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
+
+  const listaLivros = carrinhoItens.map((item) => {
+    return {
+      codigoLivro: item.livro.codigo,
+      quantidade: item.quantidade,
+    };
+  });
+
   var data = {
     dataPedido: dataPedido,
     valorTotal: valorTotal,
@@ -184,6 +193,7 @@ function salvarPedido() {
     codigoCartao: codigoCartao,
     codigoEndereco: codigoEndereco,
     email: email,
+    livros: listaLivros
   };
 
   fetch("/salva-pedido", {

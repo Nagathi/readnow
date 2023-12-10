@@ -31,7 +31,11 @@ public class PedidoModel {
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<LivroItemModel> livros;
+    private List<LivroPedidoModel> livrosPedido;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<LivroItemModel> livrosCarrinho;
 
     @ManyToOne
     @JoinColumn(name = "cartao_id", unique = false) 
