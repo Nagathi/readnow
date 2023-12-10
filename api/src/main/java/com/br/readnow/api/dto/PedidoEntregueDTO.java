@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class PedidoEntregueDTO {
     private Long codigo;
+    private Long codigoLivro;
     private String imagem;
     private String titulo;
     private String data;

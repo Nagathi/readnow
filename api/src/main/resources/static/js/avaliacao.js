@@ -3,6 +3,21 @@ document.addEventListener('DOMContentLoaded', function () {
   var formularioAvaliacao = document.getElementById('formulario-avaliacao');
   var starSelected = 0;
 
+  const email = localStorage.getItem("email");
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const titulo = urlParams.get('titulo');
+  const imagem = urlParams.get('imagem');
+  const codigo = urlParams.get('codigo');
+
+  const containerImagem = document.querySelector('.container-imagem img');
+  const descricaoProduto = document.querySelector('.descricao-produto h2');
+  const dataPedido = document.querySelector('.descricao-produto p');
+
+  containerImagem.src = `images/livros/${imagem}`;
+  descricaoProduto.textContent = titulo;
+
   stars.forEach(function(star) {
     star.addEventListener('click', function(e) {
       var classStar = e.target.classList;
@@ -26,12 +41,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const qtdEstrelas = starSelected;
     const descricao = document.getElementById('descricao-problema').value;
 
-    const emailLivro = "ragbr7070@gmail.com";
-    const codigoLivro = 1;
-
     const data = {
-      email: emailLivro,
-      codigo: codigoLivro,
+      email: email,
+      codigo: codigo,
       qtdEstrelas: qtdEstrelas,
       descricao: descricao
     };
