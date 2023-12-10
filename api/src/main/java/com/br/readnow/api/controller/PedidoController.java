@@ -31,6 +31,6 @@ public class PedidoController {
 
     @GetMapping("/pedidos-usuario/{email}")
     public List<PedidoEntregueDTO> retornarPedidosEntregues(@PathVariable String email){
-        return pedidoService.listarPedidosEntreguesPorUsuario(email);
+        return pedidoService.listarLivrosPedidosPorUsuario(email);
     }
  }

@@ -54,3 +54,31 @@
 .imagem-destaque {
   right: 9.5rem;
 }
+
+@media (max-width: 425px) {
+
+  .destaques {
+    height: 19.2rem;
+  }
+
+  .promocao {
+    height: auto;
+    row-gap: .8rem;
+    left: 2.5rem;
+    top: 6.5rem;
+    z-index: 1;
+  }
+
+  .imagem-destaque {
+    width: 22rem;
+    top: 2rem;
+    right: -4.5rem;
+  }
+  .promocao h1 {
+    font-size: 2.2rem;
+  }
+  
+  .promocao p {
+    font-size: 1.4rem;
+  }
+}

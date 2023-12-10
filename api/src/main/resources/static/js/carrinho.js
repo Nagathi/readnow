@@ -82,7 +82,6 @@ function listarLivrosCarrinho(novoLivro, item, listaLivros) {
     botaoExcluir.addEventListener("click", function () {
       var livroTitulo = botaoExcluir.dataset.livroTitulo;
       var itemLista = document.querySelector(`.${item.livro.isbn}`);
-      console.log(livroTitulo);
       if (itemLista.classList.contains(livroTitulo)) {
         itemLista.remove();
         removerLivro(livroTitulo, item);
@@ -91,9 +90,8 @@ function listarLivrosCarrinho(novoLivro, item, listaLivros) {
   });
 }
 
-function removerLivro(itemParaRemover, item) {
-  var livrosNoCarrinho =
-    JSON.parse(localStorage.getItem("carrinhoItens")) || [];
+function removerLivro(itemParaRemover) {
+  var livrosNoCarrinho = JSON.parse(localStorage.getItem("carrinhoItens")) || [];
 
   var index = livrosNoCarrinho.findIndex(function (livro) {
     return livro.livro.isbn === itemParaRemover;
@@ -109,6 +107,8 @@ function removerLivro(itemParaRemover, item) {
 
   mostrarSubtotal(livrosNoCarrinho);
 }
+
+
 
 function alterarQuantidadeLivro(livro, data, index) {
   const selectQuantidade = livro.querySelector("#quantidade");

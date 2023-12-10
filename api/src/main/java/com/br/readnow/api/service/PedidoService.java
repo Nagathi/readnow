@@ -13,16 +13,13 @@ import org.springframework.stereotype.Service;
 import com.br.readnow.api.dto.LivroQuantidadeDTO;
 import com.br.readnow.api.dto.PedidoDTO;
 import com.br.readnow.api.dto.PedidoEntregueDTO;
-import com.br.readnow.api.model.CarrinhoModel;
 import com.br.readnow.api.model.CartaoModel;
 import com.br.readnow.api.model.EnderecoModel;
-import com.br.readnow.api.model.LivroItemModel;
+import com.br.readnow.api.model.LivroPedidoModel;
 import com.br.readnow.api.model.PedidoModel;
 import com.br.readnow.api.model.UsuarioModel;
-import com.br.readnow.api.repository.CarrinhoRepository;
 import com.br.readnow.api.repository.CartaoRepository;
 import com.br.readnow.api.repository.EnderecoRepository;
-import com.br.readnow.api.repository.LivroItemRepository;
 import com.br.readnow.api.repository.LivroRepository;
 import com.br.readnow.api.repository.PedidoRepository;
 import com.br.readnow.api.repository.UsuarioRepository;
@@ -33,16 +30,10 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
 
     @Autowired
-    private CarrinhoRepository carrinhoRepository;
-
-    @Autowired
     private EnderecoRepository enderecoRepository;
 
     @Autowired
     private CartaoRepository cartaoRepository;
-
-    @Autowired
-    private LivroItemRepository livroItemRepository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -80,9 +71,7 @@ public class PedidoService {
         Optional<CartaoModel> cartOptional = cartaoRepository.findById(pedido.getCodigoCartao());
         Optional<EnderecoModel> enderecOptional = enderecoRepository.findById(pedido.getCodigoEndereco());
         Optional<UsuarioModel> usOptional = usuarioRepository.findByEmail(pedido.getEmail());
-        Optional<CarrinhoModel> carrinhOptional = carrinhoRepository.findByClienteCodigo(usOptional.get().getCodigo());
-        List<LivroItemModel> livrosCarrinho = livroItemRepository
-                .findAllByCarrinhoCodigo(carrinhOptional.get().getCodigo());
+        List<LivroPedidoModel> livrosPedido = new ArrayList<LivroPedidoModel>();
 
         if (usOptional.isPresent()) {
             PedidoModel pedidoModel = new PedidoModel();
@@ -96,23 +85,22 @@ public class PedidoService {
             pedidoModel.setDataEntregaPrevista(dataPedidoFormatada);
             pedidoModel.setDataPedido("07/12/2023");
             pedidoModel.setEndereco(enderecOptional.get());
-            pedidoModel.setLivros(livrosCarrinho);
+            pedidoModel.setLivrosPedido(livrosPedido);
             pedidoModel.setValorTotal(pedido.getValorTotal());
             pedidoModel.setUsuario(usOptional.get());
             pedidoModel.setEntregue(false);
 
             for (LivroQuantidadeDTO livroQuantidadeDTO : pedido.getLivros()) {
-                LivroItemModel livroItem = new LivroItemModel();
-                livroItem.setQuantidade(livroQuantidadeDTO.getQuantidade());
-                livroItem.setLivro(livroRepository.findById(livroQuantidadeDTO.getCodigoLivro()).orElse(null));
-                livroItem.setCarrinho(carrinhOptional.orElse(null));
-                livroItem.setPedido(pedidoModel); // Definindo a referência ao PedidoModel
+                LivroPedidoModel livroPedidoModel = new LivroPedidoModel();
+                livroPedidoModel.setQuantidade(livroQuantidadeDTO.getQuantidade());
+                livroPedidoModel.setLivro(livroRepository.findById(livroQuantidadeDTO.getCodigoLivro()).orElse(null));
+                livroPedidoModel.setPedido(pedidoModel);
 
-                livrosCarrinho.add(livroItem);
+                livrosPedido.add(livroPedidoModel);
                 
             }
 
-            pedidoModel.setLivros(livrosCarrinho);
+            pedidoModel.setLivrosPedido(livrosPedido);
             pedidoRepository.save(pedidoModel);
 
 
@@ -123,34 +111,38 @@ public class PedidoService {
         }
     }
 
-    public List<PedidoEntregueDTO> listarPedidosEntreguesPorUsuario(String emailUsuario) {
+    public List<PedidoEntregueDTO> listarLivrosPedidosPorUsuario(String emailUsuario) {
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(emailUsuario);
-    
+        
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
             List<PedidoModel> pedidos = pedidoRepository.findByUsuarioAndEntregueTrue(usuario);
             
-            List<PedidoEntregueDTO> pedidosDTO = new ArrayList<PedidoEntregueDTO>();
-
-            for(PedidoModel pedido : pedidos){
+            List<PedidoEntregueDTO> pedidosDTO = new ArrayList<>();
+            
+            for (PedidoModel pedido : pedidos) {
                 PedidoEntregueDTO pedidoDTO = new PedidoEntregueDTO();
-
                 pedidoDTO.setCodigo(pedido.getCodigo());
-                List<LivroItemModel> livroItemModel = livroItemRepository.findAllByPedidoCodigo(pedido.getCodigo());
-
-                if (!livroItemModel.isEmpty()) {
-                    pedidoDTO.setImagem(livroItemModel.get(0).getLivro().getImagem());
-                    pedidoDTO.setTitulo(livroItemModel.get(0).getLivro().getTitulo());
-                }
-                
                 pedidoDTO.setData(pedido.getDataPedido());
-                pedidosDTO.add(pedidoDTO);
+    
+                List<LivroPedidoModel> livrosPedidos = pedido.getLivrosPedido();
+                
+                for (LivroPedidoModel livroPedido : livrosPedidos) {
+                    PedidoEntregueDTO pedidoEntregueDTO = new PedidoEntregueDTO();
+                    pedidoEntregueDTO.setCodigo(livroPedido.getPedido().getCodigo());
+                    pedidoEntregueDTO.setCodigoLivro(livroPedido.getLivro().getCodigo());
+                    pedidoEntregueDTO.setImagem(livroPedido.getLivro().getImagem());
+                    pedidoEntregueDTO.setTitulo(livroPedido.getLivro().getTitulo());
+                    pedidoEntregueDTO.setData(livroPedido.getPedido().getDataPedido());
+                    pedidosDTO.add(pedidoEntregueDTO);
+                }
             }
-
+            
             return pedidosDTO;
         } else {
             return new ArrayList<>();
         }
     }
-
+    
+       
 }
