@@ -116,9 +116,11 @@
   margin-bottom: .8rem;
 }
 
-.nota{
-  font-size: 2.6rem;
-  font-weight: bold;
+.nota {
+  font-family: var(--fonte-principal);
+  color: var(--preto);
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .ver-produto {

@@ -20,6 +20,7 @@ function obterParametrosURL() {
 
   return params;
 }
+
 function autenticacao() {
   const loginButton = document.querySelector(`a[href="${"/login"}"]`);
   const cadastroButton = document.querySelector(
@@ -97,9 +98,9 @@ function autenticacao() {
 
 const parametrosURL = obterParametrosURL();
 const codigoLivro = parametrosURL.codigo;
+
 document.addEventListener("DOMContentLoaded", function () {
   autenticacao();
-
   fetch(`/busca-livro/${codigoLivro}`)
     .then((response) => response.json())
     .then((data) => {
