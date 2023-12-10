@@ -29,4 +29,8 @@ public class LivroPedidoModel {
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private PedidoModel pedido;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private UsuarioModel usuario;
 }

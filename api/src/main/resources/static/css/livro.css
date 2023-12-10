@@ -119,6 +119,11 @@
   margin-bottom: .8rem;
 }
 
+.nota{
+  font-size: 2.6rem;
+  font-weight: bold;
+}
+
 .ver-produto {
   font-family: var(--fonte-principal);
   color: var(--azul);

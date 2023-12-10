@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(response => {
       if(response.ok){
-        window.location.href = "/";
+        window.location.href = "/suas-compras";
       }
     })
     .catch(error => {

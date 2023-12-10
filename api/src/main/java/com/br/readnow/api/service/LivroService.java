@@ -15,10 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.br.readnow.api.dto.LivroDTO;
+import com.br.readnow.api.dto.LivroInfoDTO;
 import com.br.readnow.api.model.AvaliacaoModel;
 import com.br.readnow.api.model.LivroModel;
 import com.br.readnow.api.model.UsuarioModel;
 import com.br.readnow.api.repository.AvaliacaoRepository;
+import com.br.readnow.api.repository.LivroPedidoRepository;
 import com.br.readnow.api.repository.LivroRepository;
 import com.br.readnow.api.repository.UsuarioRepository;
 
@@ -33,6 +35,9 @@ public class LivroService {
 
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
+
+    @Autowired
+    private LivroPedidoRepository livroPedidoRepository;
 
     public Iterable<LivroModel> listarLivros(){
         return livroRepository.findAll();
@@ -86,7 +91,26 @@ public class LivroService {
          
         if(livroRepository.findById(codigo).isPresent()){
             LivroModel livro = livroRepository.findById(codigo).get();
-            return ResponseEntity.ok(livro);
+            LivroInfoDTO livroInfoDTO = new LivroInfoDTO();
+            livroInfoDTO.setCodigo(livro.getCodigo());
+            livroInfoDTO.setImagem(livro.getImagem());
+            livroInfoDTO.setTitulo(livro.getTitulo());
+            livroInfoDTO.setAutor(livro.getAutor());
+            livroInfoDTO.setEditora(livro.getEditora());
+            livroInfoDTO.setIsbn(livro.getIsbn());
+            livroInfoDTO.setDescricao(livro.getDescricao());
+            livroInfoDTO.setData_publi(livro.getData_publi());
+            livroInfoDTO.setCategoria(livro.getCategoria());
+            livroInfoDTO.setPreco(livro.getPreco());
+            double nota = this.calcularMediaAvaliacao(livro.getCodigo());
+            
+            if(nota != 0){
+                livroInfoDTO.setNota(nota);
+            }else{
+                livroInfoDTO.setNota(5d);
+            }
+            
+            return ResponseEntity.ok(livroInfoDTO);
         }else{
             return ResponseEntity.notFound().build();
         }
@@ -107,25 +131,36 @@ public class LivroService {
         Optional<LivroModel> livroOptional = livroRepository.findById(codigo);
 
         if (usuarioOptional.isPresent() && livroOptional.isPresent()) {
-            AvaliacaoModel avaliacaoExistente = avaliacaoRepository.findByUsuarioAndLivro(usuarioOptional.get(), livroOptional.get());
-            
-            if (avaliacaoExistente != null) {
-                avaliacaoExistente.setQtd_estrelas(qtdEstrelas);
-                avaliacaoExistente.setDescricao(descricao);
-                avaliacaoRepository.save(avaliacaoExistente);
-                return ResponseEntity.ok("Avaliação alterada!");
-            } else {
-                AvaliacaoModel novaAvaliacao = new AvaliacaoModel();
-                novaAvaliacao.setUsuario(usuarioOptional.get());
-                novaAvaliacao.setLivro(livroOptional.get());
-                novaAvaliacao.setQtd_estrelas(qtdEstrelas);
-                novaAvaliacao.setDescricao(descricao);
 
-                avaliacaoRepository.save(novaAvaliacao);
-                return ResponseEntity.ok("Nova avaliação realizada!");
+            boolean validarCodigo = livroPedidoRepository.existsByLivroAndUsuario(livroOptional.get().getCodigo(), usuarioOptional.get().getCodigo());
+
+            if(validarCodigo){
+                AvaliacaoModel avaliacaoExistente = avaliacaoRepository.findByUsuarioAndLivro(usuarioOptional.get(), livroOptional.get());
+            
+                if (avaliacaoExistente != null) {
+                    avaliacaoExistente.setQtdEstrelas(qtdEstrelas);
+                    avaliacaoExistente.setDescricao(descricao);
+                    avaliacaoRepository.save(avaliacaoExistente);
+                    return ResponseEntity.ok("Avaliação alterada!");
+                } else {
+                    AvaliacaoModel novaAvaliacao = new AvaliacaoModel();
+                    novaAvaliacao.setUsuario(usuarioOptional.get());
+                    novaAvaliacao.setLivro(livroOptional.get());
+                    novaAvaliacao.setQtdEstrelas(qtdEstrelas);
+                    novaAvaliacao.setDescricao(descricao);
+
+                    avaliacaoRepository.save(novaAvaliacao);
+                    return ResponseEntity.ok("Nova avaliação realizada!");
+                }
+            }else{
+                return ResponseEntity.badRequest().build();
             }
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public double calcularMediaAvaliacao(Long codigoLivro) {
+        return avaliacaoRepository.findMediaAvaliacaoByLivroCodigo(codigoLivro);
     }
 }

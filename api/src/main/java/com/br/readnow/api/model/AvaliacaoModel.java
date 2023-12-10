@@ -20,7 +20,7 @@ public class AvaliacaoModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long codigo;
 
-    private int qtd_estrelas;
+    private int qtdEstrelas;
 
     private String descricao;
 

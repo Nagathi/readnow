@@ -72,4 +72,9 @@ public class LivroController {
     public ResponseEntity<?> realizarAvaliacao(@RequestBody AvaliacaoDTO avaliacaoDTO) {
         return livroService.realizarAvaliacao(avaliacaoDTO.getEmail(), avaliacaoDTO.getCodigo(), avaliacaoDTO.getQtdEstrelas(), avaliacaoDTO.getDescricao());
     }
+
+    @GetMapping("/media-avaliacao/{codigoLivro}")
+    public double calcularMediaAvaliacao(@PathVariable Long codigoLivro) {
+        return livroService.calcularMediaAvaliacao(codigoLivro);
+    }
 }
