@@ -10,7 +10,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -59,7 +58,7 @@ public class UsuarioService {
     @Autowired
     private TokenService tokenService;
 
-    public ResponseEntity<?> login(LoginDTO login) {
+    public ResponseEntity<UsuarioDTO> login(LoginDTO login) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(login.email(), login.senha());
         var authentication = this.authenticationManager.authenticate(usernamePassword);
 
@@ -70,7 +69,7 @@ public class UsuarioService {
         if (authRepository.existsByUsuario(usuarioOptional.get())) {
             authRepository.expireSession(usuarioOptional.get());
         }
-        
+
         AuthModel auth = new AuthModel();
         auth.setUsuario(usuarioOptional.get());
         auth.setExpirado(false);
@@ -81,6 +80,7 @@ public class UsuarioService {
         usuarioDTO.setNome(usuarioOptional.get().getNome());
         usuarioDTO.setTipo(usuarioOptional.get().getRole());
         usuarioDTO.setToken(auth.getUuid());
+        usuarioDTO.setEmail(login.email());
 
         return ResponseEntity.ok(usuarioDTO);
 
@@ -92,20 +92,16 @@ public class UsuarioService {
         } else {
             String encryptedPassword = new BCryptPasswordEncoder().encode(usuario.getSenha());
 
-            usuario.setRole(UserRoleModel.ADMIN);
+            LoginDTO loginDTO = new LoginDTO(usuario.getEmail(), usuario.getSenha());
             usuario.setSenha(encryptedPassword);
+            usuario.setRole(UserRoleModel.ADMIN);
             usuarioRepository.save(usuario);
-
-            UsuarioDTO usuarioDTO = new UsuarioDTO();
-            usuarioDTO.setNome(usuario.getNome());
-            // usuarioDTO.setToken(auth.getUuid());
-            usuarioDTO.setTipo(usuario.getRole());
 
             CarrinhoModel carrinhoModel = new CarrinhoModel();
             carrinhoModel.criarCarrinho(usuario);
             carrinhoRepository.save(carrinhoModel);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDTO);
+            return login(loginDTO);
         }
     }
 
@@ -129,7 +125,8 @@ public class UsuarioService {
             message.setTo(email);
             message.setSubject("Redefinição de Senha");
             message.setText(
-                    "Olá! Clique no link a seguir para redefinir sua senha: http://localhost:8080/alterar-senha?link=" + link);
+                    "Olá! Clique no link a seguir para redefinir sua senha: http://localhost:8080/alterar-senha?link="
+                            + link);
 
             emailSender.send(message);
 
@@ -157,15 +154,15 @@ public class UsuarioService {
     }
 
     public ResponseEntity<?> redefinirSenha(RequestNovaSenhaDTO request) {
-        
-        Optional<LinkModel> linkOptional = linkRepository.findById(request.getToken());
 
+        Optional<LinkModel> linkOptional = linkRepository.findById(request.getToken());
 
         if (linkOptional.isPresent() && !linkOptional.get().isExpirado()) {
 
-            Optional<UsuarioModel> usuarioOptional = usuarioRepository.findById(linkOptional.get().getUsuario().getCodigo());
+            Optional<UsuarioModel> usuarioOptional = usuarioRepository
+                    .findById(linkOptional.get().getUsuario().getCodigo());
 
-            if(usuarioOptional.isPresent()){
+            if (usuarioOptional.isPresent()) {
 
                 UsuarioModel usuario = usuarioOptional.get();
                 String encryptedPassword = new BCryptPasswordEncoder().encode(request.getSenha());
@@ -179,20 +176,20 @@ public class UsuarioService {
                 linkRepository.save(link);
 
                 return ResponseEntity.ok("Senha alterada com sucesso!");
-            }else{
+            } else {
                 return ResponseEntity.notFound().build();
             }
-            
+
         } else {
             return ResponseEntity.badRequest().body("Esse link está expirado ou é inválido.");
         }
     }
 
-    public ResponseEntity<?> alterarFoto(MultipartFile foto, String nome, String email){
+    public ResponseEntity<?> alterarFoto(MultipartFile foto, String nome, String email) {
         Optional<UsuarioModel> usuarOptional = usuarioRepository.findByEmail(email);
 
-        try{
-            if(usuarOptional.isPresent()){
+        try {
+            if (usuarOptional.isPresent()) {
                 String uploadImagem = "C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/usuarios/";
                 String uniqueImageName = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
 
@@ -205,26 +202,26 @@ public class UsuarioService {
                 usuarioRepository.save(usuario);
 
                 return ResponseEntity.ok("Foto alterada!");
-            }else{
+            } else {
                 return ResponseEntity.notFound().build();
             }
-            
-        }catch(IOException e){
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return ResponseEntity.badRequest().build();
-        
+
     }
 
-    public ResponseEntity<PerfilDTO> retornarNomeEFoto(String email){
+    public ResponseEntity<PerfilDTO> retornarNomeEFoto(String email) {
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
-        if(usuarioOptional.isPresent()){
+        if (usuarioOptional.isPresent()) {
             PerfilDTO perfilDTO = new PerfilDTO();
             perfilDTO.setFoto(usuarioOptional.get().getFoto());
             perfilDTO.setNome(usuarioOptional.get().getNome());
             return ResponseEntity.ok(perfilDTO);
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
     }

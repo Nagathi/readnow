@@ -27,12 +27,24 @@ function efetuarCadastro() {
       body: JSON.stringify(data),
     }).then(response => {
       if(response.ok){
-        window.location.href = '/cadastrado';
       }else{
         modalMessage.textContent = "Ocorreu um erro ao processar o cadastro.";
         modal.style.display = "block";
       }
-    })
+      return response.json();
+    }).then((data) => {
+      console.log(data);
+      const token = data.token;
+      const nome = data.nome;
+      const email = data.email;
+
+      if (token != null && nome != "undefined" && email != "undefined") {
+        localStorage.setItem("token", token);
+        localStorage.setItem("nome", nome);
+        localStorage.setItem("email", email);
+      window.location.href = '/cadastrado';
+    }
+    });
   }
   else{
     modalMessage.textContent = "Senhas não conferem!";
