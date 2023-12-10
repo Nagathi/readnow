@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.br.readnow.api.dto.LivroDTO;
+import com.br.readnow.api.dto.LivroInfoDTO;
 import com.br.readnow.api.model.AvaliacaoModel;
 import com.br.readnow.api.model.LivroModel;
 import com.br.readnow.api.model.UsuarioModel;
@@ -90,7 +91,26 @@ public class LivroService {
          
         if(livroRepository.findById(codigo).isPresent()){
             LivroModel livro = livroRepository.findById(codigo).get();
-            return ResponseEntity.ok(livro);
+            LivroInfoDTO livroInfoDTO = new LivroInfoDTO();
+            livroInfoDTO.setCodigo(livro.getCodigo());
+            livroInfoDTO.setImagem(livro.getImagem());
+            livroInfoDTO.setTitulo(livro.getTitulo());
+            livroInfoDTO.setAutor(livro.getAutor());
+            livroInfoDTO.setEditora(livro.getEditora());
+            livroInfoDTO.setIsbn(livro.getIsbn());
+            livroInfoDTO.setDescricao(livro.getDescricao());
+            livroInfoDTO.setData_publi(livro.getData_publi());
+            livroInfoDTO.setCategoria(livro.getCategoria());
+            livroInfoDTO.setPreco(livro.getPreco());
+            double nota = this.calcularMediaAvaliacao(livro.getCodigo());
+            
+            if(nota != 0){
+                livroInfoDTO.setNota(nota);
+            }else{
+                livroInfoDTO.setNota(5d);
+            }
+            
+            return ResponseEntity.ok(livroInfoDTO);
         }else{
             return ResponseEntity.notFound().build();
         }
@@ -118,7 +138,7 @@ public class LivroService {
                 AvaliacaoModel avaliacaoExistente = avaliacaoRepository.findByUsuarioAndLivro(usuarioOptional.get(), livroOptional.get());
             
                 if (avaliacaoExistente != null) {
-                    avaliacaoExistente.setQtd_estrelas(qtdEstrelas);
+                    avaliacaoExistente.setQtdEstrelas(qtdEstrelas);
                     avaliacaoExistente.setDescricao(descricao);
                     avaliacaoRepository.save(avaliacaoExistente);
                     return ResponseEntity.ok("Avaliação alterada!");
@@ -126,7 +146,7 @@ public class LivroService {
                     AvaliacaoModel novaAvaliacao = new AvaliacaoModel();
                     novaAvaliacao.setUsuario(usuarioOptional.get());
                     novaAvaliacao.setLivro(livroOptional.get());
-                    novaAvaliacao.setQtd_estrelas(qtdEstrelas);
+                    novaAvaliacao.setQtdEstrelas(qtdEstrelas);
                     novaAvaliacao.setDescricao(descricao);
 
                     avaliacaoRepository.save(novaAvaliacao);
@@ -138,5 +158,9 @@ public class LivroService {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public double calcularMediaAvaliacao(Long codigoLivro) {
+        return avaliacaoRepository.findMediaAvaliacaoByLivroCodigo(codigoLivro);
     }
 }

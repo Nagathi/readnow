@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const preco = livroDestaque.querySelector(".preco");
       const sinopse = livroDestaque.querySelector(".sinopse");
       const disponibilidade = livroDestaque.querySelector(".disponibilidade");
+      const notaLivro = livroDestaque.querySelector(".nota");
 
       imagemProduto.src = `./images/livros/${data.imagem}`;
       imagemProduto.alt = `Imagem de ${data.titulo}`;
@@ -117,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
       preco.textContent = `R$ ${data.preco.toFixed(2)}`;
       sinopse.textContent = data.descricao;
       disponibilidade.textContent = "Em estoque";
+      notaLivro.textContent = `Nota: ${data.nota}`
 
       const categoria = data.categoria;
       document.title = data.titulo;
