@@ -3,6 +3,7 @@ const nomeUsuario = localStorage.getItem("nome");
 const modal = document.getElementById("modal");
 const modalMessage = document.getElementById("modal-message");
 const closeButton = document.querySelector(".close");
+const comprarAgoraButton = document.querySelector(".comprar-agora")
 
 function closeModal() {
   modal.style.display = "none";
@@ -238,3 +239,9 @@ function sãoIguais(livro1, livro2) {
   console.log(livro2.livro.codigo);
   return livro1.livro.codigo === livro2.livro.codigo; // Exemplo: comparando pelo código
 }
+
+comprarAgoraButton.addEventListener("click", function(event){
+  event.preventDefault();
+  localStorage.setItem("pagina-livro", window.location.href)
+  window.location.href = '/finalizar-pedido';
+});
