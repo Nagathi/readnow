@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.br.readnow.api.dto.LivroQuantidadeDTO;
 import com.br.readnow.api.dto.PedidoDTO;
 import com.br.readnow.api.dto.PedidoEntregueDTO;
+import com.br.readnow.api.dto.PedidoPendenteDTO;
 import com.br.readnow.api.model.CartaoModel;
 import com.br.readnow.api.model.EnderecoModel;
 import com.br.readnow.api.model.LivroPedidoModel;
@@ -83,7 +84,7 @@ public class PedidoService {
             String dataPedidoFormatada = dataAtual.format(formatter);
 
             pedidoModel.setDataEntregaPrevista(dataPedidoFormatada);
-            pedidoModel.setDataPedido("07/12/2023");
+            pedidoModel.setDataPedido(dataPedidoFormatada);
             pedidoModel.setEndereco(enderecOptional.get());
             pedidoModel.setLivrosPedido(livrosPedido);
             pedidoModel.setValorTotal(pedido.getValorTotal());
@@ -144,6 +145,35 @@ public class PedidoService {
             return new ArrayList<>();
         }
     }
-    
-       
+
+    public List<PedidoPendenteDTO> listarLivrosPendentes(String email){
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
+        
+        if (usuarioOptional.isPresent()) {
+            UsuarioModel usuario = usuarioOptional.get();
+            List<PedidoModel> pedidos = pedidoRepository.findByUsuarioAndEntregueFalse(usuario);
+            
+            List<PedidoPendenteDTO> pedidosDTO = new ArrayList<>();
+            
+            for (PedidoModel pedido : pedidos) {
+                PedidoPendenteDTO pedidoDTO = new PedidoPendenteDTO();
+                pedidoDTO.setCodigo(pedido.getCodigo());
+                pedidoDTO.setImagem(pedido.getLivrosPedido().get(0).getLivro().getImagem());
+                pedidoDTO.setDataEntrega(pedido.getDataEntregaPrevista());
+
+                String dataPedido = pedido.getDataPedido();
+                String[] partes = dataPedido.split("/");
+                String mesDia = partes[0] + "/" + partes[1];
+
+                pedidoDTO.setData(mesDia);
+                pedidoDTO.setTitulo(pedido.getLivrosPedido().get(0).getLivro().getTitulo());
+                pedidosDTO.add(pedidoDTO);
+            }
+            
+            return pedidosDTO;
+        } else {
+            return new ArrayList<>();
+        }
+    }
+        
 }
