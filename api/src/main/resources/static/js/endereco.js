@@ -1,6 +1,4 @@
-
 document.addEventListener("DOMContentLoaded", function () {
-
   const listaEnderecos = document.querySelector(".lista-enderecos");
 
   const email = localStorage.getItem("email");

@@ -54,6 +54,7 @@
   align-items: center;
   flex-direction: column;
   row-gap: 2.2rem;
+  align-self: center;
 }
 
 .item-carrinho {

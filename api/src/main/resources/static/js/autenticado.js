@@ -1,15 +1,17 @@
 function autenticacao() {
-    const usuarioAutenticado = localStorage.getItem("token");
-    const nomeUsuario = localStorage.getItem("nome");
-  
-    if (usuarioAutenticado != null && nomeUsuario != null) {
-      const suaContaButton = document.querySelector(".identificador");
-      suaContaButton.innerHTML = `Olá, ${nomeUsuario.split(" ")[0]} <br> Sua conta`
+  const usuarioAutenticado = localStorage.getItem("token");
+  const nomeUsuario = localStorage.getItem("nome");
 
-      const navIcons = document.createElement("div");
-      navIcons.classList.add("menu-list");
-      const header = document.querySelector(".nav-icons");
-      navIcons.innerHTML = `
+  if (usuarioAutenticado != null && nomeUsuario != null) {
+    const suaContaButton = document.querySelector(".identificador");
+    suaContaButton.innerHTML = `Olá, ${
+      nomeUsuario.split(" ")[0]
+    } <br> Sua conta`;
+
+    const navIcons = document.createElement("div");
+    navIcons.classList.add("menu-list");
+    const header = document.querySelector(".nav-icons");
+    navIcons.innerHTML = `
         <ul>
             <li>
               <a href="/conta-usuario">Conta</a>
@@ -27,44 +29,39 @@ function autenticacao() {
               <a href="/">Sair</a>
             </li>
         </ul>
-      `
-      header.appendChild(navIcons);
+      `;
+    header.appendChild(navIcons);
 
-      document.getElementById('conta').addEventListener('mouseover', () => {
-        navIcons.classList.add("ativo");
-      });
+    document.getElementById("conta").addEventListener("mouseover", () => {
+      navIcons.classList.add("ativo");
+    });
 
-      window.addEventListener('click', () => {
-        navIcons.classList.remove('ativo');
-      });
+    window.addEventListener("click", () => {
+      navIcons.classList.remove("ativo");
+    });
 
-      document.getElementById('sair').addEventListener('click', function() {
+    document.getElementById("sair").addEventListener("click", function () {
+      if (localStorage.getItem("carrinhoItens") != []) {
         salvarEstadoCarrinho(localStorage.getItem("carrinhoItens"));
-        localStorage.removeItem("token")
-        localStorage.removeItem("email")
-        localStorage.removeItem("nome")
-        
-        localStorage.removeItem("carrinhoItens")
-  
-        const cardIcons = document.querySelector(".nav-icons");
-  
-        cardIcons.style.display = 'none';
-       
-      });
-    }
+      }
+      limparLocalStorage();
+
+      const cardIcons = document.querySelector(".nav-icons");
+      cardIcons.style.display = "none";
+    });
+  }
 }
 document.addEventListener("DOMContentLoaded", function () {
-    autenticacao();
+  autenticacao();
 });
 
 function salvarEstadoCarrinho(data) {
-
   fetch("/atualiza-carrinho", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body:data,
+    body: data,
   });
 }
 
@@ -83,4 +80,11 @@ function removerItemCarrinho(codigoLivro, usuarioAutenticado) {
     .then((data) => {
       console.log(data);
     });
+}
+
+function limparLocalStorage(){
+  localStorage.removeItem("token");
+  localStorage.removeItem("email");
+  localStorage.removeItem("nome");
+  localStorage.removeItem("carrinhoItens");
 }

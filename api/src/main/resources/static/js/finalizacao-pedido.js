@@ -1,20 +1,7 @@
-(() => {
-  const listaDeCartoes = document.querySelectorAll(".cartao");
-
-  function selecionaCartao() {
-    listaDeCartoes.forEach((cartao) => {
-      cartao.removeAttribute("id");
-      this.id = "cartao-selecionado";
-    });
-  }
-
-  listaDeCartoes.forEach((cartao) => {
-    cartao.addEventListener("click", selecionaCartao);
-  });
-})();
-
 localStorage.setItem("paginaFinalizacao", window.location.href);
 const email = localStorage.getItem("email");
+const modalMessage = document.getElementById("modal-message");
+const closeButton = document.querySelector(".close");
 
 function buscarEnderecos() {
   if (email) {
@@ -158,14 +145,15 @@ function salvarPedido() {
   const dataAtual = new Date();
 
   const dia = dataAtual.getDate();
-  const mes = dataAtual.getMonth() + 1; // Mês começa do zero, então adicionamos 1
+  const mes = dataAtual.getMonth() + 1;
   const ano = dataAtual.getFullYear();
-  const horas = dataAtual.getHours();
-  const minutos = dataAtual.getMinutes();
+  const horas = addZero(dataAtual.getHours());
+  const minutos = addZero(dataAtual.getMinutes());
 
-
-  const dataPedido = `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+  const dataPedido = `${dia}/${mes}/${ano}`;
+  const horaPedido = `${horas}:${minutos}`;
   localStorage.setItem("dataPedido", dataPedido);
+  localStorage.setItem("horaPedido", horaPedido);
 
   const valorTotal = Number(localStorage.getItem("valorTotalCarrinho"));
   const dataEntregaPrevista = "15/12/2023";
@@ -193,29 +181,37 @@ function salvarPedido() {
     codigoCartao: codigoCartao,
     codigoEndereco: codigoEndereco,
     email: email,
-    livros: listaLivros
+    livros: listaLivros,
   };
+  if (isEnderecoSelecionado() && isCartaoSelecionado()) {
+    fetch("/salva-pedido", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao processar pedido");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        localStorage.setItem("pedidoId", data);
+        window.location.href = "/agradecimento-compra";
+        limparLocalStorage();
+      })
+      .catch((error) => {
+        console.error("Erro durante a requisição:", error);
+      });
+  } else {
+    modalMessage.textContent = "Selecione um endereço e/ou cartão!";
+    modal.style.display = "block";  }
+}
 
-  fetch("/salva-pedido", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Erro ao processar pedido");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      localStorage.setItem("pedidoId", data);
-      window.location.href = "/agradecimento-compra";
-    })
-    .catch((error) => {
-      console.error("Erro durante a requisição:", error);
-    });
+function addZero(numero) {
+  return numero < 10 ? `0${numero}` : numero;
 }
 
 const buttonConfirmacao = document.querySelector(".btn-finalizar-pedido");
@@ -247,8 +243,40 @@ document.addEventListener("change", function (event) {
   }
 });
 
+function isEnderecoSelecionado() {
+  const enderecoSelecionado = localStorage.getItem("endereco-selecionado-finalizacao");
+  if (enderecoSelecionado == null) {
+    return false;
+  }
+  return true;
+}
+
+function isCartaoSelecionado() {
+  const cartaoSelecionado = localStorage.getItem("cartao-selecionado-finalizacao");
+  if (cartaoSelecionado == null) {
+    return false;
+  }
+  return true;
+}
+
+function limparLocalStorage() {
+  localStorage.removeItem("endereco-selecionado-finalizacao");
+  localStorage.removeItem("cartao-selecionado-finalizacao");
+  localStorage.setItem("carrinhoItens", "[]");
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   buscarEnderecos();
   buscarCartoes();
   revisarItens();
 });
+function closeModal() {
+  modal.style.display = "none";
+}
+closeButton.addEventListener("click", closeModal);
+window.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    closeModal();
+  }
+});
+

@@ -71,10 +71,10 @@ public class PedidoService {
     public ResponseEntity<Long> salvarPedido(PedidoDTO pedido) {
         Optional<CartaoModel> cartOptional = cartaoRepository.findById(pedido.getCodigoCartao());
         Optional<EnderecoModel> enderecOptional = enderecoRepository.findById(pedido.getCodigoEndereco());
-        Optional<UsuarioModel> usOptional = usuarioRepository.findByEmail(pedido.getEmail());
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(pedido.getEmail());
         List<LivroPedidoModel> livrosPedido = new ArrayList<LivroPedidoModel>();
 
-        if (usOptional.isPresent()) {
+        if (usuarioOptional.isPresent()) {
             PedidoModel pedidoModel = new PedidoModel();
             pedidoModel.setCartao(cartOptional.get());
 
@@ -88,7 +88,7 @@ public class PedidoService {
             pedidoModel.setEndereco(enderecOptional.get());
             pedidoModel.setLivrosPedido(livrosPedido);
             pedidoModel.setValorTotal(pedido.getValorTotal());
-            pedidoModel.setUsuario(usOptional.get());
+            pedidoModel.setUsuario(usuarioOptional.get());
             pedidoModel.setEntregue(false);
 
             for (LivroQuantidadeDTO livroQuantidadeDTO : pedido.getLivros()) {
@@ -96,7 +96,7 @@ public class PedidoService {
                 livroPedidoModel.setQuantidade(livroQuantidadeDTO.getQuantidade());
                 livroPedidoModel.setLivro(livroRepository.findById(livroQuantidadeDTO.getCodigoLivro()).orElse(null));
                 livroPedidoModel.setPedido(pedidoModel);
-                livroPedidoModel.setUsuario(usOptional.get());
+                livroPedidoModel.setUsuario(usuarioOptional.get());
 
                 livrosPedido.add(livroPedidoModel);
                 

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/carrinho-compras.css"/>
     <link rel="stylesheet" href="css/finalizar-pedido.css"/>
     <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/modal.css">
 
     <script src="components/header-autenticado.js" defer></script>
     <script src="components/footer-personalizado.js" defer></script>
@@ -95,6 +96,21 @@
 
           <h2 class="valor-pedido"></h2>
 
+        </div>
+      </div>
+      <div id="modal" class="modal">
+        <div class="modal-content">
+  
+          <span class="close">
+            <img src="/images/icons/error-circle.svg" alt="Fechar janela">
+          </span>
+  
+          <div class="container-img">
+            <img src="/images/icons/error.svg" alt="Alerta">
+          </div>
+  
+          <p id="modal-message" name="mensagem"></p>
+  
         </div>
       </div>
 

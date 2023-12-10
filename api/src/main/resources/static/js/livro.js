@@ -35,21 +35,21 @@ function autenticacao() {
 
     navIcons.innerHTML = `
        <div class="opcoes">
-            <button id= "sua-conta" class="item">
+            <div id= "sua-conta" class="item">
             <a href="/conta-usuario">
                 <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
                 <span class="identificador"> Olá, ${nomeUsuario} <br> Sua conta</span>
             </a>
-            </button>
+            </div>
   
-            <button class="item">
+            <div class="item">
             <a href="#">
                 <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
                 <span class="identificador">Ouvidoria</span>
             </a>
-            </button>
+            </div>
   
-            <button class="item" id="carrinho-compras">
+            <div class="item" id="carrinho-compras">
             <a href="carrinho">
                 <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
                 <span class="identificador">Carrinho</span>
@@ -59,7 +59,7 @@ function autenticacao() {
                 <span class="simbolo-mais">+</span>
                 </div>
             </a>
-            </button>
+            </div>
       </div>
 
     <div class="menu-list" id="userMenu">
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
       fetch(`/livros/${categoria}`)
         .then((response) => response.json())
         .then((produtosSimilares) => {
-          const listaLivros = document.querySelector(".lista-livros-acao");
+          const listaLivros = document.querySelector(".lista-livros");
 
           const produtosExibidos = produtosSimilares
             .filter((produto) => produto.codigo !== Number(codigoLivro))
