@@ -48,7 +48,7 @@
   transform: translateY(-.6rem);
 }
 
-@media (min-width: 425px) {
+@media (max-width: 425px) {
 
   .roda-pe {
     padding: 1.6rem;
