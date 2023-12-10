@@ -95,7 +95,7 @@ public class PedidoService {
                 livroPedidoModel.setQuantidade(livroQuantidadeDTO.getQuantidade());
                 livroPedidoModel.setLivro(livroRepository.findById(livroQuantidadeDTO.getCodigoLivro()).orElse(null));
                 livroPedidoModel.setPedido(pedidoModel);
-                livroPedidoModel.setUsuario(usOptional.get());
+                livroPedidoModel.setUsuario(usuarioOptional.get());
 
                 livrosPedido.add(livroPedidoModel);
                 
