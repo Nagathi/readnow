@@ -250,6 +250,7 @@ function isEnderecoSelecionado() {
   }
   return true;
 }
+
 function isCartaoSelecionado() {
   const cartaoSelecionado = localStorage.getItem("cartao-selecionado-finalizacao");
   if (cartaoSelecionado == null) {
@@ -257,10 +258,13 @@ function isCartaoSelecionado() {
   }
   return true;
 }
+
 function limparLocalStorage() {
   localStorage.removeItem("endereco-selecionado-finalizacao");
   localStorage.removeItem("cartao-selecionado-finalizacao");
+  localStorage.setItem("carrinhoItens", "[]");
 }
+
 document.addEventListener("DOMContentLoaded", function () {
   buscarEnderecos();
   buscarCartoes();

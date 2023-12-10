@@ -56,10 +56,11 @@ function autenticacao() {
       userMenu.style.display = (userMenu.style.display === 'block') ? 'none' : 'block';
     });
     document.getElementById('sair').addEventListener('click', function() {
-      localStorage.removeItem("token")
-      localStorage.removeItem("nome")
-      localStorage.removeItem("email")
-      localStorage.removeItem("carrinhoItens")
+
+      if (localStorage.getItem("carrinhoItens") != "[]") {
+        salvarEstadoCarrinho(localStorage.getItem("carrinhoItens"));
+      }
+      limparLocalStorage();
 
       const cardIcons = document.querySelector(".card-icons");
 
@@ -168,6 +169,20 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
-
 });
+function limparLocalStorage(){
+  localStorage.removeItem("token");
+  localStorage.removeItem("email");
+  localStorage.removeItem("nome");
+  localStorage.removeItem("carrinhoItens");
+}
+function salvarEstadoCarrinho(data) {
+  fetch("/atualiza-carrinho", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data,
+  });
+}
 
