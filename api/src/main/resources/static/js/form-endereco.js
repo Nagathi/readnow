@@ -1,4 +1,6 @@
 const formulario = document.querySelector('#formulario-1');
+const modalMessage = document.getElementById("modal-message");
+const closeButton = document.querySelector(".close");
 
 formulario.addEventListener('submit', function(event) {
 
@@ -60,3 +62,44 @@ formulario.addEventListener('submit', function(event) {
  
 });
 
+async function consultarCep(cep) {
+  try {
+    const response = await fetch(`https://viacep.com.br/ws/${cep}/json`, { mode: 'cors' });
+    const data = await response.json();
+    preencherCamposEndereco(data);
+  } catch (error) {
+    modalMessage.textContent = "Erro ao obter o CEP";
+    modal.style.display = "block";
+  }
+}
+
+function preencherCamposEndereco(data) {
+  if (!data.erro) {
+    document.getElementById('endereco').value = data.logradouro || "";
+    document.getElementById('bairro').value = data.bairro || "";
+    document.getElementById('numero-residencia').value = ""; 
+    document.getElementById('complemento').value = data.complemento || "";
+    document.getElementById('cidade').value = data.localidade || "";
+    document.getElementById('estado').value = data.uf || "";
+    document.getElementById('pais').value = "Brasil"; 
+  } else {
+    document.getElementById('endereco').value = "";
+    document.getElementById('bairro').value = "";
+    document.getElementById('numero-residencia').value = "";
+    document.getElementById('complemento').value = "";
+    document.getElementById('cidade').value = "";
+    document.getElementById('estado').value = "";
+    document.getElementById('pais').value = "";
+    modalMessage.textContent = "CEP não encontrado!";
+    modal.style.display = "block";  }
+}
+
+function closeModal() {
+  modal.style.display = "none";
+}
+closeButton.addEventListener("click", closeModal);
+window.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    closeModal();
+  }
+});

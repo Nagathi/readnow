@@ -44,7 +44,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/edita-endereco").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/exclui-endereco/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/endereco/**").permitAll()
-
+                        .requestMatchers("https://h-apigateway.conectagov.estaleiro.serpro.gov.br/api-cep/v1/consulta/cep/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "https://h-apigateway.conectagov.estaleiro.serpro.gov.br/oauth2/**").permitAll()
                         .requestMatchers("/**").permitAll()
                         .requestMatchers("/alterar-senha/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()

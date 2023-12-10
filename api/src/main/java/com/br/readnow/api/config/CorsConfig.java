@@ -27,6 +27,8 @@ public class CorsConfig {
         config.addAllowedHeader("Accept");
 
         config.setAllowCredentials(true);
+        config.addExposedHeader("Access-Control-Allow-Origin");
+        config.addAllowedOrigin("https://viacep.com.br/ws/**");
 
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
