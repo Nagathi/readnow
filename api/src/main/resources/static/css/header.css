@@ -56,7 +56,7 @@
 
 .button-login {
   background-color: transparent;
-  border: 2px solid var(--azul);
+  border: .2rem solid var(--azul);
   color: var(--azul);
   font-family: var(--fonte-principal);
   font-size: 1.6rem;
@@ -184,4 +184,30 @@
 .ativo {
   transition: all .5s;
   display: block;
+}
+
+@media (max-width: 425px)  {
+
+  .cabecalho {
+    align-items: flex-start;
+    padding: 1.6rem;
+    height: 12rem;
+  }
+
+  .logo {
+    width: 10rem;
+    height: 2.8rem;
+  }
+
+  .box-search {
+    position: absolute;
+    top: 7rem;
+    width: 93vw;
+    justify-content: space-between;
+  }
+
+  .button-login, #cadastro {
+    padding: 1rem 1.3rem;
+  }
+
 }
