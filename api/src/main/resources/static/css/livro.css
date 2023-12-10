@@ -74,12 +74,7 @@
 
 /*Fim da estilização da section livro*/
 
-.lista-livros-acao,
-.lista-livros-ficcao,
-.lista-livros-aventura,
-.lista-livros-cultura,
-.lista-livros-literatura
-{
+.lista-livros {
   list-style: none;
   display: flex;
   align-items: center;
@@ -170,4 +165,23 @@
 .btn-ver-mais:hover {
   transition: all .3s;
   cursor: pointer;
+}
+
+@media (max-width: 425px) {
+  .categorias-livros {
+    padding: 1.6rem;
+  }
+
+  .titulo {
+    font-size: 2.2rem;
+  }
+
+  .lista-livros {
+    flex-wrap: wrap;
+    row-gap: 1.6rem;
+  }
+
+  .card-livro {
+    width: 15.6rem;
+  }
 }
