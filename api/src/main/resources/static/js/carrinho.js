@@ -1,4 +1,17 @@
 const token = localStorage.getItem("token");
+const buttonFinalizarPedido = document.querySelector(".btn-fechar-pedido");
+const modalMessage = document.getElementById("modal-message");
+const closeButton = document.querySelector(".close");
+
+buttonFinalizarPedido.addEventListener("click", function() {
+  if(localStorage.getItem("carrinhoItens") != "[]") {
+    window.location.href = '/finalizar-pedido';
+  }
+  else{
+    modalMessage.textContent = "Carrinho vazio!";
+    modal.style.display = "block";
+  }
+});
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -172,3 +185,13 @@ function mostrarLivrosBd() {
       console.error("Erro ao obter livros:", error);
     });
 }
+function closeModal() {
+  modal.style.display = "none";
+}
+closeButton.addEventListener("click", closeModal);
+window.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    closeModal();
+  }
+});
+

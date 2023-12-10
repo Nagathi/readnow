@@ -9,11 +9,13 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/carrinho-compras.css">
   <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/modal.css">
 
   <script src="js/carrinho.js" defer></script>
   <script src="js/autenticado.js" defer></script>
   <script src="components/header-autenticado.js" defer></script>
   <script src="components/footer-personalizado.js" defer></script>
+  
   <title>Carrinho</title>
   </head>
 <body>
@@ -37,17 +39,28 @@
           <p id="valor-subtotal" class="preco preco-sbutotal">R$ 0,00</p>
         </div>
 
-        <a href="/finalizar-pedido">
-          <button class="btn-fechar-pedido">Finalizar pedido</button>
-        </a>
+        <button class="btn-fechar-pedido">Finalizar pedido</button>
       </div>
 
       <ul class="card-itens-carrinho">
         
       </ul>
-
-        
     </section>     
+    <div id="modal" class="modal">
+      <div class="modal-content">
+
+        <span class="close">
+          <img src="/images/icons/error-circle.svg" alt="Fechar janela">
+        </span>
+
+        <div class="container-img">
+          <img src="/images/icons/error.svg" alt="Alerta">
+        </div>
+
+        <p id="modal-message" name="mensagem"></p>
+
+      </div>
+    </div>
   </main>
 
   <!--Rodapé-->
