@@ -1,5 +1,7 @@
 package com.br.readnow.api.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +14,7 @@ public class PedidoDTO {
     private String email;
     private Long codigoCartao;
     private Long codigoEndereco;
-
+    private Long codigoLivro;
+    private boolean entregue;
+    private List<LivroQuantidadeDTO> livros;
 }

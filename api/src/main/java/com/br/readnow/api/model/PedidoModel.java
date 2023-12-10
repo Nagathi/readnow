@@ -27,6 +27,7 @@ public class PedidoModel {
     private String dataPedido;
     private double valorTotal;
     private String dataEntregaPrevista;
+    private boolean entregue;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     @JsonIgnore
