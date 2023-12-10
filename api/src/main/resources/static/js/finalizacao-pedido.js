@@ -63,55 +63,31 @@ function buscarCartoes() {
 
 function revisarItens() {
   var valorTotalLivros = 0;
-  var listaLivros = "";
+  if (localStorage.getItem("pagina-livro")) {
+    const parametrosURL = obterParametrosURL();
+    const codigoLivro = parametrosURL.codigo;
+    fetch(`/busca-livro/${codigoLivro}`)
+      .then((response) => response.json())
+      .then((data) => {
+        atualizarValorTotal(data.preco);
+        if(localStorage.getItem("quantidadeLivroItemComprarAgora") == null) {
+          localStorage.setItem("quantidadeLivroItemComprarAgora", 1);
+        }
+        showCardLivros(data, localStorage.getItem("quantidadeLivroItemComprarAgora"), codigoLivro);
 
-  const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
-  carrinhoItens.forEach((item, index) => {
-    valorTotalLivros += item.quantidade * item.livro.preco;
-    listaLivros = document.querySelector(".itens-carrinho");
-    var novoLivro = document.createElement("li");
+      });
+  } else {
+    const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
+    carrinhoItens.forEach((item, index) => {
+      valorTotalLivros += item.quantidade * item.livro.preco;
+      showCardLivros(item, item.quantidade, index);
+    });
+    atualizarValorTotal(valorTotalLivros);
+  }
+  
+}
 
-    novoLivro.classList.add("item-carrinho");
-    novoLivro.innerHTML = `
-    <div class="container-imagem">
-    <img src="./images/livros/${item.livro.imagem}" alt="Imagem Produto">
-    </div>
-    
-    <div class="direita">
-      <div class="textos">
-        <div class="detalhes-livro">
-          <h1 id = "${item.livro.isbn}" class="nome-livro">${
-      item.livro.titulo
-    }</h1>
-          <p class="nome-autor">Por ${item.livro.autor}</p>
-        </div>
-
-        <p class="preco">R$ ${item.livro.preco.toFixed(2)}</p>
-
-      </div>
-
-      <div class="detalhes">
-        <p class="estimativa-entrega">Entrega estimada: XX dias</p>
-      </div>
-
-      <select id="quantidade" class="quantidade-${index}">
-        <option selected disabled value="">${item.quantidade}</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </select>
-    </div>`;
-
-    listaLivros.appendChild(novoLivro);
-  });
-
+function atualizarValorTotal(valorTotalLivros) {
   const valorTotalFrete = 10.0;
   const valorTotal = valorTotalLivros + valorTotalFrete;
 
@@ -122,23 +98,26 @@ function revisarItens() {
   valorFrete.innerHTML = `R$ ${valorTotalFrete.toFixed(2)}`;
   valorPedido.innerHTML = `Total do pedido: R$ ${valorTotal.toFixed(2)}`;
   localStorage.setItem("valorTotalCarrinho", valorTotal.toFixed(2));
-
-  const selectQuantidade = document.querySelectorAll(`#quantidade`);
-  selectQuantidade.forEach(function (selectElement) {
-    selectElement.addEventListener("change", function () {
-      const classeDoSelect = selectElement.classList.value
-        .toString()
-        .split("-")[1];
-      const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
-      carrinhoItens.forEach((item, index) => {
-        if (classeDoSelect === index.toString()) {
-          item.quantidade = parseInt(selectElement.value, 10);
-        }
-      });
-
-      localStorage.setItem("carrinhoItens", JSON.stringify(carrinhoItens));
-    });
+}
+function alterarQuantidadeLivro(classeDoSelect, data){
+  data.forEach((item, index) => {
+    if (classeDoSelect === index.toString()) {
+      item.quantidade = parseInt(selectElement.value, 10);
+    }
   });
+  return data;
+}
+function obterParametrosURL() {
+  const search = localStorage.getItem("pagina-livro");
+  const partes = search.split("?");
+  const params = {};
+
+  for (const parte of partes) {
+    const [chave, valor] = parte.split("=");
+    params[chave] = decodeURIComponent(valor);
+  }
+
+  return params;
 }
 
 function salvarPedido() {
@@ -207,7 +186,8 @@ function salvarPedido() {
       });
   } else {
     modalMessage.textContent = "Selecione um endereço e/ou cartão!";
-    modal.style.display = "block";  }
+    modal.style.display = "block";
+  }
 }
 
 function addZero(numero) {
@@ -244,7 +224,9 @@ document.addEventListener("change", function (event) {
 });
 
 function isEnderecoSelecionado() {
-  const enderecoSelecionado = localStorage.getItem("endereco-selecionado-finalizacao");
+  const enderecoSelecionado = localStorage.getItem(
+    "endereco-selecionado-finalizacao"
+  );
   if (enderecoSelecionado == null) {
     return false;
   }
@@ -252,7 +234,9 @@ function isEnderecoSelecionado() {
 }
 
 function isCartaoSelecionado() {
-  const cartaoSelecionado = localStorage.getItem("cartao-selecionado-finalizacao");
+  const cartaoSelecionado = localStorage.getItem(
+    "cartao-selecionado-finalizacao"
+  );
   if (cartaoSelecionado == null) {
     return false;
   }
@@ -263,6 +247,7 @@ function limparLocalStorage() {
   localStorage.removeItem("endereco-selecionado-finalizacao");
   localStorage.removeItem("cartao-selecionado-finalizacao");
   localStorage.setItem("carrinhoItens", "[]");
+  localStorage.removeItem("quantidadeLivroItemComprarAgora");
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -273,6 +258,69 @@ document.addEventListener("DOMContentLoaded", function () {
 function closeModal() {
   modal.style.display = "none";
 }
+
+function showCardLivros(item, quantidade, index) {
+  var listaLivros = document.querySelector(".itens-carrinho");
+  var novoLivro = document.createElement("li");
+
+  novoLivro.classList.add("item-carrinho");
+  novoLivro.innerHTML = `
+  <div class="container-imagem">
+  <img src="./images/livros/${item.imagem}" alt="Imagem Produto">
+  </div>
+  
+  <div class="direita">
+    <div class="textos">
+      <div class="detalhes-livro">
+        <h1 id = "${item.isbn}" class="nome-livro">${item.titulo}</h1>
+        <p class="nome-autor">Por ${item.autor}</p>
+      </div>
+
+      <p class="preco">R$ ${item.preco.toFixed(2)}</p>
+
+    </div>
+
+    <div class="detalhes">
+      <p class="estimativa-entrega">Entrega estimada: XX dias</p>
+    </div>
+
+    <select id="quantidade" class="quantidade-${index}">
+      <option selected disabled value="">${quantidade}</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+  </div>`;
+
+  listaLivros.appendChild(novoLivro);
+
+  const selectQuantidade = document.querySelectorAll('#quantidade');
+  selectQuantidade.forEach(function (selectElement) {
+    selectElement.addEventListener("change", function () {
+      const classeDoSelect = selectElement.classList.value
+        .toString()
+        .split("-")[1];
+   
+      if(localStorage.getItem("quantidadeLivroItemComprarAgora")){
+        localStorage.setItem("quantidadeLivroItemComprarAgora", selectElement.value);
+      }
+      else{
+        const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
+        
+        localStorage.setItem("carrinhoItens", JSON.stringify(alterarQuantidadeLivro(classeDoSelect, carrinhoItens)));
+
+      }
+
+    });
+  });
+}
 closeButton.addEventListener("click", closeModal);
 window.addEventListener("click", function (event) {
   if (event.target === modal) {
@@ -280,3 +328,8 @@ window.addEventListener("click", function (event) {
   }
 });
 
+document.addEventListener("visibilitychange", function() {
+  if (document.visibilityState === "hidden") {
+    localStorage.removeItem("quantidadeLivroItemComprarAgora");
+  }
+});
