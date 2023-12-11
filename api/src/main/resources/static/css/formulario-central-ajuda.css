@@ -86,3 +86,24 @@
   background-color: var(--azul);
   transition: all .3s;
 }
+
+@media (max-width: 425px) {
+  .main {
+    height: auto;
+  }
+
+  .card-livro {
+    width: 30rem;
+    margin-bottom: 2rem;
+  }
+
+  .fomulario-adicionando-endereco form {
+    row-gap: 1.4rem;
+    height: auto;
+  }
+
+  .problema {
+    font-size: 1rem;
+    padding: .6rem 1rem;
+  }
+}
