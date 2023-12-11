@@ -58,3 +58,14 @@
 .container-img img {
   width: 100%;
 }
+
+@media (max-width: 425px) {
+  
+  .modal-content {
+    width: 80%;
+  }
+
+  #modal-message {
+    font-size: 2rem;
+  }
+}

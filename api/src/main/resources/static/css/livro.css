@@ -173,6 +173,32 @@
 }
 
 @media (max-width: 425px) {
+  /*Estilização do página do livro*/
+  .livro {
+    flex-direction: column;
+    padding: 1.6rem;
+  }
+
+  .livro-destaque {
+    width: 20rem;
+    height: auto;
+  }
+
+  .livro-destaque img {
+    width: 100%;
+  }
+
+  .detalhes-produto {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nome-livro {
+    font-size: 3.2rem;
+    font-weight: 700;
+  }
+
   .categorias-livros {
     padding: 1.6rem;
   }

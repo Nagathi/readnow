@@ -10,9 +10,21 @@ body {
   width: 100%;
 }
 
-.titulo-personalizado{
+.titulo-personalizado {
   font-family: var(--fonte-principal);
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
+  color: var(--preto);
+}
+
+@media (max-width: 424px) {
+
+  .img-container {
+    width:  17.4rem;
+  }
+
+  .titulo-personalizado {
+    font-size: 1.4rem;
+  }
 }
