@@ -58,7 +58,10 @@ public class LivroService {
 
                 //  C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/livros/
                 //  /home/victoria/Documentos/UFPA/Optativas/DesenvolvimentoWeb/ReadNow/api/src/main/resources/static/images/livros/
-                String uploadImagem = "C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/livros/";
+
+                // C:/Users/elise/Documents/UFPA/desenvolvimento_web/readnow/api/src/main/resources/static/images/livros/
+
+                String uploadImagem = "C:/Users/elise/Documents/UFPA/desenvolvimento_web/readnow/api/src/main/resources/static/images/livros/";
                 String uniqueImageName = UUID.randomUUID().toString() + "_" + imagem.getOriginalFilename();
 
                 Path destinoImagem = Path.of(uploadImagem + uniqueImageName);
