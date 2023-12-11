@@ -194,6 +194,10 @@
     height: 12rem;
   }
 
+  .cabecalho-simples {
+    height: auto;
+  }
+
   .logo {
     width: 10rem;
     height: 2.8rem;

@@ -38,3 +38,13 @@
   height: .05rem;
   width: 100%;
 }
+
+@media (max-width: 425px) {
+  .main {
+    padding: 1.6rem;
+  }
+
+  .container {
+    border-radius: 1.6rem;
+  }
+}
