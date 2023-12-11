@@ -105,3 +105,20 @@
   cursor: pointer;
   background-color: var(--azul-btn-hover-1);
 }
+
+@media (max-width: 425px) {
+  .lista-enderecos {
+    width: auto;
+    row-gap: 1.6rem;
+  }
+
+  .card-endereco {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .botoes {
+    align-self: flex-start;
+    margin-top: 1.2rem;
+  }
+}

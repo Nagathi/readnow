@@ -37,3 +37,9 @@
 .botoes {
   align-self: flex-start;
 }
+
+@media (max-width: 425px) {
+  .formulario-simples {
+    width: auto;
+  }
+}
