@@ -107,3 +107,9 @@
   transition: all .5s;
   text-decoration: underline;
 }
+
+@media (max-width: 425px) {
+  .perfil-usuario {
+    width: 35rem;
+  }  
+}
