@@ -111,3 +111,15 @@ main {
   text-decoration: underline;
   transition: all .3s;
 }
+
+@media (max-width: 425px) {
+  #formulario {
+    width: 90%;
+  }
+
+  .campo input, 
+  .campo textarea,
+  .btn-submit {
+    width: 32rem;
+  }
+}
