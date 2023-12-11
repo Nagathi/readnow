@@ -41,6 +41,9 @@ public class PedidoService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
+    private TokenService tokenService;
+
+    @Autowired
     private LivroRepository livroRepository;
 
     public Iterable<PedidoDTO> listarPedidos() {
@@ -113,8 +116,11 @@ public class PedidoService {
         }
     }
 
-    public List<PedidoEntregueDTO> listarLivrosPedidosPorUsuario(String emailUsuario) {
-        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(emailUsuario);
+    public List<PedidoEntregueDTO> listarLivrosPedidosPorUsuario(String token) {
+
+        String email = tokenService.validarToken(token);
+
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
         
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
@@ -146,7 +152,9 @@ public class PedidoService {
         }
     }
 
-    public List<PedidoPendenteDTO> listarLivrosPendentes(String email){
+    public List<PedidoPendenteDTO> listarLivrosPendentes(String token){
+        String email = tokenService.validarToken(token);
+
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
         
         if (usuarioOptional.isPresent()) {
@@ -176,7 +184,9 @@ public class PedidoService {
         }
     }
 
-    public List<AjudaDTO> listarPedidos(String email){
+    public List<AjudaDTO> listarPedidos(String token){
+        String email = tokenService.validarToken(token);
+        
         List<AjudaDTO> pedidosDTO = new ArrayList<AjudaDTO>();
 
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);

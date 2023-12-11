@@ -31,18 +31,18 @@ public class PedidoController {
         return pedidoService.salvarPedido(pedidoDTO);
     }
 
-    @GetMapping("/pedidos-usuario/{email}")
-    public List<PedidoEntregueDTO> retornarPedidosEntregues(@PathVariable String email){
-        return pedidoService.listarLivrosPedidosPorUsuario(email);
+    @GetMapping("/pedidos-usuario/{token}")
+    public List<PedidoEntregueDTO> retornarPedidosEntregues(@PathVariable String token){
+        return pedidoService.listarLivrosPedidosPorUsuario(token);
     }
 
-    @GetMapping("/pedidos-pendentes/{email}")
-    public List<PedidoPendenteDTO> retornarPedidosPendentes(@PathVariable String email){
-        return pedidoService.listarLivrosPendentes(email);
+    @GetMapping("/pedidos-pendentes/{token}")
+    public List<PedidoPendenteDTO> retornarPedidosPendentes(@PathVariable String token){
+        return pedidoService.listarLivrosPendentes(token);
     }
 
-    @GetMapping("/pedidos-ajuda/{email}")
-    public List<AjudaDTO> retornarPedidos(@PathVariable String email){
-        return pedidoService.listarPedidos(email);
+    @GetMapping("/pedidos-ajuda/{token}")
+    public List<AjudaDTO> retornarPedidos(@PathVariable String token){
+        return pedidoService.listarPedidos(token);
     }
  }

@@ -35,7 +35,7 @@ public class UsuarioController {
     @PostMapping("/efetua-cadastro")
     public ResponseEntity<?> cadastrarUsuario(@RequestBody @Valid UsuarioModel usuarioModel){
         return usuarioService. cadastrarUsuario(usuarioModel);
-    }
+    } 
 
     @PostMapping("/envia-email")
     public ResponseEntity<?> enviarEmail(@RequestBody EmailDTO email){

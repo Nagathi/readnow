@@ -34,7 +34,9 @@ public class ContaService {
     @Autowired
     private TokenService tokenService;
 
-    public ResponseEntity<List<EnderecoDTO>> listarEnderecosPorEmail(String email) {
+    public ResponseEntity<List<EnderecoDTO>> listarEnderecosPorEmail(String token) {
+        String email = tokenService.validarToken(token);
+        
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
 
         if (usuarioOptional.isPresent()) {
@@ -162,6 +164,7 @@ public class ContaService {
 
     public ResponseEntity<EnderecoDTO> buscarEnderecoPorUsuario(String token) {
         String email = tokenService.validarToken(token);
+        
         Optional<UsuarioModel> usuario = usuarioRepository.findByEmail(email);
 
         if (usuario.isPresent()) {
@@ -194,7 +197,9 @@ public class ContaService {
 
     }
 
-    public ResponseEntity<List<CartaoDTO>> listarCartoesPorEmail(String email) {
+    public ResponseEntity<List<CartaoDTO>> listarCartoesPorEmail(String token) {
+        String email = tokenService.validarToken(token);
+
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
 
         if (usuarioOptional.isPresent()) {

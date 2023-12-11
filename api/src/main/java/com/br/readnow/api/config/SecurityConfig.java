@@ -52,6 +52,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/livros/{categoria}").permitAll()
                         .requestMatchers(HttpMethod.GET, " /busca-livro/{codigo}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cadastra-livro").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/cartoes/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/enderecos/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -1,5 +1,5 @@
-function obterPedidos(email) {
-    fetch(`/pedidos-ajuda/${email}`)
+function obterPedidos(token) {
+    fetch(`/pedidos-ajuda/${token}`)
       .then(response => response.json())
       .then(data => atualizarPedidosHTML(data))
       .catch(error => console.error('Ocorreu um erro ao obter os pedidos:', error));
@@ -43,7 +43,7 @@ function obterPedidos(email) {
   }
   
   document.addEventListener('DOMContentLoaded', () => {
-    const emailUsuario = localStorage.getItem("email");
-    obterPedidos(emailUsuario);
+    const token = localStorage.getItem("token");
+    obterPedidos(token);
   });
   
