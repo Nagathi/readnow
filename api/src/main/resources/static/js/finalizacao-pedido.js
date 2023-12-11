@@ -1,4 +1,7 @@
 localStorage.setItem("paginaFinalizacao", window.location.href);
+
+const parametrosURL = obterParametrosURL();
+const codigoLivro = parametrosURL.codigo;
 const email = localStorage.getItem("email");
 const modalMessage = document.getElementById("modal-message");
 const closeButton = document.querySelector(".close");
@@ -64,17 +67,15 @@ function buscarCartoes() {
 function revisarItens() {
   var valorTotalLivros = 0;
   if (localStorage.getItem("pagina-livro")) {
-    const parametrosURL = obterParametrosURL();
-    const codigoLivro = parametrosURL.codigo;
     fetch(`/busca-livro/${codigoLivro}`)
       .then((response) => response.json())
       .then((data) => {
         atualizarValorTotal(data.preco);
-        if(localStorage.getItem("quantidadeLivroItemComprarAgora") == null) {
+        if (localStorage.getItem("quantidadeLivroItemComprarAgora") == null) {
           localStorage.setItem("quantidadeLivroItemComprarAgora", 1);
         }
-        showCardLivros(data, localStorage.getItem("quantidadeLivroItemComprarAgora"), codigoLivro);
-
+        showCardLivros(data, localStorage.getItem("quantidadeLivroItemComprarAgora"), codigoLivro
+        );
       });
   } else {
     const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
@@ -84,7 +85,6 @@ function revisarItens() {
     });
     atualizarValorTotal(valorTotalLivros);
   }
-  
 }
 
 function atualizarValorTotal(valorTotalLivros) {
@@ -99,7 +99,7 @@ function atualizarValorTotal(valorTotalLivros) {
   valorPedido.innerHTML = `Total do pedido: R$ ${valorTotal.toFixed(2)}`;
   localStorage.setItem("valorTotalCarrinho", valorTotal.toFixed(2));
 }
-function alterarQuantidadeLivro(classeDoSelect, data){
+function alterarQuantidadeLivro(classeDoSelect, data) {
   data.forEach((item, index) => {
     if (classeDoSelect === index.toString()) {
       item.quantidade = parseInt(selectElement.value, 10);
@@ -143,15 +143,23 @@ function salvarPedido() {
     localStorage.getItem("endereco-selecionado-finalizacao")
   );
   const email = localStorage.getItem("email");
+  var listaLivros = [];
 
-  const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
-
-  const listaLivros = carrinhoItens.map((item) => {
-    return {
-      codigoLivro: item.livro.codigo,
-      quantidade: item.quantidade,
+  if (localStorage.getItem("quantidadeLivroItemComprarAgora")) {
+    livro = {
+      codigoLivro: codigoLivro,
+      quantidade: localStorage.getItem("quantidadeLivroItemComprarAgora")
     };
-  });
+    listaLivros.push(livro);    
+  } else {
+    const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
+    listaLivros = carrinhoItens.map((item) => {
+      return {
+        codigoLivro: item.livro.codigo,
+        quantidade: item.quantidade,
+      };
+    });
+  }
 
   var data = {
     dataPedido: dataPedido,
@@ -301,23 +309,26 @@ function showCardLivros(item, quantidade, index) {
 
   listaLivros.appendChild(novoLivro);
 
-  const selectQuantidade = document.querySelectorAll('#quantidade');
+  const selectQuantidade = document.querySelectorAll("#quantidade");
   selectQuantidade.forEach(function (selectElement) {
     selectElement.addEventListener("change", function () {
       const classeDoSelect = selectElement.classList.value
         .toString()
         .split("-")[1];
-   
-      if(localStorage.getItem("quantidadeLivroItemComprarAgora")){
-        localStorage.setItem("quantidadeLivroItemComprarAgora", selectElement.value);
-      }
-      else{
+
+      if (localStorage.getItem("quantidadeLivroItemComprarAgora")) {
+        localStorage.setItem(
+          "quantidadeLivroItemComprarAgora",
+          selectElement.value
+        );
+      } else {
         const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
-        
-        localStorage.setItem("carrinhoItens", JSON.stringify(alterarQuantidadeLivro(classeDoSelect, carrinhoItens)));
 
+        localStorage.setItem(
+          "carrinhoItens",
+          JSON.stringify(alterarQuantidadeLivro(classeDoSelect, carrinhoItens))
+        );
       }
-
     });
   });
 }
@@ -328,7 +339,7 @@ window.addEventListener("click", function (event) {
   }
 });
 
-document.addEventListener("visibilitychange", function() {
+document.addEventListener("visibilitychange", function () {
   if (document.visibilityState === "hidden") {
     localStorage.removeItem("quantidadeLivroItemComprarAgora");
   }

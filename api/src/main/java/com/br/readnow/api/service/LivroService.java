@@ -26,7 +26,7 @@ import com.br.readnow.api.repository.UsuarioRepository;
 
 @Service
 public class LivroService {
-    
+
     @Autowired
     private LivroRepository livroRepository;
 
@@ -39,7 +39,7 @@ public class LivroService {
     @Autowired
     private LivroPedidoRepository livroPedidoRepository;
 
-    public Iterable<LivroModel> listarLivros(){
+    public Iterable<LivroModel> listarLivros() {
         return livroRepository.findAll();
     }
 
@@ -47,21 +47,27 @@ public class LivroService {
         return livroRepository.findByCategoria(categoria);
     }
 
-    public ResponseEntity<?> cadastrarLivro(LivroDTO livroDTO){
+    public ResponseEntity<?> cadastrarLivro(LivroDTO livroDTO) {
 
         LivroModel livro = new LivroModel();
 
-
-        try{
-            if(!livroRepository.existsByIsbn(livroDTO.getIsbn())){
+        try {
+            if (!livroRepository.existsByIsbn(livroDTO.getIsbn())) {
                 MultipartFile imagem = livroDTO.getImagem();
 
-                //  C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/livros/
-                //  /home/victoria/Documentos/UFPA/Optativas/DesenvolvimentoWeb/ReadNow/api/src/main/resources/static/images/livros/
+                // C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento
+                // Web/Trabalho 1/API/api/src/main/resources/static/images/livros/
+                // /home/victoria/Documentos/UFPA/Optativas/DesenvolvimentoWeb/ReadNow/api/src/main/resources/static/images/livros/
 
                 // C:/Users/elise/Documents/UFPA/desenvolvimento_web/readnow/api/src/main/resources/static/images/livros/
 
-                String uploadImagem = "C:/Users/elise/Documents/UFPA/desenvolvimento_web/readnow/api/src/main/resources/static/images/livros/";
+                String diretorioAtual = System.getProperty("user.dir");
+                String caminhoRelativo = "/api/src/main/resources/static/images/livros/";
+                String caminhoAbsoluto = diretorioAtual.toString() + caminhoRelativo;
+                String caminhoFinal = caminhoAbsoluto.toString();
+                System.out.println(caminhoFinal);
+
+                String uploadImagem = caminhoFinal;
                 String uniqueImageName = UUID.randomUUID().toString() + "_" + imagem.getOriginalFilename();
 
                 Path destinoImagem = Path.of(uploadImagem + uniqueImageName);
@@ -79,20 +85,20 @@ public class LivroService {
 
                 livroRepository.save(livro);
                 return ResponseEntity.status(HttpStatus.CREATED).body("Livro cadastrado!");
-            }else{
+            } else {
                 return ResponseEntity.badRequest().body("Esse ISBN já existe em nosso banco de dados!");
             }
 
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return ResponseEntity.badRequest().build();
     }
 
-    public ResponseEntity<?> buscarLivro(long codigo){
-         
-        if(livroRepository.findById(codigo).isPresent()){
+    public ResponseEntity<?> buscarLivro(long codigo) {
+
+        if (livroRepository.findById(codigo).isPresent()) {
             LivroModel livro = livroRepository.findById(codigo).get();
             LivroInfoDTO livroInfoDTO = new LivroInfoDTO();
             livroInfoDTO.setCodigo(livro.getCodigo());
@@ -106,21 +112,23 @@ public class LivroService {
             livroInfoDTO.setCategoria(livro.getCategoria());
             livroInfoDTO.setPreco(livro.getPreco());
             double nota = this.calcularMediaAvaliacao(livro.getCodigo());
-            
-            if(nota != 0){
+
+            if (nota != 0) {
                 livroInfoDTO.setNota(nota);
-            }else{
+            } else {
                 livroInfoDTO.setNota(5d);
             }
-            
+
             return ResponseEntity.ok(livroInfoDTO);
-        }else{
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     public ResponseEntity<List<LivroModel>> pesquisar(String pesquisa) {
-        List<LivroModel> resultados = livroRepository.findByTituloContainingOrAutorContainingOrEditoraContainingOrIsbnContainingOrCategoriaContaining(pesquisa, pesquisa, pesquisa, pesquisa, pesquisa);
+        List<LivroModel> resultados = livroRepository
+                .findByTituloContainingOrAutorContainingOrEditoraContainingOrIsbnContainingOrCategoriaContaining(
+                        pesquisa, pesquisa, pesquisa, pesquisa, pesquisa);
         if (resultados.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {
@@ -130,16 +138,18 @@ public class LivroService {
 
     public ResponseEntity<?> realizarAvaliacao(String email, Long codigo, int qtdEstrelas, String descricao) {
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
-        
+
         Optional<LivroModel> livroOptional = livroRepository.findById(codigo);
 
         if (usuarioOptional.isPresent() && livroOptional.isPresent()) {
 
-            boolean validarCodigo = livroPedidoRepository.existsByLivroAndUsuario(livroOptional.get().getCodigo(), usuarioOptional.get().getCodigo());
+            boolean validarCodigo = livroPedidoRepository.existsByLivroAndUsuario(livroOptional.get().getCodigo(),
+                    usuarioOptional.get().getCodigo());
 
-            if(validarCodigo){
-                AvaliacaoModel avaliacaoExistente = avaliacaoRepository.findByUsuarioAndLivro(usuarioOptional.get(), livroOptional.get());
-            
+            if (validarCodigo) {
+                AvaliacaoModel avaliacaoExistente = avaliacaoRepository.findByUsuarioAndLivro(usuarioOptional.get(),
+                        livroOptional.get());
+
                 if (avaliacaoExistente != null) {
                     avaliacaoExistente.setQtdEstrelas(qtdEstrelas);
                     avaliacaoExistente.setDescricao(descricao);
@@ -155,7 +165,7 @@ public class LivroService {
                     avaliacaoRepository.save(novaAvaliacao);
                     return ResponseEntity.ok("Nova avaliação realizada!");
                 }
-            }else{
+            } else {
                 return ResponseEntity.badRequest().build();
             }
         } else {

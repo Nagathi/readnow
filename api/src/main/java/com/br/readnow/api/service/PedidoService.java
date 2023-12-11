@@ -99,7 +99,6 @@ public class PedidoService {
                 livroPedidoModel.setUsuario(usuarioOptional.get());
 
                 livrosPedido.add(livroPedidoModel);
-                
             }
 
             pedidoModel.setLivrosPedido(livrosPedido);

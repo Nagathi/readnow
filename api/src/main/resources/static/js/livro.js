@@ -207,7 +207,6 @@ function adicionarItemCarrinho() {
         }
         else{
           recuperado[indice].quantidade += 1; 
-          // recuperado.push(data);
         }
         localStorage.setItem("carrinhoItens", JSON.stringify(recuperado));
 
@@ -234,11 +233,9 @@ function encontrarIndiceLivro(array, novoLivro) {
 }
 
 function sãoIguais(livro1, livro2) {
-  // Implemente sua lógica de comparação aqui
-  // Retorna true se os livros forem iguais, false caso contrário
   console.log(livro1.livro.codigo);
   console.log(livro2.livro.codigo);
-  return livro1.livro.codigo === livro2.livro.codigo; // Exemplo: comparando pelo código
+  return livro1.livro.codigo === livro2.livro.codigo; 
 }
 
 comprarAgoraButton.addEventListener("click", function(event){
