@@ -117,6 +117,10 @@ main {
     width: 90%;
   }
 
+  #formulario-1 {
+    width: 32rem;
+  }
+
   .campo input, 
   .campo textarea,
   .btn-submit {

@@ -16,14 +16,14 @@ function autenticacao() {
     <div class="opcoes">
             <div id= "sua-conta" class="item">
             <a href="/conta-usuario">
-                <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                <img src="images/icons/user.svg" alt="Carrinho de compras">
                 <span class="identificador"> Olá, ${nomeUsuario} <br> Sua conta</span>
             </a>
             </div>
   
             <div class="item" id="carrinho-compras">
               <a href="carrinho">
-                  <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                  <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras">
                   <span class="identificador">Carrinho</span>
       
                   <div class="produtos-carrinho">
@@ -35,7 +35,7 @@ function autenticacao() {
 
             <div class="item">
             <a href="/central-ajuda">
-                <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras">
                 <span class="identificador">Ajuda</span>
             </a>
             </div>
