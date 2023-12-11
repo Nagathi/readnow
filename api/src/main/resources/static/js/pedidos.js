@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const email = localStorage.getItem("email");
+    const token = localStorage.getItem("token");
   
-    fetch(`/pedidos-pendentes/${email}`)
+    fetch(`/pedidos-pendentes/${token}`)
       .then(response => response.json())
       .then(pedidos => {
         const listaPedidos = document.querySelector(".lista-pedidos");
