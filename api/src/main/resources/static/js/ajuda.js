@@ -1,0 +1,49 @@
+function obterPedidos(email) {
+    fetch(`/pedidos-ajuda/${email}`)
+      .then(response => response.json())
+      .then(data => atualizarPedidosHTML(data))
+      .catch(error => console.error('Ocorreu um erro ao obter os pedidos:', error));
+  }
+  
+  function atualizarPedidosHTML(pedidos) {
+    const containerPedidos = document.querySelector('.container-pedidos');
+  
+    containerPedidos.innerHTML = '';
+  
+    pedidos.forEach(pedido => {
+      const cardPedido = document.createElement('div');
+      cardPedido.classList.add('card-pedido-feito');
+  
+      const containerImagem = document.createElement('div');
+      containerImagem.classList.add('container-imagem');
+  
+      const imagem = document.createElement('img');
+      imagem.src = "images/livros/" + pedido.imagem;
+      imagem.alt = 'Imagem do livro';
+  
+      containerImagem.appendChild(imagem);
+  
+      const textos = document.createElement('div');
+      textos.classList.add('textos');
+  
+      const titulo = document.createElement('h2');
+      titulo.textContent = pedido.titulo;
+  
+      const dataPedido = document.createElement('p');
+      dataPedido.textContent = `Pedido em ${pedido.diaMes} de ${pedido.ano}`;
+  
+      textos.appendChild(titulo);
+      textos.appendChild(dataPedido);
+  
+      cardPedido.appendChild(containerImagem);
+      cardPedido.appendChild(textos);
+  
+      containerPedidos.appendChild(cardPedido);
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const emailUsuario = localStorage.getItem("email");
+    obterPedidos(emailUsuario);
+  });
+  

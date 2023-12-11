@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.br.readnow.api.dto.AjudaDTO;
 import com.br.readnow.api.dto.PedidoDTO;
 import com.br.readnow.api.dto.PedidoEntregueDTO;
 import com.br.readnow.api.dto.PedidoPendenteDTO;
@@ -38,5 +39,10 @@ public class PedidoController {
     @GetMapping("/pedidos-pendentes/{email}")
     public List<PedidoPendenteDTO> retornarPedidosPendentes(@PathVariable String email){
         return pedidoService.listarLivrosPendentes(email);
+    }
+
+    @GetMapping("/pedidos-ajuda/{email}")
+    public List<AjudaDTO> retornarPedidos(@PathVariable String email){
+        return pedidoService.listarPedidos(email);
     }
  }

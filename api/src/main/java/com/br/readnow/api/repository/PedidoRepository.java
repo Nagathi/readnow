@@ -14,5 +14,6 @@ public interface PedidoRepository extends CrudRepository <PedidoModel, Long>{
     boolean existsByCodigo(Long codigo);
     List<PedidoModel> findByUsuarioAndEntregueTrue(UsuarioModel usuario);
     List<PedidoModel> findByUsuarioAndEntregueFalse(UsuarioModel usuario);
+    List<PedidoModel> findAllByUsuario(UsuarioModel usuario);
 }
 
