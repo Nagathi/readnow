@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="detalhes-livro">
                             <p class="titulo-livro">${livro.titulo}</p>
                             <h3 class="preco">R$ ${livro.preco}</h3>
-                            <a href="#" class="ver-produto">Ver produto</a>
+                            <a href="/livro?codigo=${livro.codigo}" class="ver-produto">Ver produto</a>
                         </div>
                     `;
                     listaLivros.appendChild(novoLivro);
