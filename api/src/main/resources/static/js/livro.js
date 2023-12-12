@@ -39,21 +39,21 @@ function autenticacao() {
        <div class="opcoes">
             <div id= "sua-conta" class="item">
             <a href="/conta-usuario">
-                <img src="images/icons/user.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                <img src="images/icons/user.svg" alt="Carrinho de compras" >
                 <span class="identificador"> Olá, ${nomeUsuario} <br> Sua conta</span>
             </a>
             </div>
   
             <div class="item">
-            <a href="#">
-                <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
-                <span class="identificador">Ouvidoria</span>
+            <a href="/central-ajuda">
+                <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras">
+                <span class="identificador">Ajuda</span>
             </a>
             </div>
   
             <div class="item" id="carrinho-compras">
             <a href="carrinho">
-                <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras" style="width: 3.6rem ;">
+                <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras">
                 <span class="identificador">Carrinho</span>
     
                 <div class="produtos-carrinho">
@@ -67,8 +67,8 @@ function autenticacao() {
     <div class="menu-list" id="userMenu">
       <ul>
         <li><a href="/conta-usuario">Sua conta</a></li>
-        <li><a href="#">Seus pedidos</a></li>
-        <li><a href="#">Seus endereços</a></li>
+        <li><a href="/seus-pedidos">Seus pedidos</a></li>
+        <li><a href="/enderecos">Seus endereços</a></li>
         <li id="sair"><a href="/">Sair da conta</a></li>
       </ul>
     </div>
@@ -120,7 +120,8 @@ document.addEventListener("DOMContentLoaded", function () {
       preco.textContent = `R$ ${data.preco.toFixed(2)}`;
       sinopse.textContent = data.descricao;
       disponibilidade.textContent = "Em estoque";
-      notaLivro.textContent = `Nota: ${data.nota}`
+      addEstrelasAvaliacao(notaLivro, data.nota);
+      
 
       const categoria = data.categoria;
       document.title = data.titulo;
@@ -243,3 +244,26 @@ comprarAgoraButton.addEventListener("click", function(event){
   localStorage.setItem("pagina-livro", window.location.href)
   window.location.href = '/finalizar-pedido';
 });
+
+function addEstrelasAvaliacao(elementoPai, nota) {
+  const qtdEstrelasNormais = 5 - nota;
+  const qtdEstrelasPreenchidas = nota;
+
+  /*Criando estrelas preenchidas */
+  for(var i = 0; i < qtdEstrelasPreenchidas; i++) {
+    var estrela = document.createElement("li");
+    estrela.innerHTML = `
+      <img src="images/icons/star-with-fill.svg" alt="">
+    `;
+    elementoPai.appendChild(estrela);
+  }
+
+  /*Criando estrelas normais */
+  for(var i = 0; i < qtdEstrelasNormais; i++) {
+    var estrela = document.createElement("li");
+    estrela.innerHTML = `
+      <img src="images/icons/star-normal.svg" alt="">
+    `;
+    elementoPai.appendChild(estrela);
+  }
+}
