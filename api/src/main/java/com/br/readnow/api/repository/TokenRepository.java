@@ -13,7 +13,7 @@ import com.br.readnow.api.model.UsuarioModel;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface AuthRepository extends CrudRepository <AuthModel, String>{
+public interface TokenRepository extends CrudRepository <AuthModel, String>{
     boolean existsByUsuario(UsuarioModel usuario);
     Optional<AuthModel> findByUuid(String usuario);
 

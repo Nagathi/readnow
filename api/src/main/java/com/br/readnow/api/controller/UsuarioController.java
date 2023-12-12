@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,12 @@ public class UsuarioController {
     @PostMapping("/efetua-login")
     public ResponseEntity<?> efetuarLogin(@RequestBody @Valid LoginDTO login){
         return usuarioService.login(login);
+    }
+
+    @PostMapping("/efetua-logout")
+    public ResponseEntity<String> efetuarLogout(@RequestHeader("Authorization") String authorization){
+        String token = authorization.replace("Bearer ", "");
+        return usuarioService.logout(token);
     }
 
     @PostMapping("/efetua-cadastro")

@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 import com.br.readnow.api.dto.UsuarioDTO;
 import com.br.readnow.api.model.AuthModel;
 import com.br.readnow.api.model.UsuarioModel;
-import com.br.readnow.api.repository.AuthRepository;
+import com.br.readnow.api.repository.TokenRepository;
 import com.br.readnow.api.repository.UsuarioRepository;
 
 @Service
 public class AuthService {
 
     @Autowired
-    private AuthRepository authRepository;
+    private TokenRepository authRepository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;

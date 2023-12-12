@@ -35,7 +35,16 @@ function efetuarLogin() {
     })
     .then((data) => {
       const token = data.token;
-      autenticar(token);
+      const nome = data.nome;
+      const email = data.email;
+
+      if (token != null && nome != "undefined" && email != "undefined") {
+        localStorage.setItem("token", token);
+        localStorage.setItem("nome", nome);
+        localStorage.setItem("email", email);
+        window.location.href = "/";
+      }
+      // autenticar(token);
     })
     .catch((error) => {
       modalMessage.textContent = "Ocorreu um erro ao processar a solicitação.";

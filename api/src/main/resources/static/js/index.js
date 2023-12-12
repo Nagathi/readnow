@@ -1,13 +1,36 @@
+const modalMessage = document.getElementById("modal-message");
+const closeButton = document.querySelector(".close");
+const modal = document.getElementById("modal");
+
 function autenticacao() {
-  const usuarioAutenticado = localStorage.getItem("token");
+  if (usuarioAutenticado) {
+    fetch("/encerra-sessao", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${usuarioAutenticado}`,
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data == true) {
+          console.log(data);
+          localStorage.removeItem("token");
+          modalMessage.textContent = "Sessão expirada! Faça login novamente.";
+          modal.style.display = "block";
+        }
+      });
+  }
+
   const nomeUsuario = localStorage.getItem("nome");
   const loginButton = document.querySelector("#login");
   const cadastroButton = document.querySelector("#cadastro");
 
-  if (usuarioAutenticado != null && nomeUsuario != "") {
-    loginButton.style.display = 'none';
-    cadastroButton.style.display = 'none';
-    
+  if (localStorage.getItem("token") != null && nomeUsuario != "") {
+    loginButton.style.display = "none";
+    cadastroButton.style.display = "none";
+
     const navIcons = document.createElement("nav");
     navIcons.classList.add("card-icons");
     const header = document.querySelector(".cabecalho");
@@ -46,17 +69,19 @@ function autenticacao() {
       <li><a href="/conta-usuario">Conta</a></li>
       <li><a href="#">Pedidos</a></li>
       <li><a href="/enderecos">Endereços</a></li>
-      <li id="sair"><a href="/">Sair</a></li>
+      <li id="sair"><a href="#">Sair</a></li>
     </ul>
     </div>
   `;
     header.appendChild(navIcons);
-    document.getElementById('sua-conta').addEventListener('mouseover', function() {
-      const userMenu = document.getElementById('userMenu');
-      userMenu.style.display = (userMenu.style.display === 'block') ? 'none' : 'block';
-    });
-    document.getElementById('sair').addEventListener('click', function() {
-
+    document
+      .getElementById("sua-conta")
+      .addEventListener("mouseover", function () {
+        const userMenu = document.getElementById("userMenu");
+        userMenu.style.display =
+          userMenu.style.display === "block" ? "none" : "block";
+      });
+    document.getElementById("sair").addEventListener("click", function () {
       if (localStorage.getItem("carrinhoItens") != "[]") {
         salvarEstadoCarrinho(localStorage.getItem("carrinhoItens"));
       }
@@ -64,20 +89,25 @@ function autenticacao() {
 
       const cardIcons = document.querySelector(".card-icons");
 
-      cardIcons.style.display = 'none';
-      loginButton.style.display = 'block';
-      cadastroButton.style.display = 'block';     
+      cardIcons.style.display = "none";
+      loginButton.style.display = "block";
+      cadastroButton.style.display = "block";
+
+      fetch("/logout", {
+        method: "POST",
+      })
+        .then((response) => response.json)
+        .then((data) => console.log(data));
     });
-  }
-  else{
-    loginButton.style.display = 'block';
-    cadastroButton.style.display = 'block';     
+  } else {
+    loginButton.style.display = "block";
+    cadastroButton.style.display = "block";
   }
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
   autenticacao();
+
   const quantidadeExibicao = 5;
 
   const categorias = ["acao", "ficcao", "cultura", "aventura", "literatura"];
@@ -170,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-function limparLocalStorage(){
+function limparLocalStorage() {
   localStorage.removeItem("token");
   localStorage.removeItem("email");
   localStorage.removeItem("nome");
@@ -185,4 +215,14 @@ function salvarEstadoCarrinho(data) {
     body: data,
   });
 }
+function closeModal() {
+  modal.style.display = "none";
+}
+closeButton.addEventListener("click", closeModal);
+window.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    closeModal();
+    window.location.href = "/";
 
+  }
+});

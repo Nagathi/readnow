@@ -38,7 +38,7 @@ public class CarrinhoController {
     }
 
     @GetMapping("/mostra-carrinho/{token}")
-    public ResponseEntity<?> mostrarLivrosCarrinho(@PathVariable String token) {
+    public ResponseEntity<List<LivroItemDTO>> mostrarLivrosCarrinho(@PathVariable String token) {
         return carrinhoService.mostrarItensCarrinho(token);
 
     }

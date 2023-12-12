@@ -3,7 +3,6 @@ package com.br.readnow.api.service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -36,18 +35,20 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
-                .withIssuer("auth-api")
-                .build()
-                .verify(token)
-                .getSubject();
+                    .withIssuer("auth-api")
+                    .build()
+                    .verify(token)
+                    .getSubject();
 
         } catch (JWTCreationException e) {
-            throw new RuntimeException("Error while validating token");
+            throw new RuntimeException("Error durante validação do token");
         }
     }
 
     private Instant getExpirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
+
+    
 
 }

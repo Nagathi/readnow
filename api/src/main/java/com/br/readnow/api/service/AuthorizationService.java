@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.br.readnow.api.repository.UsuarioRepository;
 
+
 @Service
 public class AuthorizationService implements UserDetailsService{
 

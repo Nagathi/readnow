@@ -29,7 +29,7 @@ import com.br.readnow.api.model.CarrinhoModel;
 import com.br.readnow.api.model.LinkModel;
 import com.br.readnow.api.model.UserRoleModel;
 import com.br.readnow.api.model.UsuarioModel;
-import com.br.readnow.api.repository.AuthRepository;
+import com.br.readnow.api.repository.TokenRepository;
 import com.br.readnow.api.repository.CarrinhoRepository;
 import com.br.readnow.api.repository.LinkRepository;
 import com.br.readnow.api.repository.UsuarioRepository;
@@ -41,7 +41,7 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private AuthRepository authRepository;
+    private TokenRepository authRepository;
 
     @Autowired
     private LinkRepository linkRepository;
@@ -231,5 +231,14 @@ public class UsuarioService {
         LocalDateTime agora = LocalDateTime.now();
 
         return agora.isAfter(criadoEm.plus(15, ChronoUnit.MINUTES));
+    }
+
+    public ResponseEntity<String> logout(String token) {
+        String email = tokenService.validarToken(token);
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
+        if (authRepository.existsByUsuario(usuarioOptional.get())) {
+            authRepository.expireSession(usuarioOptional.get());
+        }
+        return ResponseEntity.ok("Logout realizado com sucesso");
     }
 }
