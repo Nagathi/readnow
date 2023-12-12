@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="images/icons/book.svg" type="image/x-icon">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/carrinho-compras.css">
     <link rel="stylesheet" href="css/livro.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/modal.css">
@@ -33,7 +34,7 @@
         <p class="preco"></p>
         <p class="sinopse"></p>
         <p class="disponibilidade">Em estoque</p>
-        <p class="nota">Nota: 5.0</p>
+        <ul class="classificacao nota"></ul>
         <div class="botoes">
           <button class="comprar-agora">Compre agora</button>
           <button class="adicionar-carrinho">Adicionar no carrinho</button>
@@ -43,8 +44,17 @@
     
     <div id="modal" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
-        <p id="modal-message"></p>
+
+        <span class="close">
+          <img src="/images/icons/error-circle.svg" alt="Fechar janela">
+        </span>
+
+        <div class="container-img">
+          <img src="/images/icons/sucesso.svg" alt="OK">
+        </div>
+
+        <p id="modal-message" name="mensagem" class="conteudo sucesso"></p>
+
       </div>
     </div>
 

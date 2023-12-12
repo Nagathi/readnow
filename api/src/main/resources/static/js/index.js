@@ -83,7 +83,7 @@ function autenticacao() {
         <div class="menu-list" id="userMenu">
         <ul>
           <li><a href="/conta-usuario">Conta</a></li>
-          <li><a href="#">Pedidos</a></li>
+          <li><a href="/seus-pedidos">Pedidos</a></li>
           <li><a href="/enderecos">Endereços</a></li>
           <li id="sair"><a href="/">Sair</a></li>
         </ul>

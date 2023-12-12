@@ -37,11 +37,15 @@
   width: 100%;
 }
 
-#modal-message {
+.conteudo {
   font-family: var(--fonte-principal);
   font-weight: 600;
   color: var(--vermelho);
   font-size: 2.2rem;
+}
+
+.sucesso {
+  color: var(--azul);
 }
   
 .close:hover,

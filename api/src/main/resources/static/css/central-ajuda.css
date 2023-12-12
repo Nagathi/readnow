@@ -86,3 +86,27 @@
   cursor: pointer;
   background-color: var(--azul-btn-hover);
 }
+
+@media (max-width: 425px) {
+  .central-ajuda {
+    min-width: 35rem;
+  }
+
+  .central-ajuda .titulo h1 {
+    font-size: 1.6rem;
+  }
+
+  .central-ajuda .titulo p {
+    font-size: 1.2rem;
+    padding-bottom: 1.2rem;
+  }
+
+  .container-pedidos {
+    width: auto;
+    row-gap: 1.2rem;
+  }
+
+  .card-pedido-feito {
+    width: 32rem;
+  }
+}

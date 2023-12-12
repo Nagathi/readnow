@@ -24,7 +24,7 @@ function autenticacao() {
             </li>
 
             <li>
-              <a href="#">Pedidos</a>
+              <a href="/seus-pedidos">Pedidos</a>
             </li>
 
             <li>

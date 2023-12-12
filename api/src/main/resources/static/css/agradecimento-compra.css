@@ -3,7 +3,8 @@
   align-items: center;
 }
 
-.texto-compra-realizada h1, .texto-compra-realizada span {
+.texto-compra-realizada h1, 
+.texto-compra-realizada span {
   font-family: var(--fonte-principal);
   font-size: 2.4rem;
   font-weight: 600;
@@ -23,4 +24,22 @@
 .link-visualizar-pedido {
   text-decoration: underline;
   font-size: 1.5rem;
+}
+
+@media (max-width: 425px) {
+
+  .texto-compra-realizada {
+    text-align: center;
+    flex-flow: column-reverse;
+  }
+
+  .texto-compra-realizada h1, 
+  .texto-compra-realizada span {
+    font-size: 1.8rem;
+  }
+
+  .container-imagem {
+    width: 12rem;
+    height: 12rem;
+  }
 }

@@ -65,7 +65,6 @@ public class LivroService {
                 String caminhoRelativo = "/api/src/main/resources/static/images/livros/";
                 String caminhoAbsoluto = diretorioAtual.toString() + caminhoRelativo;
                 String caminhoFinal = caminhoAbsoluto.toString();
-                System.out.println(caminhoFinal);
 
                 String uploadImagem = caminhoFinal;
                 String uniqueImageName = UUID.randomUUID().toString() + "_" + imagem.getOriginalFilename();
