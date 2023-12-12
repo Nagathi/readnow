@@ -3,11 +3,11 @@ const closeButton = document.querySelector(".close");
 const modal = document.getElementById("modal");
 
 function autenticacao() {
-  if (usuarioAutenticado) {
+  if (localStorage.getItem("token")) {
     fetch("/encerra-sessao", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${usuarioAutenticado}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
       .then((response) => {
