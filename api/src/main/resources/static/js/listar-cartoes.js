@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const listaCartoes = document.querySelector(".lista-cartoes");
-    const email = localStorage.getItem('email');
+    const token = localStorage.getItem('token');
 
-    fetch(`/cartoes/${email}`)
+    fetch(`/cartoes/${token}`)
         .then((response) => response.json())
         .then((data) => {
             listaCartoes.innerHTML = "";

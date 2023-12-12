@@ -59,6 +59,7 @@
 
   .destaques {
     height: 19.2rem;
+    overflow: hidden;
   }
 
   .promocao {

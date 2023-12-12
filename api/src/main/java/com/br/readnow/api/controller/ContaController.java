@@ -23,9 +23,9 @@ public class ContaController {
     @Autowired
     private ContaService contaService;
 
-    @GetMapping("/enderecos/{email}")
-    public ResponseEntity<List<EnderecoDTO>> listarEnderecosPorEmail(@PathVariable String email){
-        return contaService.listarEnderecosPorEmail(email);
+    @GetMapping("/enderecos/{token}")
+    public ResponseEntity<List<EnderecoDTO>> listarEnderecosPorEmail(@PathVariable String token){
+        return contaService.listarEnderecosPorEmail(token);
     }
 
     @PostMapping("/cadastra-endereco")
@@ -48,9 +48,9 @@ public class ContaController {
         return contaService.buscarEnderecoPorCodigo(codigo);
     }
 
-    @GetMapping("/cartoes/{email}")
-    public ResponseEntity<List<CartaoDTO>> listarCartoesPorEmail(@PathVariable String email){
-        return contaService.listarCartoesPorEmail(email);
+    @GetMapping("/cartoes/{token}")
+    public ResponseEntity<List<CartaoDTO>> listarCartoesPorEmail(@PathVariable String token){
+        return contaService.listarCartoesPorEmail(token);
     }
 
     @PostMapping("/cadastra-cartao")

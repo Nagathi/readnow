@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.br.readnow.api.dto.AjudaDTO;
 import com.br.readnow.api.dto.LivroQuantidadeDTO;
 import com.br.readnow.api.dto.PedidoDTO;
 import com.br.readnow.api.dto.PedidoEntregueDTO;
@@ -38,6 +39,9 @@ public class PedidoService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private TokenService tokenService;
 
     @Autowired
     private LivroRepository livroRepository;
@@ -112,8 +116,11 @@ public class PedidoService {
         }
     }
 
-    public List<PedidoEntregueDTO> listarLivrosPedidosPorUsuario(String emailUsuario) {
-        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(emailUsuario);
+    public List<PedidoEntregueDTO> listarLivrosPedidosPorUsuario(String token) {
+
+        String email = tokenService.validarToken(token);
+
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
         
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
@@ -145,7 +152,9 @@ public class PedidoService {
         }
     }
 
-    public List<PedidoPendenteDTO> listarLivrosPendentes(String email){
+    public List<PedidoPendenteDTO> listarLivrosPendentes(String token){
+        String email = tokenService.validarToken(token);
+
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
         
         if (usuarioOptional.isPresent()) {
@@ -173,6 +182,40 @@ public class PedidoService {
         } else {
             return new ArrayList<>();
         }
+    }
+
+    public List<AjudaDTO> listarPedidos(String token){
+        String email = tokenService.validarToken(token);
+        
+        List<AjudaDTO> pedidosDTO = new ArrayList<AjudaDTO>();
+
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
+
+        if(usuarioOptional.isPresent()){
+            List<PedidoModel> pedidos = pedidoRepository.findAllByUsuario(usuarioOptional.get());
+
+            if(!pedidos.isEmpty()){
+                for(PedidoModel pedido : pedidos){
+                    AjudaDTO pedidoDTO = new AjudaDTO();
+
+                    pedidoDTO.setCodigo(pedido.getCodigo());
+                    pedidoDTO.setImagem(pedido.getLivrosPedido().get(0).getLivro().getImagem());
+                    pedidoDTO.setTitulo(pedido.getLivrosPedido().get(0).getLivro().getTitulo());
+
+                    String dataPedido = pedido.getDataPedido();
+                    String[] partes = dataPedido.split("/");
+                    String diaMes = partes[0] + "/" + partes[1];
+                    
+                    pedidoDTO.setDiaMes(diaMes);
+                    pedidoDTO.setAno(partes[2]);
+
+                    pedidosDTO.add(pedidoDTO);
+                }
+            }
+
+        }
+
+        return pedidosDTO;
     }
         
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.br.readnow.api.dto.AjudaDTO;
 import com.br.readnow.api.dto.PedidoDTO;
 import com.br.readnow.api.dto.PedidoEntregueDTO;
 import com.br.readnow.api.dto.PedidoPendenteDTO;
@@ -30,13 +31,18 @@ public class PedidoController {
         return pedidoService.salvarPedido(pedidoDTO);
     }
 
-    @GetMapping("/pedidos-usuario/{email}")
-    public List<PedidoEntregueDTO> retornarPedidosEntregues(@PathVariable String email){
-        return pedidoService.listarLivrosPedidosPorUsuario(email);
+    @GetMapping("/pedidos-usuario/{token}")
+    public List<PedidoEntregueDTO> retornarPedidosEntregues(@PathVariable String token){
+        return pedidoService.listarLivrosPedidosPorUsuario(token);
     }
 
-    @GetMapping("/pedidos-pendentes/{email}")
-    public List<PedidoPendenteDTO> retornarPedidosPendentes(@PathVariable String email){
-        return pedidoService.listarLivrosPendentes(email);
+    @GetMapping("/pedidos-pendentes/{token}")
+    public List<PedidoPendenteDTO> retornarPedidosPendentes(@PathVariable String token){
+        return pedidoService.listarLivrosPendentes(token);
+    }
+
+    @GetMapping("/pedidos-ajuda/{token}")
+    public List<AjudaDTO> retornarPedidos(@PathVariable String token){
+        return pedidoService.listarPedidos(token);
     }
  }

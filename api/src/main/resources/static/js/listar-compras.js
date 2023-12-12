@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch('/pedidos-usuario/ragbr7070@gmail.com')
+
+    const token = localStorage.getItem("token");
+
+    fetch(`/pedidos-usuario/${token}`)
       .then(response => response.json())
       .then(pedidos => {
         const containerPedidos = document.querySelector(".container-pedidos");

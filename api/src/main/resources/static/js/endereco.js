@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   const listaEnderecos = document.querySelector(".lista-enderecos");
 
-  const email = localStorage.getItem("email");
+  const token = localStorage.getItem("token");
 
-  if (email) {
-    fetch(`/enderecos/${email}`)
+  if (token) {
+    fetch(`/enderecos/${token}`)
       .then((response) => response.json())
       .then((data) => {
         listaEnderecos.innerHTML = "";
