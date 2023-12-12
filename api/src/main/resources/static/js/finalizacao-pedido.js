@@ -2,13 +2,13 @@ localStorage.setItem("paginaFinalizacao", window.location.href);
 
 const parametrosURL = obterParametrosURL();
 const codigoLivro = parametrosURL.codigo;
-const email = localStorage.getItem("email");
+const token = localStorage.getItem("token");
 const modalMessage = document.getElementById("modal-message");
 const closeButton = document.querySelector(".close");
 
 function buscarEnderecos() {
-  if (email) {
-    fetch(`/enderecos/${email}`)
+  if (token) {
+    fetch(`/enderecos/${token}`)
       .then((response) => response.json())
       .then((data) => {
         data.forEach((endereco) => {
@@ -36,7 +36,7 @@ function buscarEnderecos() {
 }
 
 function buscarCartoes() {
-  fetch(`/cartoes/${email}`)
+  fetch(`/cartoes/${token}`)
     .then((response) => response.json())
     .then((data) => {
       data.forEach((cartao) => {

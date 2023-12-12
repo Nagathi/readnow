@@ -3,105 +3,119 @@ const closeButton = document.querySelector(".close");
 const modal = document.getElementById("modal");
 
 function autenticacao() {
-  if (localStorage.getItem("token")) {
-    fetch("/encerra-sessao", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data == true) {
-          console.log(data);
-          localStorage.removeItem("token");
-          modalMessage.textContent = "Sessão expirada! Faça login novamente.";
-          modal.style.display = "block";
-        }
-      });
-  }
+  try {
+    // if (localStorage.getItem("token")) {
+    //   fetch("/encerra-sessao", {
+    //     method: "POST",
+    //     headers: {
+    //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //     },
+    //   })
+    //     .then(async (response) => {
+    //       if (response.status === 200) {
+    //         // Sucesso: o token não está expirado
+    //         return response.json();
+    //       } else if (response.status === 400) {
+    //         // Token expirado
+    //         const errorMessage = await response.text();
+    //         throw new Error(`Token expirado: ${errorMessage}`);
+    //       } else {
+    //         // Outro erro no servidor
+    //         throw new Error(`Erro na solicitação: ${response.status}`);
+    //       }
+    //     })
 
-  const nomeUsuario = localStorage.getItem("nome");
-  const loginButton = document.querySelector("#login");
-  const cadastroButton = document.querySelector("#cadastro");
+    //     .catch((error) => {
+    //       if (error.message.includes("500")) {
+    //         localStorage.removeItem("token");
+    //         modalMessage.textContent = "Sessão expirada! Faça login novamente.";
+    //         modal.style.display = "block";
+    //       }
+    //     });
+    // }
 
-  if (localStorage.getItem("token") != null && nomeUsuario != "") {
-    loginButton.style.display = "none";
-    cadastroButton.style.display = "none";
+    const nomeUsuario = localStorage.getItem("nome");
+    const loginButton = document.querySelector("#login");
+    const cadastroButton = document.querySelector("#cadastro");
 
-    const navIcons = document.createElement("nav");
-    navIcons.classList.add("card-icons");
-    const header = document.querySelector(".cabecalho");
+    if (localStorage.getItem("token") != null && nomeUsuario != "") {
+      loginButton.style.display = "none";
+      cadastroButton.style.display = "none";
 
-    navIcons.innerHTML = `
-    <div class="opcoes">
-            <div id= "sua-conta" class="item">
-            <a href="/conta-usuario">
-                <img src="images/icons/user.svg" alt="Carrinho de compras">
-                <span class="identificador"> Olá, ${nomeUsuario} <br> Sua conta</span>
-            </a>
-            </div>
-  
-            <div class="item" id="carrinho-compras">
-              <a href="carrinho">
-                  <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras">
-                  <span class="identificador">Carrinho</span>
+      const navIcons = document.createElement("nav");
+      navIcons.classList.add("card-icons");
+      const header = document.querySelector(".cabecalho");
+
+      navIcons.innerHTML = `
+        <div class="opcoes">
+                <div id= "sua-conta" class="item">
+                <a href="/conta-usuario">
+                    <img src="images/icons/user.svg" alt="Carrinho de compras">
+                    <span class="identificador"> Olá, ${nomeUsuario} <br> Sua conta</span>
+                </a>
+                </div>
       
-                  <div class="produtos-carrinho">
-                  <span class="quantidade">9</span>
-                  <span class="simbolo-mais">+</span>
-                  </div>
-              </a>
-            </div>
+                <div class="item" id="carrinho-compras">
+                  <a href="carrinho">
+                      <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras">
+                      <span class="identificador">Carrinho</span>
+          
+                      <div class="produtos-carrinho">
+                      <span class="quantidade">9</span>
+                      <span class="simbolo-mais">+</span>
+                      </div>
+                  </a>
+                </div>
+    
+                <div class="item">
+                <a href="/central-ajuda">
+                    <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras">
+                    <span class="identificador">Ajuda</span>
+                </a>
+                </div>
+          </div>
+    
+        <div class="menu-list" id="userMenu">
+        <ul>
+          <li><a href="/conta-usuario">Conta</a></li>
+          <li><a href="#">Pedidos</a></li>
+          <li><a href="/enderecos">Endereços</a></li>
+          <li id="sair"><a href="#">Sair</a></li>
+        </ul>
+        </div>
+      `;
+      header.appendChild(navIcons);
+      document
+        .getElementById("sua-conta")
+        .addEventListener("mouseover", function () {
+          const userMenu = document.getElementById("userMenu");
+          userMenu.style.display =
+            userMenu.style.display === "block" ? "none" : "block";
+        });
+      document.getElementById("sair").addEventListener("click", function () {
+        if (localStorage.getItem("carrinhoItens") != "[]") {
+          salvarEstadoCarrinho(localStorage.getItem("carrinhoItens"));
+        }
+        limparLocalStorage();
 
-            <div class="item">
-            <a href="/central-ajuda">
-                <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras">
-                <span class="identificador">Ajuda</span>
-            </a>
-            </div>
-      </div>
+        const cardIcons = document.querySelector(".card-icons");
 
-    <div class="menu-list" id="userMenu">
-    <ul>
-      <li><a href="/conta-usuario">Conta</a></li>
-      <li><a href="#">Pedidos</a></li>
-      <li><a href="/enderecos">Endereços</a></li>
-      <li id="sair"><a href="#">Sair</a></li>
-    </ul>
-    </div>
-  `;
-    header.appendChild(navIcons);
-    document
-      .getElementById("sua-conta")
-      .addEventListener("mouseover", function () {
-        const userMenu = document.getElementById("userMenu");
-        userMenu.style.display =
-          userMenu.style.display === "block" ? "none" : "block";
+        cardIcons.style.display = "none";
+        loginButton.style.display = "block";
+        cadastroButton.style.display = "block";
+
+        fetch("/logout", {
+          method: "POST",
+        })
+          .then((response) => response.json)
+          .then((data) => console.log(data));
       });
-    document.getElementById("sair").addEventListener("click", function () {
-      if (localStorage.getItem("carrinhoItens") != "[]") {
-        salvarEstadoCarrinho(localStorage.getItem("carrinhoItens"));
-      }
-      limparLocalStorage();
-
-      const cardIcons = document.querySelector(".card-icons");
-
-      cardIcons.style.display = "none";
+    } else {
       loginButton.style.display = "block";
       cadastroButton.style.display = "block";
-
-      fetch("/logout", {
-        method: "POST",
-      })
-        .then((response) => response.json)
-        .then((data) => console.log(data));
-    });
-  } else {
-    loginButton.style.display = "block";
-    cadastroButton.style.display = "block";
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -223,6 +237,5 @@ window.addEventListener("click", function (event) {
   if (event.target === modal) {
     closeModal();
     window.location.href = "/";
-
   }
 });
