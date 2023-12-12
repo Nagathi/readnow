@@ -173,3 +173,53 @@
   cursor: pointer;
   transition: all .3s;
 }
+
+@media (max-width: 425px) {
+
+  .carrinho-compras {
+    width: auto;
+  }
+
+  .card-subtotal {
+    width: 32rem;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+    padding: 1.2rem;
+  }
+
+  .card-itens-carrinho {
+    row-gap: 1.2rem;
+  }
+
+  .texto h2 {
+    font-size: 1.6rem;
+  }
+
+  .preco {
+    font-size: 1.4rem;
+    margin-top: .5rem;
+  }
+
+  .item-carrinho {
+    width: 32rem;
+  }
+
+  .container-imagem {
+    margin-right: 1.2rem;
+  }
+
+  .textos {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .botoes {
+    justify-content: flex-start;
+    column-gap: 1.2rem;
+    margin-top: 1.2rem;
+  }
+
+  #quantidade, .btn-excluir {
+    padding: .6rem .8rem;
+  }
+}
