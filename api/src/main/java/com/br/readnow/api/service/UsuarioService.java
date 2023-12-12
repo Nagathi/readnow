@@ -190,7 +190,12 @@ public class UsuarioService {
 
         try {
             if (usuarOptional.isPresent()) {
-                String uploadImagem = "C:/Users/gu-gu/OneDrive/Documentos/Eng. de Computação/Desenvolvimento Web/Trabalho 1/API/api/src/main/resources/static/images/usuarios/";
+                String diretorioAtual = System.getProperty("user.dir");
+                String caminhoRelativo = "/api/src/main/resources/static/images/usuarios/";
+                String caminhoAbsoluto = diretorioAtual.toString() + caminhoRelativo;
+                String caminhoFinal = caminhoAbsoluto.toString();
+
+                String uploadImagem = caminhoFinal;
                 String uniqueImageName = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
 
                 Path destinoImagem = Path.of(uploadImagem + uniqueImageName);
