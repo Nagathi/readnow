@@ -82,7 +82,7 @@ public class CarrinhoService {
                     if (livroOptional.isPresent()) {
                         livroOptional.get().setQuantidade(item.getQuantidade());
                         livroItemCarrinhoRepository.save(livroOptional.get());
-                        
+
                     } else {
                         LivroItemModel itemCarrinhoModel = new LivroItemModel();
                         itemCarrinhoModel.setCarrinho(carrinhoOptional.get());
@@ -106,6 +106,8 @@ public class CarrinhoService {
                     livroItemCarrinhoRepository.delete(livroNoCarrinho);
                 }
             }
+        } else {
+            livroItemCarrinhoRepository.deleteAll();;
         }
     }
 
@@ -172,7 +174,7 @@ public class CarrinhoService {
         }
     }
 
-    public ResponseEntity<?> finalizarPedido(){
+    public ResponseEntity<?> finalizarPedido() {
         return null;
     }
 }

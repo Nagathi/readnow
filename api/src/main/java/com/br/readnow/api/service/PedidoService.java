@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.br.readnow.api.dto.AjudaDTO;
 import com.br.readnow.api.dto.LivroQuantidadeDTO;
 import com.br.readnow.api.dto.PedidoDTO;
@@ -49,7 +50,7 @@ public class PedidoService {
     public Iterable<PedidoDTO> listarPedidos() {
         Iterable<PedidoModel> pedidos = pedidoRepository.findAll();
         List<PedidoDTO> pedidosDTO = new ArrayList<>();
-        
+
         for (PedidoModel pedido : pedidos) {
             PedidoDTO pedidoDTO = new PedidoDTO();
             pedidoDTO.setDataPedido(pedido.getDataPedido());
@@ -68,52 +69,59 @@ public class PedidoService {
 
             pedidosDTO.add(pedidoDTO);
         }
-        
+
         return pedidosDTO;
     }
 
-    public ResponseEntity<Long> salvarPedido(PedidoDTO pedido) {
-        Optional<CartaoModel> cartOptional = cartaoRepository.findById(pedido.getCodigoCartao());
-        Optional<EnderecoModel> enderecOptional = enderecoRepository.findById(pedido.getCodigoEndereco());
-        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(pedido.getEmail());
-        List<LivroPedidoModel> livrosPedido = new ArrayList<LivroPedidoModel>();
+    public ResponseEntity<Long> salvarPedido(String token, PedidoDTO pedido) {
+        try {
+            tokenService.validarToken(token);
+            Optional<CartaoModel> cartOptional = cartaoRepository.findById(pedido.getCodigoCartao());
+            Optional<EnderecoModel> enderecOptional = enderecoRepository.findById(pedido.getCodigoEndereco());
+            Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(pedido.getEmail());
+            List<LivroPedidoModel> livrosPedido = new ArrayList<LivroPedidoModel>();
 
-        if (usuarioOptional.isPresent()) {
-            PedidoModel pedidoModel = new PedidoModel();
-            pedidoModel.setCartao(cartOptional.get());
+            if (usuarioOptional.isPresent()) {
+                PedidoModel pedidoModel = new PedidoModel();
+                pedidoModel.setCartao(cartOptional.get());
 
-            LocalDate dataAtual = LocalDate.now();
-            
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String dataPedidoFormatada = dataAtual.format(formatter);
+                LocalDate dataAtual = LocalDate.now();
 
-            pedidoModel.setDataEntregaPrevista(dataPedidoFormatada);
-            pedidoModel.setDataPedido(dataPedidoFormatada);
-            pedidoModel.setEndereco(enderecOptional.get());
-            pedidoModel.setLivrosPedido(livrosPedido);
-            pedidoModel.setValorTotal(pedido.getValorTotal());
-            pedidoModel.setUsuario(usuarioOptional.get());
-            pedidoModel.setEntregue(false);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String dataPedidoFormatada = dataAtual.format(formatter);
 
-            for (LivroQuantidadeDTO livroQuantidadeDTO : pedido.getLivros()) {
-                LivroPedidoModel livroPedidoModel = new LivroPedidoModel();
-                livroPedidoModel.setQuantidade(livroQuantidadeDTO.getQuantidade());
-                livroPedidoModel.setLivro(livroRepository.findById(livroQuantidadeDTO.getCodigoLivro()).orElse(null));
-                livroPedidoModel.setPedido(pedidoModel);
-                livroPedidoModel.setUsuario(usuarioOptional.get());
+                pedidoModel.setDataEntregaPrevista(dataPedidoFormatada);
+                pedidoModel.setDataPedido(dataPedidoFormatada);
+                pedidoModel.setEndereco(enderecOptional.get());
+                pedidoModel.setLivrosPedido(livrosPedido);
+                pedidoModel.setValorTotal(pedido.getValorTotal());
+                pedidoModel.setUsuario(usuarioOptional.get());
+                pedidoModel.setEntregue(false);
 
-                livrosPedido.add(livroPedidoModel);
+                for (LivroQuantidadeDTO livroQuantidadeDTO : pedido.getLivros()) {
+                    LivroPedidoModel livroPedidoModel = new LivroPedidoModel();
+                    livroPedidoModel.setQuantidade(livroQuantidadeDTO.getQuantidade());
+                    livroPedidoModel
+                            .setLivro(livroRepository.findById(livroQuantidadeDTO.getCodigoLivro()).orElse(null));
+                    livroPedidoModel.setPedido(pedidoModel);
+                    livroPedidoModel.setUsuario(usuarioOptional.get());
+
+                    livrosPedido.add(livroPedidoModel);
+                }
+
+                pedidoModel.setLivrosPedido(livrosPedido);
+                pedidoRepository.save(pedidoModel);
+
+                return ResponseEntity.ok(pedidoModel.getCodigo());
+
+            } else {
+                return ResponseEntity.notFound().build();
             }
+        } catch (TokenExpiredException e) {
+            return ResponseEntity.status(500).build();
 
-            pedidoModel.setLivrosPedido(livrosPedido);
-            pedidoRepository.save(pedidoModel);
-
-
-            return ResponseEntity.ok(pedidoModel.getCodigo());
-
-        } else {
-            return ResponseEntity.notFound().build();
         }
+
     }
 
     public List<PedidoEntregueDTO> listarLivrosPedidosPorUsuario(String token) {
@@ -121,20 +129,20 @@ public class PedidoService {
         String email = tokenService.validarToken(token);
 
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
-        
+
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
             List<PedidoModel> pedidos = pedidoRepository.findByUsuarioAndEntregueTrue(usuario);
-            
+
             List<PedidoEntregueDTO> pedidosDTO = new ArrayList<>();
-            
+
             for (PedidoModel pedido : pedidos) {
                 PedidoEntregueDTO pedidoDTO = new PedidoEntregueDTO();
                 pedidoDTO.setCodigo(pedido.getCodigo());
                 pedidoDTO.setData(pedido.getDataPedido());
-    
+
                 List<LivroPedidoModel> livrosPedidos = pedido.getLivrosPedido();
-                
+
                 for (LivroPedidoModel livroPedido : livrosPedidos) {
                     PedidoEntregueDTO pedidoEntregueDTO = new PedidoEntregueDTO();
                     pedidoEntregueDTO.setCodigo(livroPedido.getPedido().getCodigo());
@@ -145,24 +153,24 @@ public class PedidoService {
                     pedidosDTO.add(pedidoEntregueDTO);
                 }
             }
-            
+
             return pedidosDTO;
         } else {
             return new ArrayList<>();
         }
     }
 
-    public List<PedidoPendenteDTO> listarLivrosPendentes(String token){
+    public List<PedidoPendenteDTO> listarLivrosPendentes(String token) {
         String email = tokenService.validarToken(token);
 
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
-        
+
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuario = usuarioOptional.get();
             List<PedidoModel> pedidos = pedidoRepository.findByUsuarioAndEntregueFalse(usuario);
-            
+
             List<PedidoPendenteDTO> pedidosDTO = new ArrayList<>();
-            
+
             for (PedidoModel pedido : pedidos) {
                 PedidoPendenteDTO pedidoDTO = new PedidoPendenteDTO();
                 pedidoDTO.setCodigo(pedido.getCodigo());
@@ -177,25 +185,25 @@ public class PedidoService {
                 pedidoDTO.setTitulo(pedido.getLivrosPedido().get(0).getLivro().getTitulo());
                 pedidosDTO.add(pedidoDTO);
             }
-            
+
             return pedidosDTO;
         } else {
             return new ArrayList<>();
         }
     }
 
-    public List<AjudaDTO> listarPedidos(String token){
+    public List<AjudaDTO> listarPedidos(String token) {
         String email = tokenService.validarToken(token);
-        
+
         List<AjudaDTO> pedidosDTO = new ArrayList<AjudaDTO>();
 
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
 
-        if(usuarioOptional.isPresent()){
+        if (usuarioOptional.isPresent()) {
             List<PedidoModel> pedidos = pedidoRepository.findAllByUsuario(usuarioOptional.get());
 
-            if(!pedidos.isEmpty()){
-                for(PedidoModel pedido : pedidos){
+            if (!pedidos.isEmpty()) {
+                for (PedidoModel pedido : pedidos) {
                     AjudaDTO pedidoDTO = new AjudaDTO();
 
                     pedidoDTO.setCodigo(pedido.getCodigo());
@@ -205,7 +213,7 @@ public class PedidoService {
                     String dataPedido = pedido.getDataPedido();
                     String[] partes = dataPedido.split("/");
                     String diaMes = partes[0] + "/" + partes[1];
-                    
+
                     pedidoDTO.setDiaMes(diaMes);
                     pedidoDTO.setAno(partes[2]);
 
@@ -217,5 +225,5 @@ public class PedidoService {
 
         return pedidosDTO;
     }
-        
+
 }

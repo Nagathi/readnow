@@ -1,8 +1,14 @@
+const mensagemModal = document.getElementById("modal-message");
+const botaoFechar = document.querySelector(".close");
+const modalAviso = document.getElementById("modal");
+
+console.log(mensagemModal);
+
 function autenticacao() {
-  const usuarioAutenticado = localStorage.getItem("token");
+ 
   const nomeUsuario = localStorage.getItem("nome");
 
-  if (usuarioAutenticado != null && nomeUsuario != null) {
+  if (localStorage.getItem("token") != null && nomeUsuario != null) {
     const suaContaButton = document.querySelector(".identificador");
     suaContaButton.innerHTML = `Olá, ${
       nomeUsuario.split(" ")[0]
@@ -41,18 +47,57 @@ function autenticacao() {
     });
 
     document.getElementById("sair").addEventListener("click", function () {
-      if (localStorage.getItem("carrinhoItens") != []) {
-        salvarEstadoCarrinho(localStorage.getItem("carrinhoItens"));
-      }
-      limparLocalStorage();
-
-      const cardIcons = document.querySelector(".nav-icons");
-      cardIcons.style.display = "none";
+      logout();
     });
   }
 }
+
+
+function logout() {
+  if (localStorage.getItem("carrinhoItens") != [] && localStorage.getItem("carrinhoItens") != null) {
+    salvarEstadoCarrinho(localStorage.getItem("carrinhoItens"));
+  }
+  fetch("/efetua-logout", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+  limparLocalStorage();
+
+  const cardIcons = document.querySelector(".nav-icons");
+  cardIcons.style.display = "none";
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   autenticacao();
+});
+document.addEventListener("mousemove", function () {
+  if (localStorage.getItem("token")) {
+    fetch("/encerra-sessao", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        if (response.status != 200) {
+          throw new Error(response.status);
+        }
+      })
+      .catch((error) => {
+        if (error.message.includes("500")) {
+          console.clear();
+          localStorage.removeItem("token");
+          mensagemModal.textContent = "Sessão expirada! Faça login novamente.";
+          modalAviso.style.display = "block";
+        } else {
+          mensagemModal.textContent =
+            "Ocorreu um erro. Repita a ação novamente.";
+          modalAviso.style.display = "block";
+        }
+      });
+  }
 });
 
 function salvarEstadoCarrinho(data) {
@@ -65,26 +110,20 @@ function salvarEstadoCarrinho(data) {
   });
 }
 
-function removerItemCarrinho(codigoLivro, usuarioAutenticado) {
-  fetch(`/remove-livro?codigo=${codigoLivro}`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${usuarioAutenticado}`,
-    },
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-    });
-}
 
-function limparLocalStorage(){
+function limparLocalStorage() {
   localStorage.removeItem("token");
   localStorage.removeItem("email");
   localStorage.removeItem("nome");
   localStorage.removeItem("carrinhoItens");
 }
+function closeModal() {
+  modal.style.display = "none";
+  window.location.href = "/";
+}
+botaoFechar.addEventListener("click", closeModal);
+window.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    closeModal();
+  }
+});

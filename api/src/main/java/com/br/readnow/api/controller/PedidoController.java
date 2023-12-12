@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.readnow.api.dto.AjudaDTO;
@@ -27,8 +28,10 @@ public class PedidoController {
     }
 
     @PostMapping("/salva-pedido")
-    public ResponseEntity<Long> cadastrarPedido(@RequestBody PedidoDTO pedidoDTO){
-        return pedidoService.salvarPedido(pedidoDTO);
+    public ResponseEntity<Long> cadastrarPedido(@RequestHeader("Authorization") String authorization, @RequestBody PedidoDTO pedidoDTO){
+        String token = authorization.replace("Bearer ", "");
+
+        return pedidoService.salvarPedido(token, pedidoDTO);
     }
 
     @GetMapping("/pedidos-usuario/{token}")

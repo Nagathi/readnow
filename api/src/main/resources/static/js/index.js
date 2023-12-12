@@ -2,38 +2,43 @@ const modalMessage = document.getElementById("modal-message");
 const closeButton = document.querySelector(".close");
 const modal = document.getElementById("modal");
 
+async function isSessaoExpirada() {
+  await fetch("/encerra-sessao", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
+    .then((response) => {
+      if (response.status != 200) {
+        throw new Error(response.status);
+      }
+    })
+    .catch((error) => {
+      if (error.message.includes("500")) {
+        console.clear();
+        localStorage.removeItem("token");
+        modalMessage.textContent = "Sessão expirada! Faça login novamente.";
+        modal.style.display = "block";
+      } else {
+        modalMessage.textContent = "Ocorreu um erro. Repita a ação novamente.";
+        modal.style.display = "block";
+      }
+    });
+}
+
 function autenticacao() {
-  try {
-    // if (localStorage.getItem("token")) {
-    //   fetch("/encerra-sessao", {
-    //     method: "POST",
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //     },
-    //   })
-    //     .then(async (response) => {
-    //       if (response.status === 200) {
-    //         // Sucesso: o token não está expirado
-    //         return response.json();
-    //       } else if (response.status === 400) {
-    //         // Token expirado
-    //         const errorMessage = await response.text();
-    //         throw new Error(`Token expirado: ${errorMessage}`);
-    //       } else {
-    //         // Outro erro no servidor
-    //         throw new Error(`Erro na solicitação: ${response.status}`);
-    //       }
-    //     })
-
-    //     .catch((error) => {
-    //       if (error.message.includes("500")) {
-    //         localStorage.removeItem("token");
-    //         modalMessage.textContent = "Sessão expirada! Faça login novamente.";
-    //         modal.style.display = "block";
-    //       }
-    //     });
-    // }
-
+  if (localStorage.getItem("token") != null) {
+    isSessaoExpirada();
+    if (localStorage.getItem("carrinhoItens") != "[]" && localStorage.getItem("carrinhoItens") != null) {
+      fetch(`/mostra-carrinho/${localStorage.getItem("token")}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          localStorage.setItem("carrinhoItens", JSON.stringify(data));
+        });
+    }
     const nomeUsuario = localStorage.getItem("nome");
     const loginButton = document.querySelector("#login");
     const cadastroButton = document.querySelector("#cadastro");
@@ -80,7 +85,7 @@ function autenticacao() {
           <li><a href="/conta-usuario">Conta</a></li>
           <li><a href="#">Pedidos</a></li>
           <li><a href="/enderecos">Endereços</a></li>
-          <li id="sair"><a href="#">Sair</a></li>
+          <li id="sair"><a href="/">Sair</a></li>
         </ul>
         </div>
       `;
@@ -96,26 +101,24 @@ function autenticacao() {
         if (localStorage.getItem("carrinhoItens") != "[]") {
           salvarEstadoCarrinho(localStorage.getItem("carrinhoItens"));
         }
-        limparLocalStorage();
-
         const cardIcons = document.querySelector(".card-icons");
 
         cardIcons.style.display = "none";
         loginButton.style.display = "block";
         cadastroButton.style.display = "block";
 
-        fetch("/logout", {
+        fetch("/efetua-logout", {
           method: "POST",
-        })
-          .then((response) => response.json)
-          .then((data) => console.log(data));
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        limparLocalStorage();
       });
     } else {
       loginButton.style.display = "block";
       cadastroButton.style.display = "block";
     }
-  } catch (error) {
-    console.log(error);
   }
 }
 
@@ -231,11 +234,11 @@ function salvarEstadoCarrinho(data) {
 }
 function closeModal() {
   modal.style.display = "none";
+  window.location.href = "/";
 }
 closeButton.addEventListener("click", closeModal);
 window.addEventListener("click", function (event) {
   if (event.target === modal) {
     closeModal();
-    window.location.href = "/";
   }
 });
