@@ -271,9 +271,7 @@ function encontrarIndiceLivro(array, novoLivro) {
 }
 
 function sãoIguais(livro1, livro2) {
-  console.log(livro1.livro.codigo);
-  console.log(livro2.livro.codigo);
-  return livro1.livro.codigo === livro2.livro.codigo;
+  return livro1.livro.codigo === livro2.livro.codigo; 
 }
 
 comprarAgoraButton.addEventListener("click", function (event) {

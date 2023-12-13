@@ -185,28 +185,39 @@ public class UsuarioService {
         }
     }
 
-    public ResponseEntity<?> alterarFoto(MultipartFile foto, String nome, String email) {
+    public ResponseEntity<?> alterarFoto(MultipartFile foto, String nome, String token) {
+        String email = tokenService.validarToken(token);
         Optional<UsuarioModel> usuarOptional = usuarioRepository.findByEmail(email);
 
         try {
             if (usuarOptional.isPresent()) {
-                String diretorioAtual = System.getProperty("user.dir");
-                String caminhoRelativo = "/api/src/main/resources/static/images/usuarios/";
-                String caminhoAbsoluto = diretorioAtual.toString() + caminhoRelativo;
-                String caminhoFinal = caminhoAbsoluto.toString();
+                if (foto == null || foto.isEmpty() || foto.getOriginalFilename() == null) {
 
-                String uploadImagem = caminhoFinal;
-                String uniqueImageName = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
+                    UsuarioModel usuario = usuarOptional.get();
+                    usuario.setNome(nome);
+                    usuarioRepository.save(usuario);
 
-                Path destinoImagem = Path.of(uploadImagem + uniqueImageName);
-                Files.copy(foto.getInputStream(), destinoImagem, StandardCopyOption.REPLACE_EXISTING);
+                }else{
 
-                UsuarioModel usuario = usuarOptional.get();
-                usuario.setFoto(uniqueImageName);
-                usuario.setNome(nome);
-                usuarioRepository.save(usuario);
+                    String diretorioAtual = System.getProperty("user.dir");
+                    String caminhoRelativo = "/api/src/main/resources/static/images/usuarios/";
+                    String caminhoAbsoluto = diretorioAtual.toString() + caminhoRelativo;
+                    String caminhoFinal = caminhoAbsoluto.toString();
 
-                return ResponseEntity.ok("Foto alterada!");
+                    String uploadImagem = caminhoFinal;
+                    String uniqueImageName = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
+
+                    Path destinoImagem = Path.of(uploadImagem + uniqueImageName);
+                    Files.copy(foto.getInputStream(), destinoImagem, StandardCopyOption.REPLACE_EXISTING);
+
+                    UsuarioModel usuario = usuarOptional.get();
+                    usuario.setFoto(uniqueImageName);
+                    usuario.setNome(nome);
+                    usuarioRepository.save(usuario);
+
+                }
+
+                return ResponseEntity.ok("Dados alterados!");
             } else {
                 return ResponseEntity.notFound().build();
             }

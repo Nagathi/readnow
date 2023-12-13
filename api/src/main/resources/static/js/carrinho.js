@@ -37,7 +37,7 @@ function listarLivrosCarrinho(novoLivro, item, listaLivros) {
 
             <div class="direita">
               <div class="textos">
-                <a href="#">
+                <a href="/livro?codigo=${item.livro.codigo}">
                   <h1 class="nome-livro">${item.livro.titulo}</h1>
                 </a>
                 <p class="preco">R$ ${item.livro.preco.toFixed(2)}</p>
