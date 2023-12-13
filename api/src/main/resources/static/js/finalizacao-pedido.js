@@ -158,10 +158,10 @@ function salvarPedido() {
     );
     const email = localStorage.getItem("email");
     var listaLivros = [];
-    const parametrosURL = obterParametrosURL();
-    const codigoLivro = parametrosURL.codigo;
 
     if (localStorage.getItem("livroComprarAgora")) {
+      const parametrosURL = obterParametrosURL();
+      const codigoLivro = parametrosURL.codigo;
       var livro = {
         codigoLivro: codigoLivro,
         quantidade: JSON.parse(localStorage.getItem("livroComprarAgora"))
