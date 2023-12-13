@@ -50,14 +50,7 @@ function autenticacao() {
                 } <br> Sua conta</span>
             </a>
             </div>
-  
-            <div class="item">
-            <a href="/central-ajuda">
-                <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras">
-                <span class="identificador">Ajuda</span>
-            </a>
-            </div>
-  
+
             <div class="item" id="carrinho-compras">
             <a href="carrinho">
                 <img src="images/icons/iconCarrier.svg" alt="Carrinho de compras">
@@ -69,6 +62,14 @@ function autenticacao() {
                 </div>
             </a>
             </div>
+  
+            <div class="item">
+            <a href="/central-ajuda">
+                <img src="images/icons/ouvidoria.svg" alt="Carrinho de compras">
+                <span class="identificador">Ajuda</span>
+            </a>
+            </div>
+  
       </div>
 
     <div class="menu-list" id="userMenu">
