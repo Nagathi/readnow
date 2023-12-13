@@ -6,3 +6,9 @@
   justify-content: flex-start;
   max-width: 113.6rem;
 }
+
+@media (max-width: 425px) {
+  .lista-livros {
+    justify-content: center;
+  }
+}
