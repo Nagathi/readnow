@@ -5,10 +5,10 @@
   const inputFile = document.querySelector("#picture__input");
   const cancelBtn = document.querySelector(".btn-cancelar");
   const continuarBtn = document.querySelector(".btn-continuar");
-  const email = localStorage.getItem("email");
+  const token = localStorage.getItem("token");
 
-  function buscarDadosUsuario(email) {
-    fetch(`/busca-foto?email=${email}`)
+  function buscarDadosUsuario(token) {
+    fetch(`/busca-foto/${token}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erro ao buscar os dados do usuário.");
@@ -27,7 +27,7 @@
       });
   }
 
-  buscarDadosUsuario(email);
+  buscarDadosUsuario(token);
 
   inputFile.addEventListener("change", function (e) {
     const inputTarget = e.target;
@@ -57,7 +57,7 @@
       formData.append("foto", file);
     }
     
-    formData.append("email", email);
+    formData.append("token", token);
     formData.append("nome", nome);
 
     fetch("/foto", {

@@ -66,8 +66,8 @@ public class UsuarioController {
         return usuarioService.alterarFoto(foto, nome, token);
     }
 
-    @GetMapping("/busca-foto")
-    public ResponseEntity<PerfilDTO> buscarPerfil(@RequestParam(value = "email") String email){
-        return usuarioService.retornarNomeEFoto(email);
+    @GetMapping("/busca-foto/{token}")
+    public ResponseEntity<PerfilDTO> buscarPerfil(@PathVariable(value = "token") String token){
+        return usuarioService.retornarNomeEFoto(token);
     }
 }

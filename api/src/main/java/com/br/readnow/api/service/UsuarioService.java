@@ -230,7 +230,9 @@ public class UsuarioService {
 
     }
 
-    public ResponseEntity<PerfilDTO> retornarNomeEFoto(String email) {
+    public ResponseEntity<PerfilDTO> retornarNomeEFoto(String token) {
+        String email = tokenService.validarToken(token);
+        
         Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
         if (usuarioOptional.isPresent()) {
             PerfilDTO perfilDTO = new PerfilDTO();
