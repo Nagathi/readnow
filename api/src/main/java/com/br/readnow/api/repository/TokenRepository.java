@@ -17,7 +17,6 @@ public interface TokenRepository extends CrudRepository <AuthModel, String>{
     boolean existsByUsuario(UsuarioModel usuario);
     Optional<AuthModel> findByUuid(String usuario);
 
-
     @Transactional
     @Modifying
     @Query("UPDATE AuthModel a SET a.expirado = true WHERE a.usuario = :usuario AND a.expirado = false")
