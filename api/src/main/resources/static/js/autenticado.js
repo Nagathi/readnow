@@ -101,6 +101,7 @@ function verificarSessaoExpirada() {
       if (error.message.includes("500")) {
         console.clear();
         localStorage.removeItem("token");
+        document.querySelector(".image-modal").src = "/images/icons/error.svg";
         mensagemModal.textContent = "Sessão expirada! Faça login novamente.";
         modalAviso.style.display = "block";
         localStorage.setItem("sessao-expirada", "true");
@@ -120,7 +121,7 @@ function limparLocalStorage() {
 }
 function closeModal() {
   modal.style.display = "none";
-  if(localStorage.getItem("sessao-expirada")){
+  if(localStorage.getItem("sessao-expirada") === "true"){
     window.location.href = "/";
   }
 }
@@ -132,7 +133,7 @@ window.addEventListener("click", function (event) {
 });
 
 modalAviso.addEventListener("onblur", function(){
-  if(localStorage.getItem("sessao-expirada")){
+  if(localStorage.getItem("sessao-expirada")  === "true"){
     window.location.href = "/";
   }
 });

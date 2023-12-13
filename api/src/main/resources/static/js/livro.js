@@ -7,7 +7,7 @@ const comprarAgoraButton = document.querySelector(".comprar-agora");
 
 function closeModal() {
   modal.style.display = "none";
-  if (localStorage.getItem("sessao-expirada")) {
+  if (localStorage.getItem("sessao-expirada") === "true") {
     window.location.href = "/";
   }
 }
@@ -273,7 +273,7 @@ window.addEventListener("click", function (event) {
 });
 
 modal.addEventListener("onblur", function () {
-  if (localStorage.getItem("sessao-expirada")) {
+  if (localStorage.getItem("sessao-expirada") === "true") {
     window.location.href = "/";
   }
 });
