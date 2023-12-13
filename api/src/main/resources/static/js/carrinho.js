@@ -82,9 +82,7 @@ function listarLivrosCarrinho(novoLivro, item, listaLivros) {
                     <option value="9">9</option>
                     <option value="10">10</option>
                   </select>
-                  <button data-livro-titulo="${
-                    item.livro.isbn
-                  }" id="excluir" class="btn-excluir">Excluir</button>
+                  <button data-livro-index="${item.livro.isbn}" id="excluir" class="btn-excluir">Excluir</button>
                 </div>
               </div>
             </div>  
@@ -93,11 +91,11 @@ function listarLivrosCarrinho(novoLivro, item, listaLivros) {
   var botoesExcluir = document.querySelectorAll(".btn-excluir");
   botoesExcluir.forEach(function (botaoExcluir) {
     botaoExcluir.addEventListener("click", function () {
-      var livroTitulo = botaoExcluir.dataset.livroTitulo;
-      var itemLista = document.querySelector(`.${item.livro.isbn}`);
-      if (itemLista.classList.contains(livroTitulo)) {
+      var livroTitulo = botaoExcluir.dataset.livroIndex;
+      var itemLista = document.querySelector(`.id_${item.livro.isbn}`);
+      if (itemLista.classList.value.startsWith(`id_${item.livro.isbn}`)) {
         itemLista.remove();
-        removerLivro(livroTitulo, item);
+        removerLivro(livroTitulo);
       }     
     });
   });
@@ -154,7 +152,7 @@ function mostrarLivrosLocalStorage() {
   carrinhoItens.forEach((item, index) => {
     var listaLivros = document.querySelector(".card-itens-carrinho");
     var novoLivro = document.createElement("li");
-    novoLivro.classList.add(item.livro.isbn);
+    novoLivro.classList.add("id_" + item.livro.isbn);
     listarLivrosCarrinho(novoLivro, item, listaLivros);
     alterarQuantidadeLivro(novoLivro, carrinhoItens, index);
     mostrarSubtotal(carrinhoItens);
