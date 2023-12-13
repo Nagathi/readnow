@@ -211,6 +211,8 @@
   .lista-livros {
     flex-wrap: wrap;
     row-gap: 1.6rem;
+    column-gap: 0;
+    justify-content: space-between;
   }
 
   .card-livro {

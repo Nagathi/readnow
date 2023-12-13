@@ -71,9 +71,7 @@
   }
 
   .imagem-destaque {
-    width: 22rem;
-    top: 2rem;
-    right: -4.5rem;
+    display: none;
   }
   .promocao h1 {
     font-size: 2.2rem;

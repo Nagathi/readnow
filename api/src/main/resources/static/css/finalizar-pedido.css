@@ -229,3 +229,30 @@ h2.valor-pedido {
   font-weight: 600;
 }
 
+
+@media (max-width: 425px) {
+
+  main {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .finalizar-pedido {
+    width: auto;
+  }
+
+  .informacoes {
+    width: 30rem;
+  }
+
+  .direita {
+    margin-right: 1.2rem;
+    padding-right: 0;
+  }
+  .card-suspenso {
+    align-self: center;
+    position: relative;
+    margin-left: 0;
+  }
+}
+
