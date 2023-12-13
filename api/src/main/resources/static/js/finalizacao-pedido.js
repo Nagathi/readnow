@@ -102,7 +102,7 @@ function atualizarValorTotal(data) {
   const valorTotalFrete = 10.0;
   var valorTotalLivros = 0;
 
-  if (typeof data === "object") {
+  if (localStorage.getItem("pagina-livro")) {
     valorTotalLivros = data.quantidade * data.livro.preco;
   } else {
     data.forEach((item, index) => {
@@ -378,10 +378,5 @@ closeButton.addEventListener("click", closeModal);
 window.addEventListener("click", function (event) {
   if (event.target === modal) {
     closeModal();
-  }
-});
-
-document.addEventListener("visibilitychange", function () {
-  if (document.visibilityState === "hidden") {
   }
 });

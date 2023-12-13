@@ -3,8 +3,6 @@ const botaoFechar = document.querySelector(".close");
 const modalAviso = document.getElementById("modal");
 
 function autenticacao() {
-  localStorage.setItem("sessao-expirada", "false");
-
   const nomeUsuario = localStorage.getItem("nome");
 
   if (localStorage.getItem("token") != null && nomeUsuario != null) {
@@ -118,6 +116,10 @@ function limparLocalStorage() {
   localStorage.removeItem("email");
   localStorage.removeItem("nome");
   localStorage.removeItem("carrinhoItens");
+  localStorage.removeItem("pedidoId");
+  localStorage.removeItem("carrinhoItens");
+  localStorage.removeItem("sessao-expirada");
+
 }
 function closeModal() {
   modal.style.display = "none";

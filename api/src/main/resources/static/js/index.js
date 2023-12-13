@@ -21,7 +21,6 @@ async function isSessaoExpirada() {
         modalMessage.textContent = "Sessão expirada! Faça login novamente.";
         modal.style.display = "block";
         localStorage.setItem("sessao-expirada", "true");
-
       } else {
         modalMessage.textContent = "Ocorreu um erro. Repita a ação novamente.";
         modal.style.display = "block";
@@ -30,11 +29,12 @@ async function isSessaoExpirada() {
 }
 
 function autenticacao() {
-  localStorage.setItem("sessao-expirada", "false");
-
   if (localStorage.getItem("token") != null) {
     isSessaoExpirada();
-    if (localStorage.getItem("carrinhoItens") != "[]" && localStorage.getItem("carrinhoItens") != null) {
+    if (
+      localStorage.getItem("carrinhoItens") != "[]" &&
+      localStorage.getItem("carrinhoItens") != null
+    ) {
       fetch(`/mostra-carrinho/${localStorage.getItem("token")}`)
         .then((response) => {
           return response.json();
@@ -43,6 +43,8 @@ function autenticacao() {
           localStorage.setItem("carrinhoItens", JSON.stringify(data));
         });
     }
+    localStorage.setItem("sessao-expirada", "false");
+
     const nomeUsuario = localStorage.getItem("nome");
     const loginButton = document.querySelector("#login");
     const cadastroButton = document.querySelector("#cadastro");
@@ -226,6 +228,9 @@ function limparLocalStorage() {
   localStorage.removeItem("email");
   localStorage.removeItem("nome");
   localStorage.removeItem("carrinhoItens");
+  localStorage.removeItem("pedidoId");
+  localStorage.removeItem("carrinhoItens");
+  localStorage.removeItem("sessao-expirada");
 }
 function salvarEstadoCarrinho(data) {
   fetch("/atualiza-carrinho", {

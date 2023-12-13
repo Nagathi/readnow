@@ -26,8 +26,6 @@ function obterParametrosURL() {
 }
 
 function autenticacao() {
-  localStorage.setItem("sessao-expirada", "false");
-
   const loginButton = document.querySelector(`a[href="${"/login"}"]`);
   const cadastroButton = document.querySelector(
     `a[href="${"/cadastro-cliente"}"]`
