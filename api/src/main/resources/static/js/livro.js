@@ -3,10 +3,11 @@ const nomeUsuario = localStorage.getItem("nome");
 const modal = document.getElementById("modal");
 const modalMessage = document.getElementById("modal-message");
 const closeButton = document.querySelector(".close");
-const comprarAgoraButton = document.querySelector(".comprar-agora")
+const comprarAgoraButton = document.querySelector(".comprar-agora");
 
 function closeModal() {
   modal.style.display = "none";
+  window.location.href = "/";
 }
 
 function obterParametrosURL() {
@@ -40,7 +41,9 @@ function autenticacao() {
             <div id= "sua-conta" class="item">
             <a href="/conta-usuario">
                 <img src="images/icons/user.svg" alt="Carrinho de compras" >
-                <span class="identificador"> Olá, ${nomeUsuario} <br> Sua conta</span>
+                <span class="identificador"> Olá, ${
+                  nomeUsuario.split(" ")[0]
+                } <br> Sua conta</span>
             </a>
             </div>
   
@@ -100,8 +103,16 @@ function autenticacao() {
 const parametrosURL = obterParametrosURL();
 const codigoLivro = parametrosURL.codigo;
 
+document.querySelector(".comprar-agora").addEventListener("mouseover", function () {
+    verificarSessaoExpirada();
+  });
+document.querySelector(".adicionar-carrinho").addEventListener("mouseover", function () {
+    verificarSessaoExpirada();
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   autenticacao();
+  verificarSessaoExpirada();
   fetch(`/busca-livro/${codigoLivro}`)
     .then((response) => response.json())
     .then((data) => {
@@ -121,7 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
       sinopse.textContent = data.descricao;
       disponibilidade.textContent = "Em estoque";
       addEstrelasAvaliacao(notaLivro, data.nota);
-      
 
       const categoria = data.categoria;
       document.title = data.titulo;
@@ -205,15 +215,37 @@ function adicionarItemCarrinho() {
         var indice = encontrarIndiceLivro(recuperado, data);
         if (indice == -1) {
           recuperado.push(data);
-        }
-        else{
-          recuperado[indice].quantidade += 1; 
+        } else {
+          recuperado[indice].quantidade += 1;
         }
         localStorage.setItem("carrinhoItens", JSON.stringify(recuperado));
-
       } else {
         livros.push(data);
         localStorage.setItem("carrinhoItens", JSON.stringify(livros));
+      }
+    });
+}
+function verificarSessaoExpirada() {
+  fetch("/encerra-sessao", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
+    .then((response) => {
+      if (response.status != 200) {
+        throw new Error(response.status);
+      }
+    })
+    .catch((error) => {
+      if (error.message.includes("500")) {
+        console.clear();
+        localStorage.removeItem("token");
+        modalMessage.textContent = "Sessão expirada! Faça login novamente.";
+        modal.style.display = "block";
+      } else {
+        modalMessage.textContent = "Ocorreu um erro. Repita a ação novamente.";
+        modal.style.display = "block";
       }
     });
 }
@@ -229,20 +261,25 @@ window.addEventListener("click", function (event) {
     closeModal();
   }
 });
+
+modal.addEventListener("onblur", function () {
+  window.location.href = "/";
+});
+
 function encontrarIndiceLivro(array, novoLivro) {
-  return array.findIndex(item => sãoIguais(item, novoLivro));
+  return array.findIndex((item) => sãoIguais(item, novoLivro));
 }
 
 function sãoIguais(livro1, livro2) {
   console.log(livro1.livro.codigo);
   console.log(livro2.livro.codigo);
-  return livro1.livro.codigo === livro2.livro.codigo; 
+  return livro1.livro.codigo === livro2.livro.codigo;
 }
 
-comprarAgoraButton.addEventListener("click", function(event){
+comprarAgoraButton.addEventListener("click", function (event) {
   event.preventDefault();
-  localStorage.setItem("pagina-livro", window.location.href)
-  window.location.href = '/finalizar-pedido';
+  localStorage.setItem("pagina-livro", window.location.href);
+  window.location.href = "/finalizar-pedido";
 });
 
 function addEstrelasAvaliacao(elementoPai, nota) {
@@ -250,7 +287,7 @@ function addEstrelasAvaliacao(elementoPai, nota) {
   const qtdEstrelasPreenchidas = nota;
 
   /*Criando estrelas preenchidas */
-  for(var i = 0; i < qtdEstrelasPreenchidas; i++) {
+  for (var i = 0; i < qtdEstrelasPreenchidas; i++) {
     var estrela = document.createElement("li");
     estrela.innerHTML = `
       <img src="images/icons/star-with-fill.svg" alt="">
@@ -259,7 +296,7 @@ function addEstrelasAvaliacao(elementoPai, nota) {
   }
 
   /*Criando estrelas normais */
-  for(var i = 0; i < qtdEstrelasNormais; i++) {
+  for (var i = 0; i < qtdEstrelasNormais; i++) {
     var estrela = document.createElement("li");
     estrela.innerHTML = `
       <img src="images/icons/star-normal.svg" alt="">

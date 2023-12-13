@@ -2,17 +2,13 @@ const mensagemModal = document.getElementById("modal-message");
 const botaoFechar = document.querySelector(".close");
 const modalAviso = document.getElementById("modal");
 
-console.log(mensagemModal);
-
 function autenticacao() {
  
   const nomeUsuario = localStorage.getItem("nome");
 
   if (localStorage.getItem("token") != null && nomeUsuario != null) {
     const suaContaButton = document.querySelector(".identificador");
-    suaContaButton.innerHTML = `Olá, ${
-      nomeUsuario.split(" ")[0]
-    } <br> Sua conta`;
+    suaContaButton.innerHTML = `Olá, ${nomeUsuario.split(" ")[0]} <br> Sua conta`;
 
     const navIcons = document.createElement("div");
     navIcons.classList.add("menu-list");
@@ -70,33 +66,12 @@ function logout() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  verificarSessaoExpirada();
   autenticacao();
 });
-document.addEventListener("mousemove", function () {
+document.getElementById("linkFinalizarPedido").addEventListener("mouseover", function () {
   if (localStorage.getItem("token")) {
-    fetch("/encerra-sessao", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((response) => {
-        if (response.status != 200) {
-          throw new Error(response.status);
-        }
-      })
-      .catch((error) => {
-        if (error.message.includes("500")) {
-          console.clear();
-          localStorage.removeItem("token");
-          mensagemModal.textContent = "Sessão expirada! Faça login novamente.";
-          modalAviso.style.display = "block";
-        } else {
-          mensagemModal.textContent =
-            "Ocorreu um erro. Repita a ação novamente.";
-          modalAviso.style.display = "block";
-        }
-      });
+    verificarSessaoExpirada();
   }
 });
 
@@ -109,7 +84,31 @@ function salvarEstadoCarrinho(data) {
     body: data,
   });
 }
-
+function verificarSessaoExpirada() {
+  fetch("/encerra-sessao", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
+    .then((response) => {
+      if (response.status != 200) {
+        throw new Error(response.status);
+      }
+    })
+    .catch((error) => {
+      if (error.message.includes("500")) {
+        console.clear();
+        localStorage.removeItem("token");
+        mensagemModal.textContent = "Sessão expirada! Faça login novamente.";
+        modalAviso.style.display = "block";
+      } else {
+        mensagemModal.textContent =
+          "Ocorreu um erro. Repita a ação novamente.";
+        modalAviso.style.display = "block";
+      }
+    });
+}
 
 function limparLocalStorage() {
   localStorage.removeItem("token");
@@ -126,4 +125,8 @@ window.addEventListener("click", function (event) {
   if (event.target === modal) {
     closeModal();
   }
+});
+
+modalAviso.addEventListener("onblur", function(){
+  window.location.href = "/";
 });

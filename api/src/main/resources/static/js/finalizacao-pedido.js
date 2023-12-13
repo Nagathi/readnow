@@ -1,7 +1,5 @@
 localStorage.setItem("paginaFinalizacao", window.location.href);
 
-const parametrosURL = obterParametrosURL();
-const codigoLivro = parametrosURL.codigo;
 const token = localStorage.getItem("token");
 const modalMessage = document.getElementById("modal-message");
 const closeButton = document.querySelector(".close");
@@ -66,32 +64,51 @@ function buscarCartoes() {
 
 function revisarItens() {
   var valorTotalLivros = 0;
+  const livroComprarAgora = localStorage.getItem("livroComprarAgora");
+  if (livroComprarAgora != null) {
+    const livro = JSON.parse(livroComprarAgora);
+    showCardLivros(livro.livro, livro.quantidade, 1);
+    atualizarValorTotal(livro);
+  }
+
   if (localStorage.getItem("pagina-livro")) {
+    const parametrosURL = obterParametrosURL();
+    const codigoLivro = parametrosURL.codigo;
     fetch(`/busca-livro/${codigoLivro}`)
       .then((response) => response.json())
       .then((data) => {
-        atualizarValorTotal(data.preco);
-        if (localStorage.getItem("quantidadeLivroItemComprarAgora") == null) {
-          localStorage.setItem("quantidadeLivroItemComprarAgora", 1);
+        var livro = {
+          livro: data,
+          quantidade: 1,
+        };
+        if (localStorage.getItem("livroComprarAgora") == null) {
+          localStorage.setItem("livroComprarAgora", JSON.stringify(livro));
+        } else {
+          showCardLivros(data, 1, codigoLivro);
         }
-        showCardLivros(
-          data,
-          localStorage.getItem("quantidadeLivroItemComprarAgora"),
-          codigoLivro
-        );
       });
   } else {
     const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
     carrinhoItens.forEach((item, index) => {
       valorTotalLivros += item.quantidade * item.livro.preco;
-      showCardLivros(item, item.quantidade, index);
+      atualizarValorTotal(carrinhoItens);
+      showCardLivros(item.livro, item.quantidade, index);
     });
-    atualizarValorTotal(valorTotalLivros);
   }
 }
 
-function atualizarValorTotal(valorTotalLivros) {
+function atualizarValorTotal(data) {
   const valorTotalFrete = 10.0;
+  var valorTotalLivros = 0;
+
+  if (typeof data === "object") {
+    valorTotalLivros = data.quantidade * data.livro.preco;
+  } else {
+    data.forEach((item, index) => {
+      valorTotalLivros += item.quantidade * item.livro.preco;
+    });
+  }
+
   const valorTotal = valorTotalLivros + valorTotalFrete;
 
   const valorPedido = document.querySelector(".valor-pedido");
@@ -101,14 +118,6 @@ function atualizarValorTotal(valorTotalLivros) {
   valorFrete.innerHTML = `R$ ${valorTotalFrete.toFixed(2)}`;
   valorPedido.innerHTML = `Total do pedido: R$ ${valorTotal.toFixed(2)}`;
   localStorage.setItem("valorTotalCarrinho", valorTotal.toFixed(2));
-}
-function alterarQuantidadeLivro(classeDoSelect, data) {
-  data.forEach((item, index) => {
-    if (classeDoSelect === index.toString()) {
-      item.quantidade = parseInt(selectElement.value, 10);
-    }
-  });
-  return data;
 }
 function obterParametrosURL() {
   const search = localStorage.getItem("pagina-livro");
@@ -149,12 +158,8 @@ function salvarPedido() {
     const email = localStorage.getItem("email");
     var listaLivros = [];
 
-    if (localStorage.getItem("quantidadeLivroItemComprarAgora")) {
-      livro = {
-        codigoLivro: codigoLivro,
-        quantidade: localStorage.getItem("quantidadeLivroItemComprarAgora"),
-      };
-      listaLivros.push(livro);
+    if (localStorage.getItem("livroComprarAgora")) {
+      listaLivros.push(localStorage.getItem("livroComprarAgora"));
     } else {
       const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
       listaLivros = carrinhoItens.map((item) => {
@@ -195,7 +200,6 @@ function salvarPedido() {
           limparLocalStorage();
 
           salvarEstadoCarrinho(localStorage.getItem("carrinhoItens"));
-
         })
         .catch((error) => {
           console.error("Erro durante a requisição:", error);
@@ -264,7 +268,6 @@ function limparLocalStorage() {
   localStorage.removeItem("endereco-selecionado-finalizacao");
   localStorage.removeItem("cartao-selecionado-finalizacao");
   localStorage.setItem("carrinhoItens", "[]");
-  localStorage.removeItem("quantidadeLivroItemComprarAgora");
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -325,18 +328,28 @@ function showCardLivros(item, quantidade, index) {
         .toString()
         .split("-")[1];
 
-      if (localStorage.getItem("quantidadeLivroItemComprarAgora")) {
-        localStorage.setItem(
-          "quantidadeLivroItemComprarAgora",
-          selectElement.value
+      if (localStorage.getItem("livroComprarAgora")) {
+        const livroComprarAgora = JSON.parse(
+          localStorage.getItem("livroComprarAgora")
         );
+        livroComprarAgora.quantidade = parseInt(selectElement.value, 10);
+        localStorage.setItem(
+          "livroComprarAgora",
+          JSON.stringify(livroComprarAgora)
+        );
+        atualizarValorTotal(livroComprarAgora);
       } else {
         const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
-
-        localStorage.setItem(
-          "carrinhoItens",
-          JSON.stringify(alterarQuantidadeLivro(classeDoSelect, carrinhoItens))
-        );
+        carrinhoItens.forEach((item, index) => {
+          if (classeDoSelect === index.toString()) {
+            item.quantidade = parseInt(selectElement.value, 10);
+            localStorage.setItem(
+              "carrinhoItens",
+              JSON.stringify(carrinhoItens)
+            );
+          }
+          atualizarValorTotal(carrinhoItens);
+        });
       }
     });
   });
@@ -360,6 +373,7 @@ window.addEventListener("click", function (event) {
 
 document.addEventListener("visibilitychange", function () {
   if (document.visibilityState === "hidden") {
-    localStorage.removeItem("quantidadeLivroItemComprarAgora");
+    localStorage.removeItem("pagina-livro");
+    localStorage.removeItem("livroComprarAgora");
   }
 });
