@@ -60,10 +60,10 @@ public class UsuarioController {
     }
 
     @PutMapping("/foto")
-    public ResponseEntity<?> alterarFoto(@RequestPart(value = "foto") MultipartFile foto,
-                                         @RequestPart(value = "nome") String nome,
-                                         @RequestParam(value = "email") String email){
-        return usuarioService.alterarFoto(foto, nome, email);
+    public ResponseEntity<?> alterarFoto(@RequestPart(value = "foto", required = false) MultipartFile foto,
+                                         @RequestParam(value = "nome") String nome,
+                                         @RequestParam(value = "token") String token){
+        return usuarioService.alterarFoto(foto, nome, token);
     }
 
     @GetMapping("/busca-foto")

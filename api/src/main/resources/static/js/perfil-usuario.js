@@ -16,7 +16,10 @@
         return response.json();
       })
       .then((data) => {
-        pictureImage.src = "./images/usuarios/" + data.foto;
+        if(data.foto != null){
+          pictureImage.src = "./images/usuarios/" + data.foto;
+        }
+
         nomeInput.value = data.nome;
       })
       .catch((error) => {
@@ -50,7 +53,10 @@
     const nome = nomeInput.value;
     const file = inputFile.files[0];
 
-    formData.append("foto", file);
+    if(file != null){
+      formData.append("foto", file);
+    }
+    
     formData.append("email", email);
     formData.append("nome", nome);
 
