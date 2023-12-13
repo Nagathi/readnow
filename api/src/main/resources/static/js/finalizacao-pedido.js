@@ -64,14 +64,15 @@ function buscarCartoes() {
 
 function revisarItens() {
   var valorTotalLivros = 0;
-  const livroComprarAgora = localStorage.getItem("livroComprarAgora");
+
+
+  if (localStorage.getItem("pagina-livro")) {
+      const livroComprarAgora = localStorage.getItem("livroComprarAgora");
   if (livroComprarAgora != null) {
     const livro = JSON.parse(livroComprarAgora);
     showCardLivros(livro.livro, livro.quantidade, 1);
     atualizarValorTotal(livro);
   }
-
-  if (localStorage.getItem("pagina-livro")) {
     const parametrosURL = obterParametrosURL();
     const codigoLivro = parametrosURL.codigo;
     fetch(`/busca-livro/${codigoLivro}`)
@@ -83,9 +84,9 @@ function revisarItens() {
         };
         if (localStorage.getItem("livroComprarAgora") == null) {
           localStorage.setItem("livroComprarAgora", JSON.stringify(livro));
-        } else {
-          showCardLivros(data, 1, codigoLivro);
-        }
+        } 
+        showCardLivros(data, 1, codigoLivro);
+        atualizarValorTotal(livro);
       });
   } else {
     const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
