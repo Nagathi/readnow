@@ -158,9 +158,15 @@ function salvarPedido() {
     );
     const email = localStorage.getItem("email");
     var listaLivros = [];
+    const parametrosURL = obterParametrosURL();
+    const codigoLivro = parametrosURL.codigo;
 
     if (localStorage.getItem("livroComprarAgora")) {
-      listaLivros.push(localStorage.getItem("livroComprarAgora"));
+      var livro = {
+        codigoLivro: codigoLivro,
+        quantidade: JSON.parse(localStorage.getItem("livroComprarAgora")).quantidade
+      };
+      listaLivros.push(livro);
     } else {
       const carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens"));
       listaLivros = carrinhoItens.map((item) => {
@@ -227,6 +233,7 @@ document
   .addEventListener("click", function (event) {
     event.preventDefault();
     salvarPedido();
+    localStorage.removeItem("paginaFinalizacao");
   });
 
 document.addEventListener("change", function (event) {

@@ -20,6 +20,8 @@ async function isSessaoExpirada() {
         localStorage.removeItem("token");
         modalMessage.textContent = "Sessão expirada! Faça login novamente.";
         modal.style.display = "block";
+        localStorage.setItem("sessao-expirada", "true");
+
       } else {
         modalMessage.textContent = "Ocorreu um erro. Repita a ação novamente.";
         modal.style.display = "block";
@@ -28,6 +30,8 @@ async function isSessaoExpirada() {
 }
 
 function autenticacao() {
+  localStorage.setItem("sessao-expirada", "false");
+
   if (localStorage.getItem("token") != null) {
     isSessaoExpirada();
     if (localStorage.getItem("carrinhoItens") != "[]" && localStorage.getItem("carrinhoItens") != null) {

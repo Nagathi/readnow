@@ -3,7 +3,8 @@ const botaoFechar = document.querySelector(".close");
 const modalAviso = document.getElementById("modal");
 
 function autenticacao() {
- 
+  localStorage.setItem("sessao-expirada", "false");
+
   const nomeUsuario = localStorage.getItem("nome");
 
   if (localStorage.getItem("token") != null && nomeUsuario != null) {
@@ -102,6 +103,7 @@ function verificarSessaoExpirada() {
         localStorage.removeItem("token");
         mensagemModal.textContent = "Sessão expirada! Faça login novamente.";
         modalAviso.style.display = "block";
+        localStorage.setItem("sessao-expirada", "true");
       } else {
         mensagemModal.textContent =
           "Ocorreu um erro. Repita a ação novamente.";
@@ -118,7 +120,9 @@ function limparLocalStorage() {
 }
 function closeModal() {
   modal.style.display = "none";
-  window.location.href = "/";
+  if(localStorage.getItem("sessao-expirada")){
+    window.location.href = "/";
+  }
 }
 botaoFechar.addEventListener("click", closeModal);
 window.addEventListener("click", function (event) {
@@ -128,5 +132,7 @@ window.addEventListener("click", function (event) {
 });
 
 modalAviso.addEventListener("onblur", function(){
-  window.location.href = "/";
+  if(localStorage.getItem("sessao-expirada")){
+    window.location.href = "/";
+  }
 });

@@ -7,7 +7,9 @@ const comprarAgoraButton = document.querySelector(".comprar-agora");
 
 function closeModal() {
   modal.style.display = "none";
-  window.location.href = "/";
+  if (localStorage.getItem("sessao-expirada")) {
+    window.location.href = "/";
+  }
 }
 
 function obterParametrosURL() {
@@ -24,6 +26,8 @@ function obterParametrosURL() {
 }
 
 function autenticacao() {
+  localStorage.setItem("sessao-expirada", "false");
+
   const loginButton = document.querySelector(`a[href="${"/login"}"]`);
   const cadastroButton = document.querySelector(
     `a[href="${"/cadastro-cliente"}"]`
@@ -103,12 +107,16 @@ function autenticacao() {
 const parametrosURL = obterParametrosURL();
 const codigoLivro = parametrosURL.codigo;
 
-document.querySelector(".comprar-agora").addEventListener("mouseover", function () {
+document
+  .querySelector(".comprar-agora")
+  .addEventListener("mouseover", function () {
     verificarSessaoExpirada();
   });
-document.querySelector(".adicionar-carrinho").addEventListener("mouseover", function () {
+document
+  .querySelector(".adicionar-carrinho")
+  .addEventListener("mouseover", function () {
     verificarSessaoExpirada();
-});
+  });
 
 document.addEventListener("DOMContentLoaded", function () {
   autenticacao();
@@ -243,6 +251,7 @@ function verificarSessaoExpirada() {
         localStorage.removeItem("token");
         modalMessage.textContent = "Sessão expirada! Faça login novamente.";
         modal.style.display = "block";
+        localStorage.setItem("sessao-expirada", "true");
       } else {
         modalMessage.textContent = "Ocorreu um erro. Repita a ação novamente.";
         modal.style.display = "block";
@@ -263,7 +272,9 @@ window.addEventListener("click", function (event) {
 });
 
 modal.addEventListener("onblur", function () {
-  window.location.href = "/";
+  if (localStorage.getItem("sessao-expirada")) {
+    window.location.href = "/";
+  }
 });
 
 function encontrarIndiceLivro(array, novoLivro) {
@@ -271,7 +282,7 @@ function encontrarIndiceLivro(array, novoLivro) {
 }
 
 function sãoIguais(livro1, livro2) {
-  return livro1.livro.codigo === livro2.livro.codigo; 
+  return livro1.livro.codigo === livro2.livro.codigo;
 }
 
 comprarAgoraButton.addEventListener("click", function (event) {
