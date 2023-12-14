@@ -1,3 +1,16 @@
+// fetch('/enderecos', {
+//   method: 'GET',
+//   headers: {
+//     Authorization: `Bearer ${localStorage.getItem("token")}`,
+//   }
+// })
+// .then(response => {
+//   // Lógica de tratamento da resposta
+// })
+// .catch(error => {
+//   console.error('Erro na solicitação:', error);
+// });
+
 document.addEventListener("DOMContentLoaded", function () {
   const listaEnderecos = document.querySelector(".lista-enderecos");
 

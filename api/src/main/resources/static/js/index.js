@@ -229,7 +229,6 @@ function limparLocalStorage() {
   localStorage.removeItem("nome");
   localStorage.removeItem("carrinhoItens");
   localStorage.removeItem("pedidoId");
-  localStorage.removeItem("carrinhoItens");
   localStorage.removeItem("sessao-expirada");
 }
 function salvarEstadoCarrinho(data) {

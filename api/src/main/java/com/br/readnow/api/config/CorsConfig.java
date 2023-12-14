@@ -25,6 +25,7 @@ public class CorsConfig {
         config.addAllowedHeader("Authorization");
         config.addAllowedHeader("Content-Type");
         config.addAllowedHeader("Accept");
+        config.addExposedHeader("Authorization");
 
         config.setAllowCredentials(true);
         config.addExposedHeader("Access-Control-Allow-Origin");
@@ -34,4 +35,3 @@ public class CorsConfig {
         return new CorsFilter(source);
     }
 }
-

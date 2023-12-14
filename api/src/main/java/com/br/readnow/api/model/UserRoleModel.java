@@ -2,7 +2,7 @@ package com.br.readnow.api.model;
 
 public enum UserRoleModel {
     ADMIN("admin"),
-    CLIENTE("cliente");
+    USER("user");
 
     private String role;
 
