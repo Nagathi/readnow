@@ -14,8 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import jakarta.servlet.DispatcherType;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -27,17 +25,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.GET, "/login").permitAll()
+
                         .requestMatchers(HttpMethod.POST, "/efetua-login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/efetua-cadastro").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/envia-email").permitAll()
                         .requestMatchers(HttpMethod.GET, "/redefine-senha/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/altera-senha").permitAll()
                         .requestMatchers(HttpMethod.GET, "/esqueci-minha-senha").permitAll()
                         .requestMatchers(HttpMethod.GET, "/cadastrado").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/cadastro").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/cadastro-cliente").permitAll()
                         .requestMatchers(HttpMethod.POST, "/autenticacao").permitAll()
                         .requestMatchers(HttpMethod.GET, "/livros/{categoria}").permitAll()
                         .requestMatchers(HttpMethod.GET, " /busca-livro/{codigo}").permitAll()
@@ -52,24 +51,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,
                                 "https://h-apigateway.conectagov.estaleiro.serpro.gov.br/oauth2/**")
                         .permitAll()
-                        .requestMatchers("/adiciona-livro/**").hasRole("USER")
-                        .requestMatchers("/atualiza-carrinho/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/cartoes/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.PUT, "/edita-cartao").hasRole("USER")
-                        .requestMatchers(HttpMethod.DELETE, "/exclui-cartao").hasRole("USER")
-                        .requestMatchers("/enderecos").hasRole("1")
-                        .requestMatchers(HttpMethod.POST, "/cadastra-endereco").hasRole("USER")
-                        .requestMatchers(HttpMethod.PUT, "/edita-endereco").hasRole("USER")
-                        .requestMatchers(HttpMethod.DELETE, "/exclui-endereco/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/endereco/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.POST, "/avaliacao/").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/pedidos").hasRole("USER")
-                        .requestMatchers(HttpMethod.POST, "/salva-pedido").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/pedidos-usuario/{token}").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/pedidos-pendentes/{token}").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/pedidos-ajuda/{token}").hasRole("USER")
-                        .requestMatchers(HttpMethod.PUT, "/foto").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/busca-foto").hasRole("USER")
+                        
                         .requestMatchers(HttpMethod.POST, "/cadastra-livro").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
