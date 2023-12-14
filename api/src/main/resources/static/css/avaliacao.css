@@ -38,39 +38,6 @@
     content: "\2606";
 }
 
-.image-container {
-    display: flex;
-    align-items: center;
-}
-
-.custom-button {
-    cursor: pointer;
-    background: none;
-    border: none;
-
-}
-
-.imagem-input {
-    height: 30px;
-    width: 30px;
-}
-
-#selectedImageContainer {
-    display: none;
-    margin-right: 5px;
-    /* Ajuste o espaçamento conforme necessário */
-
-}
-
-#selectedImage {
-    width: 30px;
-    height: 30px;
-}
-
-.hidden {
-    display: none;
-}
-
 @media (max-width: 425px) {
 
     #formulario-avaliacao {
