@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const quantidadeExibicao = 5;
 
-  const categorias = ["acao", "ficcao", "cultura", "aventura", "literatura"];
+  const categorias = ["acao", "ficcao", "aventura", "literatura"];
 
   const categoriasLivros = {};
 
