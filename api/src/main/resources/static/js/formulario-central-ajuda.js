@@ -59,7 +59,7 @@
       }
     })
     .catch(error => {
-      alert('Erro ao enviar formulário:', error);
+      console.error('Erro ao enviar formulário:', error);
     });
   });
 })();

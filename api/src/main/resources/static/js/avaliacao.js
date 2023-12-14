@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
   var stars = document.querySelectorAll('.star-icon');
-  var formularioAvaliacao = document.getElementById('formulario-avaliacao');
   var starSelected = 0;
 
   const email = localStorage.getItem("email");
@@ -9,7 +8,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const urlParams = new URLSearchParams(queryString);
   const titulo = urlParams.get('titulo');
   const imagem = urlParams.get('imagem');
-  const codigo = urlParams.get('codigo');
+  const data = urlParams.get('data');
+  const codigo = localStorage.getItem('codigoAvaliacao');
 
   const containerImagem = document.querySelector('.container-imagem img');
   const descricaoProduto = document.querySelector('.descricao-produto h2');
@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   containerImagem.src = `images/livros/${imagem}`;
   descricaoProduto.textContent = titulo;
+  dataPedido.textContent = `Pedido em ${data}`
 
   stars.forEach(function(star) {
     star.addEventListener('click', function(e) {
@@ -31,13 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  document.getElementById('selectImageButton').addEventListener('click', function () {
-    document.getElementById('fileInput').click();
-  });
-
-  formularioAvaliacao.addEventListener('submit', function (e) {
-    e.preventDefault();
-
+  document.querySelector('.btn-submit').addEventListener('click', function () {
+    
     const qtdEstrelas = starSelected;
     const descricao = document.getElementById('descricao-problema').value;
 
@@ -57,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(response => {
       if(response.ok){
+        localStorage.removeItem("codigoAvaliacao")
+        alert("Produto avaliado, tentar avaliar novamente esse produto irá alterar a avaliação antiga.")
         window.location.href = "/suas-compras";
       }
     })
