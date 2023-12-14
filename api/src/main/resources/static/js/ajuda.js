@@ -37,9 +37,25 @@ function obterPedidos(token) {
   
       cardPedido.appendChild(containerImagem);
       cardPedido.appendChild(textos);
+
+      cardPedido.addEventListener('click', () => {
+        redirecionarParaFormularioAjuda(pedido);
+      });
   
       containerPedidos.appendChild(cardPedido);
     });
+  }
+
+  function redirecionarParaFormularioAjuda(pedido) {
+
+    const {diaMes, ano, imagem, titulo } = pedido;
+
+    localStorage.setItem("codigoLivro", pedido.codigo)
+  
+    const parametrosURL = `?diaMes=${diaMes}&ano=${ano}&imagem=${imagem}&titulo=${titulo}`;
+    const url = `/formulario-ajuda${parametrosURL}`;
+  
+    window.location.href = url;
   }
   
   document.addEventListener('DOMContentLoaded', () => {

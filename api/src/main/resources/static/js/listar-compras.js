@@ -24,8 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
           novoCardPedido.addEventListener("click", function () {
             const titulo = encodeURIComponent(pedido.titulo);
             const imagem = encodeURIComponent(pedido.imagem);
-            const codigo = encodeURIComponent(pedido.codigoLivro)
-            window.location.href = `avaliacao-produto?codigo=${codigo}&titulo=${titulo}&imagem=${imagem}`;
+            const data = encodeURIComponent(pedido.data);
+            localStorage.setItem("codigoAvaliacao", pedido.codigoLivro)
+
+            window.location.href = `avaliacao-produto?data=${data}&titulo=${titulo}&imagem=${imagem}`;
           });
         });
       })

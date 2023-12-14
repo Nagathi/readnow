@@ -7,17 +7,23 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.br.readnow.api.dto.CartaoDTO;
 import com.br.readnow.api.dto.EnderecoDTO;
+import com.br.readnow.api.dto.FormAjudaDTO;
 import com.br.readnow.api.dto.RequestDeleteDTO;
+import com.br.readnow.api.model.AjudaModel;
 import com.br.readnow.api.model.CartaoModel;
 import com.br.readnow.api.model.EnderecoModel;
 import com.br.readnow.api.model.UsuarioModel;
+import com.br.readnow.api.repository.AjudaRepository;
 import com.br.readnow.api.repository.CartaoRepository;
 import com.br.readnow.api.repository.EnderecoRepository;
 import com.br.readnow.api.repository.UsuarioRepository;
+import com.br.readnow.api.repository.PedidoRepository;
 
 @Service
 public class ContaService {
@@ -33,6 +39,15 @@ public class ContaService {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
+
+    @Autowired
+    private AjudaRepository ajudaRepository;
+
+    @Autowired
+    private JavaMailSender emailSender;
 
     public ResponseEntity<List<EnderecoDTO>> listarEnderecosPorEmail(String token) {
         String email = tokenService.validarToken(token);
@@ -285,6 +300,39 @@ public class ContaService {
             return ResponseEntity.notFound().build();
         }
 
+    }
+
+    public ResponseEntity<?> enviarEmailDeAjuda(FormAjudaDTO ajuda){
+        String email = tokenService.validarToken(ajuda.getToken());
+
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findByEmail(email);
+
+        if(usuarioOptional.isPresent()){
+            if(pedidoRepository.existsByCodigoAndUsuario(ajuda.getCodigo(), usuarioOptional.get())){
+                SimpleMailMessage message = new SimpleMailMessage();
+                message.setTo("ecommerce1234568@gmail.com");
+                message.setSubject(ajuda.getTitulo());
+                message.setText("Opção: " + ajuda.getOpcao() + "\n Descrição: " + ajuda.getHistoria());
+
+                emailSender.send(message);
+
+                AjudaModel ajudaModel = new AjudaModel();
+                ajudaModel.setTitulo(ajuda.getTitulo());
+                ajudaModel.setHistoria(ajuda.getHistoria());
+                ajudaModel.setOpcao(ajuda.getOpcao());
+                ajudaModel.setRespondido(false);
+                ajudaModel.setUsuario(usuarioOptional.get());
+
+                ajudaRepository.save(ajudaModel);
+
+               
+                return ResponseEntity.ok().build();
+            }else{
+                return ResponseEntity.badRequest().build();
+            }
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

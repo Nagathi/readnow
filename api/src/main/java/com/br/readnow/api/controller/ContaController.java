@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.br.readnow.api.dto.CartaoDTO;
 import com.br.readnow.api.dto.EnderecoDTO;
+import com.br.readnow.api.dto.FormAjudaDTO;
 import com.br.readnow.api.dto.RequestDeleteDTO;
 import com.br.readnow.api.service.ContaService;
 
@@ -67,4 +68,10 @@ public class ContaController {
     public ResponseEntity<?> excluirCartao(@RequestBody RequestDeleteDTO requestDeleteDTO){
         return contaService.excluirCartao(requestDeleteDTO);
     }
+
+    @PostMapping("/email-ajuda")
+    public ResponseEntity<?> enviarEmailDeAjuda(@RequestBody FormAjudaDTO ajuda){
+        return contaService.enviarEmailDeAjuda(ajuda);
+    }
+
 }

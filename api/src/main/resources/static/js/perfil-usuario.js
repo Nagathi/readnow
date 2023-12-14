@@ -18,6 +18,7 @@
       .then((data) => {
         if(data.foto != null){
           pictureImage.src = "./images/usuarios/" + data.foto;
+          containerImagem.classList.add("container-border");
         }
 
         nomeInput.value = data.nome;

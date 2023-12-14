@@ -17,7 +17,6 @@
   <script src="js/autenticado.js" defer></script>
   <script src="components/header-autenticado.js" defer></script>
   <script src="components/footer-personalizado.js" defer></script>
-  <script src="./js/formulario-central-ajuda.js" defer></script>
   <script src="js/btn-pesquisa.js" defer></script>
   <script src="./js/avaliacao.js" defer></script>
   <title>Avaliação</title>
@@ -66,17 +65,7 @@
           <textarea name="descricao-problema" id="descricao-problema" cols="20" rows="5"
             placeholder="Por favor, utilize até 1000 caracteres." required></textarea>
         </div>
-        <div class="campo image-container">
-          <div id="selectedImageContainer" class="hidden">
-            <img id="selectedImage" alt="Imagem selecionada">
-          </div>
-          <button id="selectImageButton" class="custom-button">
-            <img src="images/icons/anexar-imagem.png" alt="Botão de seleção de imagem" class="imagem-input">
-          </button>
-          <input type="file" id="fileInput" name="fileInput" accept="image/*" style="display: none;"
-            onchange="handleFileSelect(event)">
-        </div>
-        <button type="submit" class="btn-submit">Envie sua avaliação</button>
+        <button type="button" class="btn-submit">Envie sua avaliação</button>
 
       </form>
 
