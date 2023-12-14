@@ -25,10 +25,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/login").permitAll()
-
                         .requestMatchers(HttpMethod.POST, "/efetua-login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/efetua-cadastro").permitAll()
                         .requestMatchers(HttpMethod.POST, "/envia-email").permitAll()
